@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.tmp/
+*.txt
+build_out*.txt
+verbose_out.txt
+install_out.txt
+install_err.txt
+reinstall_out.txt
+.DS_Store
+*.log

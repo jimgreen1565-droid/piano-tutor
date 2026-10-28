@@ -1,0 +1,19 @@
+{
+  "name": "钢琴陪练",
+  "short_name": "钢琴陪练",
+  "description": "原声钢琴本地陪练：搜谱、分级、跟谱翻页、评分讲评",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
