@@ -78,13 +78,43 @@ export function evaluate(score, played, options = {}) {
   }
 
   // 第三轮：没对上的弹奏音符 → 多弹
+  //
+  // 但要注意：钢琴是持续音，按住一个音时琴弦还在响，
+  // 转录模型会把同一个音在它还没衰减完的时候再报一次。
+  // 这种"同一音高、落在某个已命中音符发声区间内"的重复，属于识别误报，
+  // 不能算成用户多弹了音。
   const lastExpectedTime =
     expected.length > 0 ? expected[expected.length - 1].expectedTime : 0;
+
+  const soundingWindows = expected
+    .filter((e) => e.status === 'hit' || e.status === 'wrong')
+    .map((e) => {
+      const lenSec = (e.durationBeats || 1) * spb;
+      return {
+        pitchMidi: e.status === 'hit' ? e.pitchMidi : e.playedPitchMidi,
+        start: (e.playedTime ?? e.expectedTime) - 0.08,
+        end: (e.playedTime ?? e.expectedTime) + lenSec * 1.25 + 0.3,
+      };
+    });
+
   const extras = [];
+  let retriggers = 0;
   for (let j = 0; j < playedSorted.length; j++) {
     if (used[j]) continue;
     const p = playedSorted[j];
     if (p.startTimeSeconds > lastExpectedTime + EXTRA_PAD_SECONDS) continue;
+
+    const isRetrigger = soundingWindows.some(
+      (w) =>
+        w.pitchMidi === p.pitchMidi &&
+        p.startTimeSeconds >= w.start &&
+        p.startTimeSeconds <= w.end,
+    );
+    if (isRetrigger) {
+      retriggers++;
+      continue;
+    }
+
     const nearestExpected = expected.reduce(
       (acc, e) =>
         Math.abs(e.expectedTime - p.startTimeSeconds) <
@@ -153,6 +183,7 @@ export function evaluate(score, played, options = {}) {
     wrongCount: wrongs.length,
     missCount: misses.length,
     extraCount: extras.length,
+    retriggerCount: retriggers,
     pitchScore,
     rhythmScore,
     overall,

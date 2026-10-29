@@ -2,6 +2,7 @@ import { Metronome } from './metronome.js';
 import { evaluate, midiToName } from './score.js';
 import { ensureModel, prepareMic, transcribeBlob, getBackend } from './transcribe.js';
 import { playDemo } from './demo.js';
+import { addRecord, summaryFor } from './history.js';
 
 // 谱面库体积较大，按需加载，避免首屏就下载
 let OSMDClass = null;
@@ -181,8 +182,10 @@ async function openPiece(id, root) {
   state.ui.bpm.value = String(item.bpm);
   state.ui.bpmLabel.textContent = `${item.bpm} BPM`;
   state.ui.pieceTitle.textContent = item.title;
+  const hist = summaryFor(item.id);
   state.ui.pieceMeta.textContent =
-    `${item.totalMeasures} 小节 · ${item.totalNotes} 音符 · 难度 ${'★'.repeat(item.difficulty)}`;
+    `${item.totalMeasures} 小节 · ${item.totalNotes} 音符 · 难度 ${'★'.repeat(item.difficulty)}` +
+    (hist ? `　|　最好 ${hist.best} 分 · 练过 ${hist.count} 次` : '');
 
   clearReport();
   clearMarks();
@@ -560,7 +563,17 @@ async function stopPractice(silent = false) {
     }
 
     const report = evaluate(state.scoreJson, notes, { bpm: state.bpm });
-    renderReport(report, notes);
+    const prev = summaryFor(state.piece.id);
+    addRecord({
+      pieceId: state.piece.id,
+      title: state.piece.title,
+      bpm: state.bpm,
+      overall: report.overall,
+      hitCount: report.hitCount,
+      total: report.total,
+      extraCount: report.extraCount,
+    });
+    renderReport(report, notes, prev);
     markErrors(report);
     state.phase = 'report';
   } catch (e) {
@@ -584,11 +597,16 @@ function clearReport() {
   state.ui.pMeter.classList.remove('active');
 }
 
-function renderReport(r, notes) {
+function renderReport(r, notes, prev) {
   const grade =
     r.overall >= 95 ? '优秀' : r.overall >= 80 ? '良好' : r.overall >= 60 ? '及格' : '继续加油';
   const color =
     r.overall >= 80 ? 'var(--accent2)' : r.overall >= 60 ? 'var(--warn)' : 'var(--danger)';
+
+  const deltaText =
+    prev && typeof prev.last === 'number'
+      ? `　本次 ${r.overall >= prev.last ? '+' : ''}${r.overall - prev.last}（上次 ${prev.last}）`
+      : '';
 
   const stat = (label, value, sub) => `
     <div class="stat">
@@ -639,7 +657,7 @@ function renderReport(r, notes) {
         <div class="score-big" style="color:${color}">${r.overall}</div>
         <div class="score-meta">
           <div class="score-grade" style="color:${color}">${grade}</div>
-          <div class="score-sub">共 ${r.total} 个音 · 识别到 ${notes.length} 个</div>
+          <div class="score-sub">共 ${r.total} 个音 · 识别到 ${notes.length} 个${deltaText}</div>
         </div>
       </div>
 

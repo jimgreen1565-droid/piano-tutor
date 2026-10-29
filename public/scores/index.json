@@ -9,6 +9,24 @@
     "totalBeats": 48
   },
   {
+    "id": "mary",
+    "title": "玛丽有只小羊羔",
+    "difficulty": 1,
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 26,
+    "totalBeats": 32
+  },
+  {
+    "id": "frere",
+    "title": "两只老虎",
+    "difficulty": 2,
+    "bpm": 60,
+    "totalMeasures": 7,
+    "totalNotes": 27,
+    "totalBeats": 28
+  },
+  {
     "id": "ode",
     "title": "欢乐颂",
     "difficulty": 2,
