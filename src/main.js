@@ -1,4 +1,5 @@
 import './style.css';
+import { cleanNotes } from './notes.js';
 import * as tf from '@tensorflow/tfjs';
 import {
   BasicPitch,
@@ -208,12 +209,17 @@ async function processRecording() {
     hideMeter();
     log(`推理完成，frames=${frames.length}`);
 
-    const notes = noteFramesToTime(
+    const rawNotes = noteFramesToTime(
       addPitchBendsToNoteEvents(
         contours,
         outputToNotesPoly(frames, onsets, 0.25, 0.25, 5),
       ),
     );
+
+    const notes = cleanNotes(rawNotes);
+    if (rawNotes.length !== notes.length) {
+      log(`后处理：${rawNotes.length} → ${notes.length} 个音符（合并重复触发 / 抑制八度泛音）`);
+    }
 
     renderNotes(notes);
     setStatus(
