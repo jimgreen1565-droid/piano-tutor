@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@spotify/basic-pitch": "^1.0.1",
-    "@tensorflow/tfjs": "^3.21.0"
+    "@tensorflow/tfjs": "^3.21.0",
+    "opensheetmusicdisplay": "^2.2.1"
   },
   "devDependencies": {
     "vite": "^6.0.0"

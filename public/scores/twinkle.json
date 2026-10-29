@@ -1,0 +1,267 @@
+{
+  "id": "twinkle",
+  "title": "小星星",
+  "difficulty": 1,
+  "bpm": 60,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 12,
+  "totalBeats": 48,
+  "notes": [
+    {
+      "pitchMidi": 60,
+      "beat": 0,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 1,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 2,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 3,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 4,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 5,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 6,
+      "durationBeats": 2,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 9,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 10,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 11,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 12,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 13,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 14,
+      "durationBeats": 2,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 16,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 17,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 18,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 19,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 20,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 21,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 22,
+      "durationBeats": 2,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 24,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 25,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 26,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 27,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 28,
+      "durationBeats": 1,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 29,
+      "durationBeats": 1,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 30,
+      "durationBeats": 2,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 32,
+      "durationBeats": 1,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 33,
+      "durationBeats": 1,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 34,
+      "durationBeats": 1,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 35,
+      "durationBeats": 1,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 36,
+      "durationBeats": 1,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 37,
+      "durationBeats": 1,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 38,
+      "durationBeats": 2,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 40,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 41,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 42,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 43,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 44,
+      "durationBeats": 1,
+      "measure": 12
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 45,
+      "durationBeats": 1,
+      "measure": 12
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 46,
+      "durationBeats": 2,
+      "measure": 12
+    }
+  ]
+}

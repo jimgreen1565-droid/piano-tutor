@@ -1,0 +1,20 @@
+[
+  {
+    "id": "twinkle",
+    "title": "小星星",
+    "difficulty": 1,
+    "bpm": 60,
+    "totalMeasures": 12,
+    "totalNotes": 42,
+    "totalBeats": 48
+  },
+  {
+    "id": "ode",
+    "title": "欢乐颂",
+    "difficulty": 2,
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 30,
+    "totalBeats": 32
+  }
+]

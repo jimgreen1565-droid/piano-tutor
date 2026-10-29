@@ -1,12 +1,10 @@
 node_modules/
 dist/
 .tmp/
+.chrome-profile/
 *.txt
-build_out*.txt
-verbose_out.txt
-install_out.txt
-install_err.txt
-reinstall_out.txt
-.DS_Store
+*.html
+!index.html
 *.log
 *.zip
+.DS_Store
