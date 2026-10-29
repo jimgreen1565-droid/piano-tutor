@@ -4,9 +4,12 @@ import { mountEngineTest } from './enginetest.js';
 
 const app = document.getElementById('app');
 
+// 版本号：用来确认 iPad 上跑的确实是新版（缓存排查）
+const VERSION = 'v1.3';
+
 app.innerHTML = `
   <header class="app-head">
-    <h1>🎹 钢琴陪练</h1>
+    <h1>🎹 钢琴陪练 <span class="ver">${VERSION}</span></h1>
     <div class="tabs">
       <button class="tab active" data-tab="practice">练习</button>
       <button class="tab" data-tab="engine">引擎自检</button>

@@ -130,6 +130,23 @@ export function evaluate(score, played, options = {}) {
     .filter((m) => m.wrong + m.miss > 0)
     .sort((a, b) => b.wrong + b.miss - (a.wrong + a.miss));
 
+  // ---- 系统性音高偏移检测 ----
+  // 如果是"每个音都高/低了 1~2 个八度"，那是识别层面的问题，不是演奏问题。
+  const intervals = [];
+  for (const e of expected) {
+    if (e.status === 'hit') intervals.push(0);
+    else if (e.status === 'wrong' && e.playedPitchMidi != null) {
+      intervals.push(e.playedPitchMidi - e.pitchMidi);
+    }
+  }
+  const { value: modeInterval, count: modeCount } = modeOf(intervals);
+  const octaveShift =
+    intervals.length >= 5 &&
+    (Math.abs(modeInterval) === 12 || Math.abs(modeInterval) === 24) &&
+    modeCount / intervals.length >= 0.5
+      ? modeInterval
+      : null;
+
   return {
     total,
     hitCount: hits.length,
@@ -139,6 +156,8 @@ export function evaluate(score, played, options = {}) {
     pitchScore,
     rhythmScore,
     overall,
+    octaveShift,
+    intervals,
     timing: {
       meanBeats: meanDeviation,
       stdBeats: timingStd,
@@ -160,12 +179,37 @@ export function evaluate(score, played, options = {}) {
       timingStd,
       problemMeasures,
       bpm,
+      octaveShift,
     }),
   };
 }
 
+function modeOf(arr) {
+  if (!arr.length) return { value: 0, count: 0 };
+  const map = new Map();
+  for (const v of arr) map.set(v, (map.get(v) || 0) + 1);
+  let best = 0;
+  let bestCount = 0;
+  for (const [k, c] of map) {
+    if (c > bestCount) {
+      best = k;
+      bestCount = c;
+    }
+  }
+  return { value: best, count: bestCount };
+}
+
 function buildAdvice(s) {
   const tips = [];
+
+  // 系统性音高偏移（识别问题，先说清楚，别让用户以为是自己弹错）
+  if (s.octaveShift) {
+    const dir = s.octaveShift > 0 ? '高' : '低';
+    const oct = Math.abs(s.octaveShift) / 12;
+    tips.unshift(
+      `⚠️ 这次识别出的音整体比谱面${dir}了 ${oct} 个八度，这是识别环节的偏差，不是你弹错。请把这个情况告诉开发者来修正。`,
+    );
+  }
 
   if (s.overall >= 95) {
     tips.push('音准和节奏都很稳，这首可以试着提速到 ' + Math.round(s.bpm * 1.15) + ' BPM。');

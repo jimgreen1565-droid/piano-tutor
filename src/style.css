@@ -434,3 +434,75 @@ h1 {
 #btnAgain {
   margin-top: 18px;
 }
+
+/* ---------- 谱面跟随高亮 / 开始提示 ---------- */
+
+.score-wrap {
+  position: relative;
+}
+
+.cue {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  font-weight: 800;
+  color: #f59e0b;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.55);
+  opacity: 0;
+  transition: opacity 0.12s;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.cue.show {
+  opacity: 1;
+}
+
+.cue.big {
+  font-size: 84px;
+  color: #22c55e;
+}
+
+.practice-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ver {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--panel2);
+  padding: 2px 7px;
+  border-radius: 999px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.debug summary {
+  font-size: 12px;
+  color: var(--accent);
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.debug-pre {
+  font-size: 11px;
+  line-height: 1.7;
+  background: #0b1220;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 8px 0 0;
+  overflow-x: auto;
+  color: #94a3b8;
+  white-space: pre;
+}
+
+.warnline {
+  font-size: 12px;
+  color: var(--warn);
+  margin-top: 6px;
+}

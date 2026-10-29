@@ -13,6 +13,9 @@ async function loadOSMD() {
 
 const BASE = import.meta.env.BASE_URL;
 
+// 预备拍：两小节，给足时间把手放好
+const COUNT_IN = 8;
+
 const state = {
   index: [],
   piece: null, // 当前曲目 index 项
@@ -39,8 +42,11 @@ export function mountPractice(root) {
     </div>
 
     <div class="pcard" id="scoreCard" hidden>
-      <div id="scoreHost" class="score-host"></div>
-      <div class="hint">黄色高亮 = 当前该弹的小节</div>
+      <div class="score-wrap">
+        <div id="scoreHost" class="score-host"></div>
+        <div id="cue" class="cue"></div>
+      </div>
+      <div class="hint">黄色高亮 = 现在该弹的小节</div>
     </div>
 
     <div class="pcard">
@@ -65,6 +71,7 @@ export function mountPractice(root) {
     'pieceMeta',
     'scoreCard',
     'scoreHost',
+    'cue',
     'bpm',
     'bpmLabel',
     'btnPractice',
@@ -179,7 +186,14 @@ async function openPiece(id, root) {
 
   await state.osmd.load(xml);
   state.osmd.render();
-  status('<span class="ok">谱面已就绪。戴上耳机或外放，点「开始练习」。</span>');
+  state.currentMeasure = null;
+  clearHighlight();
+
+  // 诊断用：?hl=3 可单独验证高亮是否渲染（不影响正常使用）
+  const hl = new URLSearchParams(location.search).get('hl');
+  if (hl) highlightMeasure(Number(hl));
+
+  status('<span class="ok">谱面已就绪。戴耳机点「开始练习」，会先响 8 下预备拍。</span>');
 }
 
 async function startPractice() {
@@ -195,19 +209,22 @@ async function startPractice() {
   state.ui.btnPractice.classList.add('btn-stop');
   state.ui.pMeter.classList.remove('active');
   status('准备…');
+  showCue('准备');
 
-  state.metronome = new Metronome({ bpm: state.bpm, countInBeats: 4 });
+  state.metronome = new Metronome({ bpm: state.bpm, countInBeats: COUNT_IN });
   state.metronome.onBeat = ({ countIn, countdown, beatInBar }) => {
     if (countIn) {
-      status(`预备… <b>${countdown}</b>`);
+      showCue(String(countdown));
+      status(`预备… 还有 <b>${countdown}</b> 拍`);
     } else {
-      status(
-        `<span class="ok">练习中</span> · 第 ${beatInBar + 1} 拍 / 小节`,
-      );
+      status(`<span class="ok">练习中</span> · 第 ${beatInBar + 1} 拍 / 小节`);
     }
   };
   state.metronome.onStart = async () => {
     state.phase = 'recording';
+    showCue('开始！', true);
+    setTimeout(() => hideCueIfRunning(), 900);
+    startFollow();
     try {
       state.capture = await startCapture();
     } catch (e) {
@@ -228,11 +245,100 @@ async function startPractice() {
   }, 200);
 }
 
+// ---------- 谱面跟随高亮 ----------
+
+let highlightRect = null;
+
+function clearHighlight() {
+  if (highlightRect && highlightRect.parentNode) {
+    highlightRect.parentNode.removeChild(highlightRect);
+  }
+  highlightRect = null;
+  state.currentMeasure = null;
+}
+
+function highlightMeasure(measureNo) {
+  try {
+    const svg = state.ui.scoreHost.querySelector('svg');
+    if (!svg) return;
+    const g = svg.querySelector(`g.vf-measure[id="${measureNo}"]`);
+    if (!g) return;
+
+    const bbox = g.getBBox();
+    if (!highlightRect || highlightRect.ownerSVGElement !== svg) {
+      highlightRect = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'rect',
+      );
+      highlightRect.setAttribute('fill', 'rgba(245, 158, 11, 0.25)');
+      highlightRect.setAttribute('rx', '5');
+      highlightRect.setAttribute('pointer-events', 'none');
+      // 插入到最前面，保证在音符下面
+      svg.insertBefore(highlightRect, svg.firstChild);
+    }
+    highlightRect.setAttribute('x', String(bbox.x - 8));
+    highlightRect.setAttribute('y', String(bbox.y - 8));
+    highlightRect.setAttribute('width', String(bbox.width + 16));
+    highlightRect.setAttribute('height', String(bbox.height + 16));
+  } catch {
+    /* 高亮失败不影响练习 */
+  }
+}
+
+function startFollow() {
+  stopFollow();
+  const beatsPerBar = state.scoreJson.timeSignature?.beats || 4;
+  const totalMeasures = state.scoreJson.totalMeasures;
+
+  const loop = () => {
+    if (!state.metronome || state.phase !== 'recording') return;
+    const b = state.metronome.elapsedBeats();
+    if (b >= 0) {
+      const m = Math.min(totalMeasures, Math.floor(b / beatsPerBar) + 1);
+      if (m !== state.currentMeasure) {
+        state.currentMeasure = m;
+        highlightMeasure(m);
+      }
+    }
+    state.followRaf = requestAnimationFrame(loop);
+  };
+  state.followRaf = requestAnimationFrame(loop);
+}
+
+function stopFollow() {
+  if (state.followRaf) cancelAnimationFrame(state.followRaf);
+  state.followRaf = null;
+}
+
+// ---------- 开始提示 ----------
+
+function showCue(text, big = false) {
+  const cue = state.ui.cue;
+  if (!cue) return;
+  cue.textContent = text;
+  cue.classList.add('show');
+  cue.classList.toggle('big', big);
+}
+
+function hideCueIfRunning() {
+  if (state.phase === 'recording') {
+    state.ui.cue?.classList.remove('show', 'big');
+  }
+}
+
+function hideCue() {
+  state.ui.cue?.classList.remove('show', 'big');
+}
+
 async function stopPractice(silent = false) {
   if (state.autoStopTimer) {
     clearInterval(state.autoStopTimer);
     state.autoStopTimer = null;
   }
+
+  stopFollow();
+  clearHighlight();
+  hideCue();
 
   if (state.metronome) {
     state.metronome.stop();
@@ -369,6 +475,13 @@ function renderReport(r, notes) {
                 ? '略有起伏'
                 : '忽快忽慢'
         }</span></div>
+        ${
+          r.timing.stdMs !== null &&
+          r.timing.stdMs < 100 &&
+          Math.abs(r.timing.meanMs) > 120
+            ? `<div class="hint">整体偏移很一致（±${r.timing.stdMs}ms），<b>很可能包含录音设备延迟</b>，不完全是你在抢拍或拖拍。</div>`
+            : ''
+        }
       </div>
 
       <div class="block">
@@ -377,6 +490,8 @@ function renderReport(r, notes) {
       </div>
 
       ${extrasBlock(extraChips)}
+
+      ${debugBlock(r)}
 
       <div class="block">
         <div class="plabel">讲评</div>
@@ -394,6 +509,38 @@ function renderReport(r, notes) {
     clearReport();
     startPractice();
   });
+}
+
+function debugBlock(r) {
+  const lines = r.details
+    .filter((e) => e.status !== 'hit')
+    .slice(0, 24)
+    .map((e) => {
+      const want = midiToName(e.pitchMidi);
+      if (e.status === 'miss') {
+        return `第${e.measure}小节  要 ${want}  @${e.expectedTime.toFixed(2)}s → 没弹到`;
+      }
+      const got = midiToName(e.playedPitchMidi);
+      const dt = Math.round((e.playedTime - e.expectedTime) * 1000);
+      return `第${e.measure}小节  要 ${want}  @${e.expectedTime.toFixed(2)}s → 弹成 ${got}  (${
+        dt > 0 ? '+' : ''
+      }${dt}ms)`;
+    });
+
+  if (!lines.length) return '';
+
+  const shift = r.octaveShift
+    ? `<div class="warnline">检出系统性偏移：整体${r.octaveShift > 0 ? '偏高' : '偏低'} ${Math.abs(
+        r.octaveShift,
+      ) / 12} 个八度</div>`
+    : '';
+
+  return `
+    <details class="block debug">
+      <summary>详细对照（排查用）</summary>
+      ${shift}
+      <pre class="debug-pre">${lines.join('\n')}</pre>
+    </details>`;
 }
 
 function extrasBlock(chips) {

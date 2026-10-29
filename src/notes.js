@@ -37,9 +37,13 @@ export function cleanNotes(notes) {
         break;
       }
 
-      // 一/两个八度的泛音误检：同样留更结实的那个
+      // 一/两个八度的泛音误检：优先保留更低的音（基音），
+      // 因为原声钢琴的泛音强度经常比基音还大、时值还长，
+      // 用"更结实"来挑会挑错，导致整体音高偏高八度。
       if ((interval === 12 || interval === 24) && dt < OCTAVE_WINDOW) {
-        if (strength(n) > strength(k)) {
+        const nIsLower = n.pitchMidi < k.pitchMidi;
+        // 低音优先；若低音那侧明显更弱（可能是噪声），仍保留低音
+        if (nIsLower) {
           kept.splice(i, 1);
           break;
         }

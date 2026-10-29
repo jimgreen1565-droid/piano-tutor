@@ -2,7 +2,7 @@
 // 因为 JS 定时器有抖动，60BPM 下抖动几十毫秒就会让"节奏准不准"的评分失真。
 
 export class Metronome {
-  constructor({ bpm = 60, beatsPerBar = 4, countInBeats = 4 } = {}) {
+  constructor({ bpm = 60, beatsPerBar = 4, countInBeats = 8 } = {}) {
     this.bpm = bpm;
     this.beatsPerBar = beatsPerBar;
     this.countInBeats = countInBeats;
@@ -36,7 +36,7 @@ export class Metronome {
 
     this.running = true;
     this.nextBeat = 0;
-    this.nextBeatTime = this.ctx.currentTime + 0.15; // 留一点启动余量
+    this.nextBeatTime = this.ctx.currentTime + 0.2;
     this.originTime =
       this.nextBeatTime + this.countInBeats * this.secondsPerBeat;
 
@@ -64,7 +64,7 @@ export class Metronome {
     while (this.nextBeatTime < horizon) {
       const beatIndex = this.nextBeat;
       this._scheduleClick(this.nextBeatTime, beatIndex);
-      // 回调稍后触发（到点时）
+
       const delayMs = Math.max(
         0,
         (this.nextBeatTime - this.ctx.currentTime) * 1000,
@@ -81,6 +81,7 @@ export class Metronome {
           beatInBar,
           countIn: beatIndex < this.countInBeats,
           countdown: this.countInBeats - beatIndex,
+          isPieceStart,
         });
         if (isPieceStart) this.onStart();
       }, delayMs);
@@ -95,21 +96,24 @@ export class Metronome {
     const beatInBar =
       (beatIndex - this.countInBeats + this.beatsPerBar * 100) %
       this.beatsPerBar;
+    const isLastCountIn = isCountIn && beatIndex === this.countInBeats - 1;
     const strong = !isCountIn && beatInBar === 0;
 
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     osc.type = 'square';
-    osc.frequency.value = isCountIn ? 880 : strong ? 1320 : 990;
 
-    const peak = isCountIn ? 0.18 : strong ? 0.35 : 0.22;
+    // 最后一拍预备用更高更亮的音，明确"立刻开始"
+    osc.frequency.value = isLastCountIn ? 1760 : isCountIn ? 880 : strong ? 1320 : 990;
+
+    const peak = isLastCountIn ? 0.4 : isCountIn ? 0.22 : strong ? 0.4 : 0.24;
     gain.gain.setValueAtTime(0, time);
     gain.gain.linearRampToValueAtTime(peak, time + 0.002);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.06);
 
     osc.connect(gain);
     gain.connect(this.ctx.destination);
     osc.start(time);
-    osc.stop(time + 0.06);
+    osc.stop(time + 0.07);
   }
 }
