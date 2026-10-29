@@ -55,3 +55,27 @@ export function summaryFor(pieceId) {
 export function clearPiece(pieceId) {
   write(read().filter((r) => r.pieceId !== pieceId));
 }
+
+/**
+ * 找出"反复出错"的小节：最近 N 次练习里至少 2 次出问题。
+ * 单次出错可能是偶然，连续错才是指法/手位的固定瓶颈。
+ */
+export function persistentProblems(pieceId, { lastN = 5, minRuns = 2 } = {}) {
+  const list = recordsFor(pieceId).slice(-lastN);
+  if (list.length < minRuns) return [];
+
+  const counter = new Map();
+  for (const rec of list) {
+    const seen = new Set();
+    for (const m of rec.errorMeasures || []) {
+      if (seen.has(m)) continue; // 同一次里只记一次
+      seen.add(m);
+      counter.set(m, (counter.get(m) || 0) + 1);
+    }
+  }
+
+  return [...counter.entries()]
+    .filter(([, n]) => n >= minRuns)
+    .map(([measure, fails]) => ({ measure, fails }))
+    .sort((a, b) => b.fails - a.fails || a.measure - b.measure);
+}

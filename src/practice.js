@@ -2,7 +2,7 @@ import { Metronome } from './metronome.js';
 import { evaluate, midiToName } from './score.js';
 import { ensureModel, prepareMic, transcribeBlob, getBackend } from './transcribe.js';
 import { playDemo } from './demo.js';
-import { addRecord, summaryFor } from './history.js';
+import { addRecord, summaryFor, persistentProblems } from './history.js';
 
 // 谱面库体积较大，按需加载，避免首屏就下载
 let OSMDClass = null;
@@ -238,6 +238,27 @@ async function openPiece(id, root) {
       })),
     };
     markErrors(fake);
+    return;
+  }
+
+  // 诊断用：?testreport=1 用模拟演奏跑一遍完整报告（验证 UI 与归因逻辑）
+  if (qs.get('testreport')) {
+    const bpm = state.bpm;
+    const spb = 60 / bpm;
+    const played = state.scoreJson.notes
+      .filter((_, i) => i % 9 !== 4)
+      .map((n, i) => ({
+        pitchMidi: i % 13 === 3 ? n.pitchMidi + 2 : n.pitchMidi,
+        startTimeSeconds: n.beat * spb + (i % 5 === 0 ? 0.12 : 0),
+        durationSeconds: n.durationBeats * spb * 0.9,
+        amplitude: 0.6,
+      }));
+    const report = evaluate(state.scoreJson, played, {
+      bpm,
+      persistentMeasures: [{ measure: 3, fails: 3 }],
+    });
+    renderReport(report, played, { last: report.overall - 6, count: 4, best: report.overall });
+    markErrors(report);
     return;
   }
 
@@ -562,7 +583,11 @@ async function stopPractice(silent = false) {
       }));
     }
 
-    const report = evaluate(state.scoreJson, notes, { bpm: state.bpm });
+    const persistentMeasures = persistentProblems(state.piece.id, { lastN: 5 });
+    const report = evaluate(state.scoreJson, notes, {
+      bpm: state.bpm,
+      persistentMeasures,
+    });
     const prev = summaryFor(state.piece.id);
     addRecord({
       pieceId: state.piece.id,
@@ -572,6 +597,7 @@ async function stopPractice(silent = false) {
       hitCount: report.hitCount,
       total: report.total,
       extraCount: report.extraCount,
+      errorMeasures: report.problemMeasures.map((m) => m.measure),
     });
     renderReport(report, notes, prev);
     markErrors(report);
@@ -697,6 +723,8 @@ function renderReport(r, notes, prev) {
         <div class="chips">${measureChips}</div>
       </div>
 
+      ${diagnosisBlock(r.diagnosis)}
+
       ${extrasBlock(extraChips)}
 
       ${debugBlock(r)}
@@ -717,6 +745,54 @@ function renderReport(r, notes, prev) {
     clearReport();
     startPractice();
   });
+}
+
+function diagnosisBlock(d) {
+  if (!d) return '';
+
+  const rows = [
+    ['跨八度大跳', d.bigLeap, '手位移动没到位'],
+    ['5 度以上跳进', d.leap, '跨度还没形成记忆'],
+    ['同音重复', d.repeat, '容易多按 / 提前离键'],
+    ['八分音符', d.shortRhythm, '节奏型没弹匀'],
+    ['小节第一拍', d.firstBeat, '起拍容易犹豫'],
+  ].filter(([, arr]) => arr && arr.length);
+
+  if (!rows.length && !(d.persistentMeasures || []).length) return '';
+
+  const list = (arr) => {
+    const uniq = [...new Set(arr)].sort((a, b) => a - b);
+    return `第 ${uniq.slice(0, 5).join('、')} 小节`;
+  };
+
+  const causeHtml = rows
+    .map(
+      ([label, arr, why]) => `
+      <div class="cause-row">
+        <span class="cause-count">${arr.length}</span>
+        <span class="cause-body">
+          <b>${label}</b> · ${list(arr)}
+          <span class="cause-why">${why}</span>
+        </span>
+      </div>`,
+    )
+    .join('');
+
+  const bottleneck = (d.persistentMeasures || []).length
+    ? `<div class="bottleneck">
+         🔁 反复卡住：${d.persistentMeasures
+           .slice(0, 3)
+           .map((m) => `第 ${m.measure} 小节（近几次错了 ${m.fails} 次）`)
+           .join('、')}
+       </div>`
+    : '';
+
+  return `
+    <div class="block">
+      <div class="plabel">错误归因</div>
+      ${bottleneck}
+      ${rows.length ? `<div class="causes">${causeHtml}</div>` : ''}
+    </div>`;
 }
 
 function debugBlock(r) {

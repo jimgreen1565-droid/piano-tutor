@@ -527,3 +527,54 @@ h1 {
   background: #f1f5f9;
   border-radius: 10px;
 }
+
+.causes {
+  margin-top: 8px;
+}
+
+.cause-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid #243244;
+  font-size: 13px;
+}
+
+.cause-row:last-child {
+  border-bottom: none;
+}
+
+.cause-count {
+  flex: 0 0 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #3b1d20;
+  color: #fca5a5;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cause-body {
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.cause-why {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.bottleneck {
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #2a2113;
+  color: #fcd34d;
+  font-size: 12.5px;
+  line-height: 1.5;
+}

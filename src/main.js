@@ -5,7 +5,7 @@ import { mountEngineTest } from './enginetest.js';
 const app = document.getElementById('app');
 
 // 版本号：用来确认 iPad 上跑的确实是新版（缓存排查）
-const VERSION = 'v1.5';
+const VERSION = 'v1.6';
 
 app.innerHTML = `
   <header class="app-head">
