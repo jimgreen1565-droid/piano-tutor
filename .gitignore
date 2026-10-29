@@ -9,3 +9,4 @@ install_err.txt
 reinstall_out.txt
 .DS_Store
 *.log
+*.zip
