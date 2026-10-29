@@ -68,8 +68,8 @@ function pickMimeType() {
   return '';
 }
 
-/** 开始录音，返回一个可 stop 的句柄 */
-export async function startCapture() {
+/** 预先取得麦克风（避免授权弹窗卡在预备拍中途），返回可 start/stop 的句柄 */
+export async function prepareMic() {
   const stream = await navigator.mediaDevices.getUserMedia({
     audio: {
       echoCancellation: false,
@@ -79,21 +79,31 @@ export async function startCapture() {
   });
 
   const mimeType = pickMimeType();
-  const recorder = mimeType
-    ? new MediaRecorder(stream, { mimeType })
-    : new MediaRecorder(stream);
-
-  const chunks = [];
-  recorder.ondataavailable = (e) => {
-    if (e.data && e.data.size > 0) chunks.push(e.data);
-  };
-
-  recorder.start();
+  let recorder = null;
+  let chunks = [];
 
   return {
-    mimeType: recorder.mimeType,
+    stream,
+    /** 立刻开始录制，返回"实际开始录制"的 performance.now() 时间戳 */
+    start() {
+      recorder = mimeType
+        ? new MediaRecorder(stream, { mimeType })
+        : new MediaRecorder(stream);
+      chunks = [];
+      recorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
+      recorder.start();
+      return performance.now();
+    },
+    /** 停止并拿到音频 */
     stop() {
       return new Promise((resolve) => {
+        if (!recorder) {
+          stream.getTracks().forEach((t) => t.stop());
+          resolve(new Blob([], { type: mimeType || 'audio/webm' }));
+          return;
+        }
         recorder.onstop = () => {
           stream.getTracks().forEach((t) => t.stop());
           resolve(new Blob(chunks, { type: recorder.mimeType }));
@@ -101,6 +111,16 @@ export async function startCapture() {
         recorder.stop();
       });
     },
+  };
+}
+
+/** 兼容旧用法：直接开始录音 */
+export async function startCapture() {
+  const mic = await prepareMic();
+  mic.start();
+  return {
+    mimeType: '',
+    stop: () => mic.stop(),
   };
 }
 

@@ -1,6 +1,7 @@
 import { Metronome } from './metronome.js';
 import { evaluate, midiToName } from './score.js';
-import { ensureModel, startCapture, transcribeBlob, getBackend } from './transcribe.js';
+import { ensureModel, prepareMic, transcribeBlob, getBackend } from './transcribe.js';
+import { playDemo } from './demo.js';
 
 // 谱面库体积较大，按需加载，避免首屏就下载
 let OSMDClass = null;
@@ -23,8 +24,11 @@ const state = {
   osmd: null,
   bpm: 60,
   metronome: null,
-  capture: null,
-  phase: 'idle', // idle | counting | recording | processing | report
+  mic: null,
+  recordStartedAt: 0,
+  recordDelayMs: 0,
+  demo: null,
+  phase: 'idle', // idle | counting | recording | processing | report | demo
   ui: {},
 };
 
@@ -55,7 +59,20 @@ export function mountPractice(root) {
         <div class="pvalue" id="bpmLabel">60 BPM</div>
       </div>
       <input type="range" id="bpm" min="40" max="120" step="5" value="60" class="slider" />
-      <div class="hint">刚开始学建议 50~60 BPM，弹稳了再加速</div>
+
+      <div class="prow" style="margin-top:14px">
+        <div class="plabel">预备拍</div>
+        <select id="countIn" class="select">
+          <option value="4">4 拍（快）</option>
+          <option value="8" selected>8 拍（推荐）</option>
+          <option value="12">12 拍（慢）</option>
+        </select>
+      </div>
+
+      <button class="btn btn-ghost btn-sm" id="btnDemo" style="margin-top:14px;width:100%">
+        🎧 先听一遍示范
+      </button>
+      <div class="hint">示范会把每个音弹出来，谱面同步高亮，用来先建立"手感位置"</div>
     </div>
 
     <button class="btn btn-primary btn-lg" id="btnPractice">▶ 开始练习</button>
@@ -74,6 +91,8 @@ export function mountPractice(root) {
     'cue',
     'bpm',
     'bpmLabel',
+    'countIn',
+    'btnDemo',
     'btnPractice',
     'btnSwitch',
     'pStatus',
@@ -88,6 +107,8 @@ export function mountPractice(root) {
     state.bpm = Number(ui.bpm.value);
     ui.bpmLabel.textContent = `${state.bpm} BPM`;
   });
+
+  ui.btnDemo.addEventListener('click', () => toggleDemo());
 
   ui.btnPractice.addEventListener('click', () => {
     if (state.phase === 'idle' || state.phase === 'report') startPractice();
@@ -122,6 +143,8 @@ async function loadIndex() {
 
 function showPicker(root) {
   clearReport();
+  clearMarks();
+  clearHighlight();
   state.ui.scoreCard.hidden = true;
   state.ui.pieceTitle.textContent = '—';
   state.ui.pieceMeta.textContent = '';
@@ -162,7 +185,16 @@ async function openPiece(id, root) {
     `${item.totalMeasures} 小节 · ${item.totalNotes} 音符 · 难度 ${'★'.repeat(item.difficulty)}`;
 
   clearReport();
+  clearMarks();
+  clearHighlight();
 
+  // 先把"加载中"放出来，避免点完没反应
+  state.ui.scoreCard.hidden = false;
+  state.ui.scoreHost.innerHTML =
+    '<div class="score-loading">正在加载谱面…</div>';
+  status('正在加载谱面…');
+
+  const t0 = performance.now();
   const [xmlRes, jsonRes] = await Promise.all([
     fetch(`${BASE}scores/${id}.musicxml`),
     fetch(`${BASE}scores/${id}.json`),
@@ -170,7 +202,6 @@ async function openPiece(id, root) {
   const xml = await xmlRes.text();
   state.scoreJson = await jsonRes.json();
 
-  state.ui.scoreCard.hidden = false;
   const host = state.ui.scoreHost;
   host.innerHTML = '';
 
@@ -189,11 +220,26 @@ async function openPiece(id, root) {
   state.currentMeasure = null;
   clearHighlight();
 
-  // 诊断用：?hl=3 可单独验证高亮是否渲染（不影响正常使用）
-  const hl = new URLSearchParams(location.search).get('hl');
+  // 诊断用：?hl=3 单独验证高亮；?testmarks=1 验证错音标注
+  const qs = new URLSearchParams(location.search);
+  const hl = qs.get('hl');
   if (hl) highlightMeasure(Number(hl));
+  if (qs.get('testmarks')) {
+    const fake = {
+      details: state.scoreJson.notes.map((n, i) => ({
+        ...n,
+        status: i % 7 === 0 ? 'wrong' : i % 11 === 0 ? 'miss' : 'hit',
+        playedPitchMidi: n.pitchMidi + 2,
+        playedTime: n.beat,
+        expectedTime: n.beat,
+      })),
+    };
+    markErrors(fake);
+    return;
+  }
 
-  status('<span class="ok">谱面已就绪。戴耳机点「开始练习」，会先响 8 下预备拍。</span>');
+  status('<span class="ok">谱面已就绪。可以先「听一遍示范」，再点「开始练习」。</span>');
+  console.debug(`谱面加载耗时 ${Math.round(performance.now() - t0)}ms`);
 }
 
 async function startPractice() {
@@ -202,33 +248,58 @@ async function startPractice() {
     return;
   }
 
+  if (state.demo) {
+    state.demo.stop();
+    state.demo = null;
+    state.ui.btnDemo.textContent = '🎧 先听一遍示范';
+  }
+  clearMarks();
   clearReport();
   state.phase = 'counting';
   state.ui.btnPractice.textContent = '⏹ 结束';
   state.ui.btnPractice.classList.remove('btn-primary');
   state.ui.btnPractice.classList.add('btn-stop');
   state.ui.pMeter.classList.remove('active');
-  status('准备…');
+  status('准备麦克风…');
   showCue('准备');
 
-  state.metronome = new Metronome({ bpm: state.bpm, countInBeats: COUNT_IN });
-  state.metronome.onBeat = ({ countIn, countdown, beatInBar }) => {
-    if (countIn) {
+  // 先拿到麦克风（授权弹窗如果出现在预备拍中途，会打乱起始时间）
+  try {
+    state.mic = await prepareMic();
+  } catch (e) {
+    state.phase = 'idle';
+    resetButton();
+    hideCue();
+    status(`<span class="err">麦克风打开失败：${e.message}</span>`);
+    return;
+  }
+
+  const countIn = Number(state.ui.countIn?.value || COUNT_IN);
+
+  state.metronome = new Metronome({ bpm: state.bpm, countInBeats: countIn });
+  state.metronome.onBeat = ({ countIn: isCountIn, countdown, beatInBar }) => {
+    if (isCountIn) {
       showCue(String(countdown));
       status(`预备… 还有 <b>${countdown}</b> 拍`);
     } else {
       status(`<span class="ok">练习中</span> · 第 ${beatInBar + 1} 拍 / 小节`);
     }
   };
-  state.metronome.onStart = async () => {
+
+  state.metronome.onStart = () => {
     state.phase = 'recording';
     showCue('开始！', true);
     setTimeout(() => hideCueIfRunning(), 900);
     startFollow();
+
+    // 关键：记录"正式第 0 拍"到"录音真正开始"之间的延迟，
+    // 之后把所有识别到的音符时间整体补偿回去，否则会表现为系统性"抢拍"。
+    const beat0At = performance.now();
     try {
-      state.capture = await startCapture();
+      state.recordStartedAt = state.mic.start();
+      state.recordDelayMs = state.recordStartedAt - beat0At;
     } catch (e) {
-      status(`<span class="err">麦克风打开失败：${e.message}</span>`);
+      status(`<span class="err">录音启动失败：${e.message}</span>`);
       stopPractice(true);
     }
   };
@@ -320,6 +391,115 @@ function showCue(text, big = false) {
   cue.classList.toggle('big', big);
 }
 
+// ---------- 示范播放 ----------
+
+function toggleDemo() {
+  if (state.demo) {
+    state.demo.stop();
+    state.demo = null;
+    state.ui.btnDemo.textContent = '🎧 先听一遍示范';
+    state.phase = 'idle';
+    clearHighlight();
+    status('示范已停止。');
+    return;
+  }
+  if (
+    state.phase === 'counting' ||
+    state.phase === 'recording' ||
+    state.phase === 'processing'
+  ) {
+    return;
+  }
+  if (!state.scoreJson) return;
+
+  state.phase = 'demo';
+  state.ui.btnDemo.textContent = '⏹ 停止示范';
+  status(`示范播放中（${state.bpm} BPM）…`);
+
+  state.demo = playDemo(state.scoreJson, state.bpm, {
+    onMeasure: (m) => {
+      state.currentMeasure = m;
+      highlightMeasure(m);
+    },
+    onEnd: () => {
+      state.demo = null;
+      state.ui.btnDemo.textContent = '🎧 先听一遍示范';
+      state.phase = 'idle';
+      clearHighlight();
+      status('<span class="ok">示范结束，可以开始练了。</span>');
+    },
+  });
+}
+
+// ---------- 错音标注 ----------
+
+let markGroup = null;
+
+function clearMarks() {
+  if (markGroup && markGroup.parentNode) {
+    markGroup.parentNode.removeChild(markGroup);
+  }
+  markGroup = null;
+}
+
+function markErrors(report) {
+  try {
+    clearMarks();
+    const svg = state.ui.scoreHost.querySelector('svg');
+    if (!svg) return;
+
+    const noteEls = [...svg.querySelectorAll('g.vf-stavenote')];
+    const details = report.details;
+    if (!noteEls.length || !details.length) return;
+
+    // 单声部旋律：DOM 里的音符顺序 = 谱面音符顺序，数量一致时可直接一一对应
+    if (noteEls.length !== details.length) return;
+
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    group.setAttribute('class', 'err-marks');
+    svg.insertBefore(group, svg.firstChild);
+    markGroup = group;
+
+    let count = 0;
+    details.forEach((e, i) => {
+      if (e.status === 'hit') return;
+      const el = noteEls[i];
+      if (!el || !el.getBBox) return;
+
+      let bbox;
+      try {
+        bbox = el.getBBox();
+      } catch {
+        return;
+      }
+      if (!bbox || !bbox.width) return;
+
+      const wrong = e.status === 'wrong';
+      const rect = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'rect',
+      );
+      rect.setAttribute('fill', wrong ? 'rgba(239, 68, 68, 0.32)' : 'rgba(249, 115, 22, 0.32)');
+      rect.setAttribute('stroke', wrong ? '#ef4444' : '#f97316');
+      rect.setAttribute('stroke-width', '1.2');
+      rect.setAttribute('rx', '3');
+      rect.setAttribute('pointer-events', 'none');
+      rect.setAttribute('x', String(bbox.x - 3));
+      rect.setAttribute('y', String(bbox.y - 3));
+      rect.setAttribute('width', String(bbox.width + 6));
+      rect.setAttribute('height', String(bbox.height + 6));
+      group.appendChild(rect);
+      count++;
+    });
+
+    if (count) {
+      state.ui.scoreCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } catch {
+    /* 标注失败不影响评分 */
+  }
+}
+
 function hideCueIfRunning() {
   if (state.phase === 'recording') {
     state.ui.cue?.classList.remove('show', 'big');
@@ -345,10 +525,11 @@ async function stopPractice(silent = false) {
     state.metronome = null;
   }
 
-  const capture = state.capture;
-  state.capture = null;
+  const mic = state.mic;
+  state.mic = null;
+  const recordDelayMs = state.recordDelayMs || 0;
 
-  if (!capture) {
+  if (!mic) {
     resetButton();
     state.phase = 'idle';
     if (silent) status('<span class="err">已停止。</span>');
@@ -362,16 +543,25 @@ async function stopPractice(silent = false) {
   state.ui.pMeterBar.style.width = '0%';
 
   try {
-    const blob = await capture.stop();
-    const notes = await transcribeBlob(blob, {
+    const blob = await mic.stop();
+    let notes = await transcribeBlob(blob, {
       onProgress: (p) => {
         state.ui.pMeterBar.style.width = `${Math.round(p * 100)}%`;
       },
     });
     state.ui.pMeter.classList.remove('active');
 
+    // 补偿"录音真正开始的时刻晚于第 0 拍"造成的整体偏移
+    if (recordDelayMs > 5) {
+      notes = notes.map((n) => ({
+        ...n,
+        startTimeSeconds: n.startTimeSeconds + recordDelayMs / 1000,
+      }));
+    }
+
     const report = evaluate(state.scoreJson, notes, { bpm: state.bpm });
     renderReport(report, notes);
+    markErrors(report);
     state.phase = 'report';
   } catch (e) {
     console.error(e);

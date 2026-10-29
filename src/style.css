@@ -506,3 +506,24 @@ h1 {
   color: var(--warn);
   margin-top: 6px;
 }
+
+.select {
+  background: var(--panel2);
+  color: var(--text);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.score-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  font-size: 13px;
+  color: #64748b;
+  background: #f1f5f9;
+  border-radius: 10px;
+}
