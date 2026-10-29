@@ -150,21 +150,62 @@ function showPicker(root) {
   state.ui.pieceTitle.textContent = '—';
   state.ui.pieceMeta.textContent = '';
 
-  const list = state.index
-    .map(
-      (p) => `
-      <button class="piece-item" data-id="${p.id}">
-        <span class="piece-name">${p.title}</span>
-        <span class="piece-tag">${'★'.repeat(p.difficulty)}${'☆'.repeat(3 - p.difficulty)}</span>
-        <span class="piece-sub">${p.totalMeasures} 小节 · ${p.totalNotes} 音符</span>
-      </button>`,
-    )
+  const LEVEL_ORDER = [1, 2, 3, 4];
+  const LEVEL_NAMES = { 1: '入门', 2: '初级', 3: '中级', 4: '进阶' };
+  const LEVEL_DESC = {
+    1: '刚认识键盘，五指之内',
+    2: '能完整弹短旋律',
+    3: '有八分音符 / 三拍子',
+    4: '开始有升降号',
+  };
+
+  const groups = LEVEL_ORDER.map((lv) => ({
+    level: lv,
+    name: LEVEL_NAMES[lv],
+    desc: LEVEL_DESC[lv],
+    pieces: state.index.filter((p) => (p.level || p.difficulty) === lv),
+  })).filter((g) => g.pieces.length);
+
+  const sections = groups
+    .map((g) => {
+      const items = g.pieces
+        .map((p) => {
+          const hist = summaryFor(p.id);
+          const kindTag =
+            p.kind === 'exercise'
+              ? '<span class="kind-tag">练习</span>'
+              : '';
+          return `
+          <button class="piece-item" data-id="${p.id}">
+            <span class="piece-line">
+              <span class="piece-name">${p.title}</span>
+              ${kindTag}
+              ${hist ? `<span class="piece-best">最好 ${hist.best} 分</span>` : ''}
+            </span>
+            <span class="piece-sub">${p.totalMeasures} 小节 · ${p.totalNotes} 音符 · ${
+              p.timeSignature?.beats || 4
+            }/4 拍</span>
+          </button>`;
+        })
+        .join('');
+
+      return `
+        <details class="level-group" ${g.level === 1 ? 'open' : ''}>
+          <summary class="level-head">
+            <span class="level-badge">${g.name}</span>
+            <span class="level-stars">${'★'.repeat(g.level)}${'☆'.repeat(4 - g.level)}</span>
+            <span class="level-count">${g.pieces.length} 首</span>
+            <span class="level-desc">${g.desc}</span>
+          </summary>
+          <div class="level-body">${items}</div>
+        </details>`;
+    })
     .join('');
 
   root.querySelector('#report').innerHTML = `
     <div class="pcard">
-      <div class="plabel" style="margin-bottom:10px">选择曲目</div>
-      ${list}
+      <div class="plabel" style="margin-bottom:12px">选择曲目 · 共 ${state.index.length} 首（按等级分组，点等级展开）</div>
+      ${sections}
     </div>
   `;
 
@@ -183,8 +224,9 @@ async function openPiece(id, root) {
   state.ui.bpmLabel.textContent = `${item.bpm} BPM`;
   state.ui.pieceTitle.textContent = item.title;
   const hist = summaryFor(item.id);
+  const level = item.level || item.difficulty || 1;
   state.ui.pieceMeta.textContent =
-    `${item.totalMeasures} 小节 · ${item.totalNotes} 音符 · 难度 ${'★'.repeat(item.difficulty)}` +
+    `${item.levelName || ''} · ${item.totalMeasures} 小节 · ${item.totalNotes} 音符 · ${item.timeSignature?.beats || 4}/4 拍` +
     (hist ? `　|　最好 ${hist.best} 分 · 练过 ${hist.count} 次` : '');
 
   clearReport();
@@ -300,7 +342,12 @@ async function startPractice() {
 
   const countIn = Number(state.ui.countIn?.value || COUNT_IN);
 
-  state.metronome = new Metronome({ bpm: state.bpm, countInBeats: countIn });
+  const beatsPerBar = state.scoreJson.timeSignature?.beats || 4;
+  state.metronome = new Metronome({
+    bpm: state.bpm,
+    beatsPerBar,
+    countInBeats: countIn,
+  });
   state.metronome.onBeat = ({ countIn: isCountIn, countdown, beatInBar }) => {
     if (isCountIn) {
       showCue(String(countdown));

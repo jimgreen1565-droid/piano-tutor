@@ -1,7 +1,9 @@
 {
   "id": "frere",
   "title": "两只老虎",
-  "difficulty": 2,
+  "level": 2,
+  "levelName": "初级",
+  "kind": "song",
   "bpm": 60,
   "divisions": 2,
   "timeSignature": {

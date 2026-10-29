@@ -1,0 +1,107 @@
+{
+  "id": "fifths_g",
+  "title": "五度模进 · G",
+  "level": 4,
+  "levelName": "进阶",
+  "kind": "exercise",
+  "bpm": 60,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 4,
+  "totalBeats": 16,
+  "notes": [
+    {
+      "pitchMidi": 67,
+      "beat": 0,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 1,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 2,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 3,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 4,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 78,
+      "beat": 5,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 73,
+      "beat": 6,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 80,
+      "beat": 7,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 75,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 82,
+      "beat": 9,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 10,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 11,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 12,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 13,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 14,
+      "durationBeats": 2,
+      "measure": 4
+    }
+  ]
+}

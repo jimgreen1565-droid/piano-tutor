@@ -1,0 +1,167 @@
+{
+  "id": "chromatic_c",
+  "title": "C 半音阶",
+  "level": 3,
+  "levelName": "中级",
+  "kind": "exercise",
+  "bpm": 60,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 7,
+  "totalBeats": 28,
+  "notes": [
+    {
+      "pitchMidi": 60,
+      "beat": 0,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 61,
+      "beat": 1,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 2,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 63,
+      "beat": 3,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 4,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 5,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 66,
+      "beat": 6,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 7,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 68,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 9,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 70,
+      "beat": 10,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 11,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 12,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 13,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 70,
+      "beat": 14,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 15,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 68,
+      "beat": 16,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 17,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 66,
+      "beat": 18,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 19,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 20,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 63,
+      "beat": 21,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 22,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 61,
+      "beat": 23,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 24,
+      "durationBeats": 4,
+      "measure": 7
+    }
+  ]
+}

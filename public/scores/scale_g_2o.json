@@ -1,0 +1,191 @@
+{
+  "id": "scale_g_2o",
+  "title": "G 大调音阶 · 两个八度",
+  "level": 3,
+  "levelName": "中级",
+  "kind": "exercise",
+  "bpm": 60,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 8,
+  "totalBeats": 32,
+  "notes": [
+    {
+      "pitchMidi": 67,
+      "beat": 0,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 1,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 2,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 3,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 4,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 5,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 78,
+      "beat": 6,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 7,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 9,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 10,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 11,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 12,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 90,
+      "beat": 13,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 14,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 90,
+      "beat": 15,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 16,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 17,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 18,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 19,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 20,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 21,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 78,
+      "beat": 22,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 23,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 24,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 25,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 26,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 27,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 28,
+      "durationBeats": 4,
+      "measure": 8
+    }
+  ]
+}

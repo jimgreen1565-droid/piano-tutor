@@ -1,0 +1,107 @@
+{
+  "id": "scale_eb",
+  "title": "降 E 大调音阶",
+  "level": 4,
+  "levelName": "进阶",
+  "kind": "exercise",
+  "bpm": 60,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 4,
+  "totalBeats": 16,
+  "notes": [
+    {
+      "pitchMidi": 63,
+      "beat": 0,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 1,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 2,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 68,
+      "beat": 3,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 70,
+      "beat": 4,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 5,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 6,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 75,
+      "beat": 7,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 9,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 70,
+      "beat": 10,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 68,
+      "beat": 11,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 12,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 13,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 63,
+      "beat": 14,
+      "durationBeats": 2,
+      "measure": 4
+    }
+  ]
+}

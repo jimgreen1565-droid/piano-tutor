@@ -1,7 +1,9 @@
 {
   "id": "mary",
   "title": "玛丽有只小羊羔",
-  "difficulty": 1,
+  "level": 1,
+  "levelName": "入门",
+  "kind": "song",
   "bpm": 60,
   "divisions": 2,
   "timeSignature": {

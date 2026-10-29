@@ -1,0 +1,167 @@
+{
+  "id": "birthday",
+  "title": "生日快乐",
+  "level": 3,
+  "levelName": "中级",
+  "kind": "song",
+  "bpm": 66,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 3,
+    "beatType": 3
+  },
+  "totalMeasures": 8,
+  "totalBeats": 24,
+  "notes": [
+    {
+      "pitchMidi": 67,
+      "beat": 0,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 0.5,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 1,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 2,
+      "durationBeats": 1,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 3,
+      "durationBeats": 1,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 4,
+      "durationBeats": 2,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 6,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 6.5,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 7,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 9,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 10,
+      "durationBeats": 2,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 12,
+      "durationBeats": 0.5,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 12.5,
+      "durationBeats": 0.5,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 13,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 14,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 15,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 16,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 17,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 18,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 18.5,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 19,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 20,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 21,
+      "durationBeats": 1,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 22,
+      "durationBeats": 2,
+      "measure": 8
+    }
+  ]
+}

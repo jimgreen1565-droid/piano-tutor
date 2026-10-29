@@ -1,0 +1,89 @@
+{
+  "id": "rhythm_dotted",
+  "title": "附点节奏练习",
+  "level": 2,
+  "levelName": "初级",
+  "kind": "exercise",
+  "bpm": 60,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 3,
+  "totalBeats": 12,
+  "notes": [
+    {
+      "pitchMidi": 60,
+      "beat": 0,
+      "durationBeats": 1.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 1.5,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 2,
+      "durationBeats": 1.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 3.5,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 4,
+      "durationBeats": 1.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 5.5,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 6,
+      "durationBeats": 1.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 7.5,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 9,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 10,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 11,
+      "durationBeats": 1,
+      "measure": 3
+    }
+  ]
+}
