@@ -894,5 +894,37 @@
       "beats": 4,
       "beatType": 4
     }
+  },
+  {
+    "id": "castle",
+    "title": "天空之城 · 主题曲",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "song",
+    "bpm": 100,
+    "totalMeasures": 60,
+    "totalNotes": 189,
+    "totalBeats": 240,
+    "durationSec": 144,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "laputa",
+    "title": "天空之城 · Laputa Theme",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "song",
+    "bpm": 96,
+    "totalMeasures": 53,
+    "totalNotes": 148,
+    "totalBeats": 212,
+    "durationSec": 133,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
   }
 ]
