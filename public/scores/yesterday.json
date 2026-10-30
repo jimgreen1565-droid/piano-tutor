@@ -1,0 +1,1445 @@
+{
+  "id": "yesterday",
+  "title": "昨日重现",
+  "level": 3,
+  "levelName": "中级",
+  "kind": "song",
+  "bpm": 93,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 83,
+  "totalBeats": 332,
+  "notes": [
+    {
+      "pitchMidi": 60,
+      "beat": 0,
+      "durationBeats": 4,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 4,
+      "durationBeats": 1.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 8,
+      "durationBeats": 1,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 9,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 12,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 13,
+      "durationBeats": 1.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 14.5,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 15,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 15.5,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 16,
+      "durationBeats": 0.5,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 16.5,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 17.5,
+      "durationBeats": 2,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 19.5,
+      "durationBeats": 0.5,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 20,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 21,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 22,
+      "durationBeats": 0.5,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 22.5,
+      "durationBeats": 1,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 24,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 25,
+      "durationBeats": 1,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 28,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 28.5,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 29,
+      "durationBeats": 1.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 30.5,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 31,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 31.5,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 32,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 32.5,
+      "durationBeats": 1,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 33.5,
+      "durationBeats": 2,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 71,
+      "beat": 35.5,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 36,
+      "durationBeats": 2,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 38,
+      "durationBeats": 0.5,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 38.5,
+      "durationBeats": 1,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 40,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 41,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 44,
+      "durationBeats": 3,
+      "measure": 12
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 47,
+      "durationBeats": 0.5,
+      "measure": 12
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 47.5,
+      "durationBeats": 0.5,
+      "measure": 12
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 48,
+      "durationBeats": 0.5,
+      "measure": 13
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 48.5,
+      "durationBeats": 0.5,
+      "measure": 13
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 49,
+      "durationBeats": 0.5,
+      "measure": 13
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 49.5,
+      "durationBeats": 1.5,
+      "measure": 13
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 51,
+      "durationBeats": 1,
+      "measure": 13
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 52,
+      "durationBeats": 4,
+      "measure": 14
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 56,
+      "durationBeats": 0.5,
+      "measure": 15
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 56.5,
+      "durationBeats": 0.5,
+      "measure": 15
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 60,
+      "durationBeats": 3,
+      "measure": 16
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 63,
+      "durationBeats": 0.5,
+      "measure": 16
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 63.5,
+      "durationBeats": 0.5,
+      "measure": 16
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 64,
+      "durationBeats": 0.5,
+      "measure": 17
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 64.5,
+      "durationBeats": 0.5,
+      "measure": 17
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 65,
+      "durationBeats": 0.5,
+      "measure": 17
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 65.5,
+      "durationBeats": 1.5,
+      "measure": 17
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 67,
+      "durationBeats": 1,
+      "measure": 17
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 68,
+      "durationBeats": 2,
+      "measure": 18
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 70,
+      "durationBeats": 0.5,
+      "measure": 18
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 70.5,
+      "durationBeats": 0.5,
+      "measure": 18
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 71,
+      "durationBeats": 0.5,
+      "measure": 18
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 72,
+      "durationBeats": 0.5,
+      "measure": 19
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 72.5,
+      "durationBeats": 0.5,
+      "measure": 19
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 76,
+      "durationBeats": 0.5,
+      "measure": 20
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 76.5,
+      "durationBeats": 0.5,
+      "measure": 20
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 77,
+      "durationBeats": 0.5,
+      "measure": 20
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 77.5,
+      "durationBeats": 1.5,
+      "measure": 20
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 79,
+      "durationBeats": 0.5,
+      "measure": 20
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 79.5,
+      "durationBeats": 0.5,
+      "measure": 20
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 80,
+      "durationBeats": 0.5,
+      "measure": 21
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 80.5,
+      "durationBeats": 0.5,
+      "measure": 21
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 81,
+      "durationBeats": 0.5,
+      "measure": 21
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 81.5,
+      "durationBeats": 1.5,
+      "measure": 21
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 83,
+      "durationBeats": 0.5,
+      "measure": 21
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 83.5,
+      "durationBeats": 0.5,
+      "measure": 21
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 84,
+      "durationBeats": 2,
+      "measure": 22
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 86,
+      "durationBeats": 0.5,
+      "measure": 22
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 86.5,
+      "durationBeats": 1.5,
+      "measure": 22
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 88,
+      "durationBeats": 4,
+      "measure": 23
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 92,
+      "durationBeats": 1,
+      "measure": 24
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 93,
+      "durationBeats": 1,
+      "measure": 24
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 94,
+      "durationBeats": 1,
+      "measure": 24
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 96,
+      "durationBeats": 4,
+      "measure": 25
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 100,
+      "durationBeats": 4,
+      "measure": 26
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 104,
+      "durationBeats": 4,
+      "measure": 27
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 108,
+      "durationBeats": 0.5,
+      "measure": 28
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 112,
+      "durationBeats": 3,
+      "measure": 29
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 115,
+      "durationBeats": 1,
+      "measure": 29
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 116,
+      "durationBeats": 4,
+      "measure": 30
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 120,
+      "durationBeats": 3,
+      "measure": 31
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 123,
+      "durationBeats": 1,
+      "measure": 31
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 124,
+      "durationBeats": 0.5,
+      "measure": 32
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 128,
+      "durationBeats": 4,
+      "measure": 33
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 132,
+      "durationBeats": 0.5,
+      "measure": 34
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 132.5,
+      "durationBeats": 0.5,
+      "measure": 34
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 133,
+      "durationBeats": 0.5,
+      "measure": 34
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 136,
+      "durationBeats": 1,
+      "measure": 35
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 137,
+      "durationBeats": 3,
+      "measure": 35
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 140,
+      "durationBeats": 1,
+      "measure": 36
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 141,
+      "durationBeats": 1,
+      "measure": 36
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 144,
+      "durationBeats": 3,
+      "measure": 37
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 147,
+      "durationBeats": 1,
+      "measure": 37
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 148,
+      "durationBeats": 4,
+      "measure": 38
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 152,
+      "durationBeats": 1,
+      "measure": 39
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 153,
+      "durationBeats": 1,
+      "measure": 39
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 156,
+      "durationBeats": 3,
+      "measure": 40
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 159,
+      "durationBeats": 0.5,
+      "measure": 40
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 159.5,
+      "durationBeats": 0.5,
+      "measure": 40
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 160,
+      "durationBeats": 3,
+      "measure": 41
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 163,
+      "durationBeats": 0.5,
+      "measure": 41
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 163.5,
+      "durationBeats": 0.5,
+      "measure": 41
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 164,
+      "durationBeats": 4,
+      "measure": 42
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 168,
+      "durationBeats": 3,
+      "measure": 43
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 171,
+      "durationBeats": 1,
+      "measure": 43
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 172,
+      "durationBeats": 3,
+      "measure": 44
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 175,
+      "durationBeats": 0.5,
+      "measure": 44
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 175.5,
+      "durationBeats": 0.5,
+      "measure": 44
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 176,
+      "durationBeats": 0.5,
+      "measure": 45
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 176.5,
+      "durationBeats": 0.5,
+      "measure": 45
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 177,
+      "durationBeats": 0.5,
+      "measure": 45
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 177.5,
+      "durationBeats": 1.5,
+      "measure": 45
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 179,
+      "durationBeats": 1,
+      "measure": 45
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 180,
+      "durationBeats": 4,
+      "measure": 46
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 184,
+      "durationBeats": 0.5,
+      "measure": 47
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 184.5,
+      "durationBeats": 0.5,
+      "measure": 47
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 188,
+      "durationBeats": 3,
+      "measure": 48
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 191,
+      "durationBeats": 0.5,
+      "measure": 48
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 191.5,
+      "durationBeats": 0.5,
+      "measure": 48
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 192,
+      "durationBeats": 0.5,
+      "measure": 49
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 192.5,
+      "durationBeats": 0.5,
+      "measure": 49
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 193,
+      "durationBeats": 0.5,
+      "measure": 49
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 193.5,
+      "durationBeats": 1.5,
+      "measure": 49
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 195,
+      "durationBeats": 1,
+      "measure": 49
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 196,
+      "durationBeats": 2,
+      "measure": 50
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 198,
+      "durationBeats": 0.5,
+      "measure": 50
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 198.5,
+      "durationBeats": 0.5,
+      "measure": 50
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 199,
+      "durationBeats": 0.5,
+      "measure": 50
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 200,
+      "durationBeats": 0.5,
+      "measure": 51
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 200.5,
+      "durationBeats": 0.5,
+      "measure": 51
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 204,
+      "durationBeats": 0.5,
+      "measure": 52
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 204.5,
+      "durationBeats": 0.5,
+      "measure": 52
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 205,
+      "durationBeats": 0.5,
+      "measure": 52
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 205.5,
+      "durationBeats": 1.5,
+      "measure": 52
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 207,
+      "durationBeats": 0.5,
+      "measure": 52
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 207.5,
+      "durationBeats": 0.5,
+      "measure": 52
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 208,
+      "durationBeats": 0.5,
+      "measure": 53
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 208.5,
+      "durationBeats": 0.5,
+      "measure": 53
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 209,
+      "durationBeats": 0.5,
+      "measure": 53
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 209.5,
+      "durationBeats": 1.5,
+      "measure": 53
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 211,
+      "durationBeats": 0.5,
+      "measure": 53
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 211.5,
+      "durationBeats": 0.5,
+      "measure": 53
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 212,
+      "durationBeats": 2,
+      "measure": 54
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 214,
+      "durationBeats": 0.5,
+      "measure": 54
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 214.5,
+      "durationBeats": 1.5,
+      "measure": 54
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 216,
+      "durationBeats": 4,
+      "measure": 55
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 220,
+      "durationBeats": 1,
+      "measure": 56
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 221,
+      "durationBeats": 1,
+      "measure": 56
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 222,
+      "durationBeats": 1,
+      "measure": 56
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 224,
+      "durationBeats": 4,
+      "measure": 57
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 228,
+      "durationBeats": 0.5,
+      "measure": 58
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 232,
+      "durationBeats": 0.5,
+      "measure": 59
+    },
+    {
+      "pitchMidi": 91,
+      "beat": 232.5,
+      "durationBeats": 3,
+      "measure": 59
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 236,
+      "durationBeats": 3,
+      "measure": 60
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 239,
+      "durationBeats": 0.5,
+      "measure": 60
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 239.5,
+      "durationBeats": 0.5,
+      "measure": 60
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 240,
+      "durationBeats": 0.5,
+      "measure": 61
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 240.5,
+      "durationBeats": 0.5,
+      "measure": 61
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 241,
+      "durationBeats": 0.5,
+      "measure": 61
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 241.5,
+      "durationBeats": 1.5,
+      "measure": 61
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 243,
+      "durationBeats": 1,
+      "measure": 61
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 244,
+      "durationBeats": 4,
+      "measure": 62
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 248,
+      "durationBeats": 0.5,
+      "measure": 63
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 248.5,
+      "durationBeats": 0.5,
+      "measure": 63
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 252,
+      "durationBeats": 3,
+      "measure": 64
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 255,
+      "durationBeats": 0.5,
+      "measure": 64
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 255.5,
+      "durationBeats": 0.5,
+      "measure": 64
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 256,
+      "durationBeats": 0.5,
+      "measure": 65
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 256.5,
+      "durationBeats": 0.5,
+      "measure": 65
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 257,
+      "durationBeats": 0.5,
+      "measure": 65
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 257.5,
+      "durationBeats": 1.5,
+      "measure": 65
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 259,
+      "durationBeats": 1,
+      "measure": 65
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 260,
+      "durationBeats": 2,
+      "measure": 66
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 262,
+      "durationBeats": 0.5,
+      "measure": 66
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 262.5,
+      "durationBeats": 0.5,
+      "measure": 66
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 263,
+      "durationBeats": 0.5,
+      "measure": 66
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 263.5,
+      "durationBeats": 0.5,
+      "measure": 66
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 264,
+      "durationBeats": 0.5,
+      "measure": 67
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 264.5,
+      "durationBeats": 2,
+      "measure": 67
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 266.5,
+      "durationBeats": 0.5,
+      "measure": 67
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 267,
+      "durationBeats": 0.5,
+      "measure": 67
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 267.5,
+      "durationBeats": 0.5,
+      "measure": 67
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 268,
+      "durationBeats": 3,
+      "measure": 68
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 271,
+      "durationBeats": 0.5,
+      "measure": 68
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 271.5,
+      "durationBeats": 0.5,
+      "measure": 68
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 272,
+      "durationBeats": 0.5,
+      "measure": 69
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 272.5,
+      "durationBeats": 0.5,
+      "measure": 69
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 273,
+      "durationBeats": 0.5,
+      "measure": 69
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 273.5,
+      "durationBeats": 1.5,
+      "measure": 69
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 275,
+      "durationBeats": 1,
+      "measure": 69
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 276,
+      "durationBeats": 4,
+      "measure": 70
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 280,
+      "durationBeats": 0.5,
+      "measure": 71
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 280.5,
+      "durationBeats": 0.5,
+      "measure": 71
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 284,
+      "durationBeats": 3,
+      "measure": 72
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 287,
+      "durationBeats": 0.5,
+      "measure": 72
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 287.5,
+      "durationBeats": 0.5,
+      "measure": 72
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 288,
+      "durationBeats": 0.5,
+      "measure": 73
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 288.5,
+      "durationBeats": 0.5,
+      "measure": 73
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 289,
+      "durationBeats": 0.5,
+      "measure": 73
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 289.5,
+      "durationBeats": 1.5,
+      "measure": 73
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 291,
+      "durationBeats": 1,
+      "measure": 73
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 292,
+      "durationBeats": 4,
+      "measure": 74
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 296,
+      "durationBeats": 0.5,
+      "measure": 75
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 296.5,
+      "durationBeats": 1,
+      "measure": 75
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 297.5,
+      "durationBeats": 1,
+      "measure": 75
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 300,
+      "durationBeats": 3,
+      "measure": 76
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 303,
+      "durationBeats": 0.5,
+      "measure": 76
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 303.5,
+      "durationBeats": 0.5,
+      "measure": 76
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 304,
+      "durationBeats": 0.5,
+      "measure": 77
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 304.5,
+      "durationBeats": 0.5,
+      "measure": 77
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 305,
+      "durationBeats": 0.5,
+      "measure": 77
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 305.5,
+      "durationBeats": 1.5,
+      "measure": 77
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 307,
+      "durationBeats": 1,
+      "measure": 77
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 308,
+      "durationBeats": 4,
+      "measure": 78
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 312,
+      "durationBeats": 0.5,
+      "measure": 79
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 312.5,
+      "durationBeats": 0.5,
+      "measure": 79
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 316,
+      "durationBeats": 3,
+      "measure": 80
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 319,
+      "durationBeats": 0.5,
+      "measure": 80
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 319.5,
+      "durationBeats": 0.5,
+      "measure": 80
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 320,
+      "durationBeats": 0.5,
+      "measure": 81
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 320.5,
+      "durationBeats": 0.5,
+      "measure": 81
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 321,
+      "durationBeats": 0.5,
+      "measure": 81
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 321.5,
+      "durationBeats": 1.5,
+      "measure": 81
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 323,
+      "durationBeats": 1,
+      "measure": 81
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 324,
+      "durationBeats": 2,
+      "measure": 82
+    },
+    {
+      "pitchMidi": 74,
+      "beat": 326,
+      "durationBeats": 0.5,
+      "measure": 82
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 326.5,
+      "durationBeats": 0.5,
+      "measure": 82
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 327,
+      "durationBeats": 0.5,
+      "measure": 82
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 327.5,
+      "durationBeats": 0.5,
+      "measure": 82
+    },
+    {
+      "pitchMidi": 79,
+      "beat": 328,
+      "durationBeats": 1.5,
+      "measure": 83
+    },
+    {
+      "pitchMidi": 81,
+      "beat": 329.5,
+      "durationBeats": 0.5,
+      "measure": 83
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 330,
+      "durationBeats": 1,
+      "measure": 83
+    },
+    {
+      "pitchMidi": 86,
+      "beat": 331,
+      "durationBeats": 1,
+      "measure": 83
+    }
+  ]
+}

@@ -1,17 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#0f172a"/>
-  <g fill="#38bdf8">
-    <rect x="96" y="160" width="40" height="192" rx="8"/>
-    <rect x="156" y="160" width="40" height="192" rx="8"/>
-    <rect x="216" y="160" width="40" height="192" rx="8"/>
-    <rect x="276" y="160" width="40" height="192" rx="8"/>
-    <rect x="336" y="160" width="40" height="192" rx="8"/>
-    <rect x="396" y="160" width="40" height="192" rx="8"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe3ec"/>
+      <stop offset="1" stop-color="#ffd9a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <!-- 音符 -->
+  <g fill="#e75f8a">
+    <ellipse cx="180" cy="360" rx="46" ry="34" transform="rotate(-18 180 360)"/>
+    <rect x="216" y="140" width="14" height="222" rx="7"/>
+    <path d="M216 140 C 280 150, 320 180, 330 230 C 300 196, 262 182, 216 178 Z"/>
   </g>
-  <g fill="#22c55e">
-    <rect x="176" y="140" width="20" height="24" rx="4"/>
-    <rect x="296" y="140" width="20" height="24" rx="4"/>
-    <rect x="356" y="140" width="20" height="24" rx="4"/>
+  <!-- 小钢琴 -->
+  <g>
+    <rect x="290" y="300" width="150" height="90" rx="18" fill="#fffdf9" stroke="#e8b7c6" stroke-width="8"/>
+    <g fill="#4a3f3a">
+      <rect x="312" y="300" width="16" height="46" rx="5"/>
+      <rect x="344" y="300" width="16" height="46" rx="5"/>
+      <rect x="388" y="300" width="16" height="46" rx="5"/>
+      <rect x="420" y="300" width="16" height="46" rx="5"/>
+    </g>
   </g>
-  <rect x="106" y="352" width="300" height="16" rx="8" fill="#e2e8f0"/>
+  <!-- 星星点缀 -->
+  <g fill="#ffc94d">
+    <path d="M110 130 l7 16 17 3 -12 12 3 17 -15-8 -15 8 3-17 -12-12 17-3 z"/>
+    <circle cx="420" cy="150" r="9"/>
+    <circle cx="90" cy="250" r="7"/>
+  </g>
 </svg>

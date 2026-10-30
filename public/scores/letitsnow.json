@@ -1,0 +1,437 @@
+{
+  "id": "letitsnow",
+  "title": "Let It Snow",
+  "level": 3,
+  "levelName": "中级",
+  "kind": "song",
+  "bpm": 110,
+  "divisions": 2,
+  "timeSignature": {
+    "beats": 4,
+    "beatType": 4
+  },
+  "totalMeasures": 12,
+  "totalBeats": 48,
+  "notes": [
+    {
+      "pitchMidi": 69,
+      "beat": 0,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 0.5,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 1,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 1.5,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 2,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 2.5,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 3,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 3.5,
+      "durationBeats": 0.5,
+      "measure": 1
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 4,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 4.5,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 5,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 5.5,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 6,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 6.5,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 7,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 7.5,
+      "durationBeats": 0.5,
+      "measure": 2
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 8,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 8.5,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 9,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 9.5,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 10,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 10.5,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 11,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 11.5,
+      "durationBeats": 0.5,
+      "measure": 3
+    },
+    {
+      "pitchMidi": 58,
+      "beat": 12,
+      "durationBeats": 1,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 13,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 13.5,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 14,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 89,
+      "beat": 14.5,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 15,
+      "durationBeats": 0.5,
+      "measure": 4
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 16,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 63,
+      "beat": 17,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 18,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 61,
+      "beat": 19,
+      "durationBeats": 1,
+      "measure": 5
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 20,
+      "durationBeats": 2,
+      "measure": 6
+    },
+    {
+      "pitchMidi": 69,
+      "beat": 24,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 24.5,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 25,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 25.5,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 67,
+      "beat": 26,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 26.5,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 27,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 27.5,
+      "durationBeats": 0.5,
+      "measure": 7
+    },
+    {
+      "pitchMidi": 65,
+      "beat": 28,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 28.5,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 29,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 29.5,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 30,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 30.5,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 31,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 31.5,
+      "durationBeats": 0.5,
+      "measure": 8
+    },
+    {
+      "pitchMidi": 62,
+      "beat": 32,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 32.5,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 33,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 33.5,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 60,
+      "beat": 34,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 34.5,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 96,
+      "beat": 35,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 84,
+      "beat": 35.5,
+      "durationBeats": 0.5,
+      "measure": 9
+    },
+    {
+      "pitchMidi": 58,
+      "beat": 36,
+      "durationBeats": 1,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 72,
+      "beat": 37,
+      "durationBeats": 0.5,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 77,
+      "beat": 37.5,
+      "durationBeats": 0.5,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 83,
+      "beat": 38,
+      "durationBeats": 0.5,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 89,
+      "beat": 38.5,
+      "durationBeats": 0.5,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 95,
+      "beat": 39,
+      "durationBeats": 0.5,
+      "measure": 10
+    },
+    {
+      "pitchMidi": 64,
+      "beat": 40,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 76,
+      "beat": 41,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 88,
+      "beat": 42,
+      "durationBeats": 1,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 40,
+      "beat": 43,
+      "durationBeats": 0.5,
+      "measure": 11
+    },
+    {
+      "pitchMidi": 28,
+      "beat": 44,
+      "durationBeats": 0.5,
+      "measure": 12
+    }
+  ]
+}

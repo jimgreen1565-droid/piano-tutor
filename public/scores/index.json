@@ -1,15 +1,15 @@
 [
   {
-    "id": "twinkle",
-    "title": "小星星",
+    "id": "rhythm_eighth",
+    "title": "八分音符练习",
     "level": 1,
     "levelName": "入门",
-    "kind": "song",
+    "kind": "exercise",
     "bpm": 60,
-    "totalMeasures": 12,
-    "totalNotes": 42,
-    "totalBeats": 48,
-    "durationSec": 48,
+    "totalMeasures": 3,
+    "totalNotes": 17,
+    "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -32,70 +32,6 @@
     }
   },
   {
-    "id": "frere",
-    "title": "两只老虎",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "song",
-    "bpm": 60,
-    "totalMeasures": 7,
-    "totalNotes": 27,
-    "totalBeats": 28,
-    "durationSec": 28,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "ode",
-    "title": "欢乐颂",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "song",
-    "bpm": 60,
-    "totalMeasures": 8,
-    "totalNotes": 30,
-    "totalBeats": 32,
-    "durationSec": 32,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "jingle",
-    "title": "铃儿响叮当",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "song",
-    "bpm": 60,
-    "totalMeasures": 8,
-    "totalNotes": 25,
-    "totalBeats": 32,
-    "durationSec": 32,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "birthday",
-    "title": "生日快乐",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "song",
-    "bpm": 66,
-    "totalMeasures": 8,
-    "totalNotes": 25,
-    "totalBeats": 24,
-    "durationSec": 22,
-    "timeSignature": {
-      "beats": 3,
-      "beatType": 3
-    }
-  },
-  {
     "id": "fivefinger_c",
     "title": "五指练习 · C 位",
     "level": 1,
@@ -112,8 +48,8 @@
     }
   },
   {
-    "id": "fivefinger_g",
-    "title": "五指练习 · G 位",
+    "id": "fivefinger_d",
+    "title": "五指练习 · D 位",
     "level": 1,
     "levelName": "入门",
     "kind": "exercise",
@@ -144,8 +80,8 @@
     }
   },
   {
-    "id": "fivefinger_d",
-    "title": "五指练习 · D 位",
+    "id": "fivefinger_g",
+    "title": "五指练习 · G 位",
     "level": 1,
     "levelName": "入门",
     "kind": "exercise",
@@ -154,6 +90,38 @@
     "totalNotes": 9,
     "totalBeats": 12,
     "durationSec": 12,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "twinkle",
+    "title": "小星星",
+    "level": 1,
+    "levelName": "入门",
+    "kind": "song",
+    "bpm": 60,
+    "totalMeasures": 12,
+    "totalNotes": 42,
+    "totalBeats": 48,
+    "durationSec": 48,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "arp_c",
+    "title": "C 大调琶音",
+    "level": 1,
+    "levelName": "入门",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 2,
+    "totalNotes": 7,
+    "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -192,38 +160,6 @@
     }
   },
   {
-    "id": "scale_g",
-    "title": "G 大调音阶",
-    "level": 1,
-    "levelName": "入门",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "arp_c",
-    "title": "C 大调琶音",
-    "level": 1,
-    "levelName": "入门",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 2,
-    "totalNotes": 7,
-    "totalBeats": 8,
-    "durationSec": 8,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
     "id": "arp_g",
     "title": "G 大调琶音",
     "level": 1,
@@ -240,14 +176,46 @@
     }
   },
   {
-    "id": "rhythm_eighth",
-    "title": "八分音符练习",
+    "id": "scale_g",
+    "title": "G 大调音阶",
     "level": 1,
     "levelName": "入门",
     "kind": "exercise",
     "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "medley_kids",
+    "title": "儿歌串烧 · 四首连弹",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "song",
+    "bpm": 60,
+    "totalMeasures": 35,
+    "totalNotes": 125,
+    "totalBeats": 140,
+    "durationSec": 140,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "rhythm_dotted",
+    "title": "附点节奏练习",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "exercise",
+    "bpm": 60,
     "totalMeasures": 3,
-    "totalNotes": 17,
+    "totalNotes": 12,
     "totalBeats": 12,
     "durationSec": 12,
     "timeSignature": {
@@ -256,8 +224,72 @@
     }
   },
   {
-    "id": "scale_d",
-    "title": "D 大调音阶",
+    "id": "ode",
+    "title": "欢乐颂",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "song",
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 30,
+    "totalBeats": 32,
+    "durationSec": 32,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "frere",
+    "title": "两只老虎",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "song",
+    "bpm": 60,
+    "totalMeasures": 7,
+    "totalNotes": 27,
+    "totalBeats": 28,
+    "durationSec": 28,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "jingle",
+    "title": "铃儿响叮当",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "song",
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 25,
+    "totalBeats": 32,
+    "durationSec": 32,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "thirds_c",
+    "title": "三度模进 · C",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "fifths_c",
+    "title": "五度模进 · C",
     "level": 2,
     "levelName": "初级",
     "kind": "exercise",
@@ -274,6 +306,54 @@
   {
     "id": "scale_a",
     "title": "A 大调音阶",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "broken_c",
+    "title": "C 分解和弦",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 2,
+    "totalNotes": 8,
+    "totalBeats": 8,
+    "durationSec": 8,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "arp_d",
+    "title": "D 大调琶音",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 2,
+    "totalNotes": 7,
+    "totalBeats": 8,
+    "durationSec": 8,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_d",
+    "title": "D 大调音阶",
     "level": 2,
     "levelName": "初级",
     "kind": "exercise",
@@ -320,38 +400,6 @@
     }
   },
   {
-    "id": "arp_d",
-    "title": "D 大调琶音",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 2,
-    "totalNotes": 7,
-    "totalBeats": 8,
-    "durationSec": 8,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "broken_c",
-    "title": "C 分解和弦",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 2,
-    "totalNotes": 8,
-    "totalBeats": 8,
-    "durationSec": 8,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
     "id": "broken_g",
     "title": "G 分解和弦",
     "level": 2,
@@ -362,230 +410,6 @@
     "totalNotes": 8,
     "totalBeats": 8,
     "durationSec": 8,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "thirds_c",
-    "title": "三度模进 · C",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "fifths_c",
-    "title": "五度模进 · C",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "rhythm_dotted",
-    "title": "附点节奏练习",
-    "level": 2,
-    "levelName": "初级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 3,
-    "totalNotes": 12,
-    "totalBeats": 12,
-    "durationSec": 12,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "scale_c_2o",
-    "title": "C 大调音阶 · 两个八度",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 8,
-    "totalNotes": 29,
-    "totalBeats": 32,
-    "durationSec": 32,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "scale_g_2o",
-    "title": "G 大调音阶 · 两个八度",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 8,
-    "totalNotes": 29,
-    "totalBeats": 32,
-    "durationSec": 32,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "scale_bb",
-    "title": "降 B 大调音阶",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "arp_c_2o",
-    "title": "C 大调琶音 · 两个八度",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 13,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "arp_g_2o",
-    "title": "G 大调琶音 · 两个八度",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 13,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "broken_f",
-    "title": "F 分解和弦",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 2,
-    "totalNotes": 8,
-    "totalBeats": 8,
-    "durationSec": 8,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "broken_d",
-    "title": "D 分解和弦",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 2,
-    "totalNotes": 8,
-    "totalBeats": 8,
-    "durationSec": 8,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "thirds_g",
-    "title": "三度模进 · G",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "sixths_c",
-    "title": "六度模进 · C",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "chromatic_c",
-    "title": "C 半音阶",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 7,
-    "totalNotes": 25,
-    "totalBeats": 28,
-    "durationSec": 28,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "minor_a",
-    "title": "a 和声小调音阶",
-    "level": 3,
-    "levelName": "中级",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -608,10 +432,10 @@
     }
   },
   {
-    "id": "scale_eb",
-    "title": "降 E 大调音阶",
-    "level": 4,
-    "levelName": "进阶",
+    "id": "scale_bb",
+    "title": "降 B 大调音阶",
+    "level": 3,
+    "levelName": "中级",
     "kind": "exercise",
     "bpm": 60,
     "totalMeasures": 4,
@@ -624,195 +448,67 @@
     }
   },
   {
-    "id": "scale_f_2o",
-    "title": "F 大调音阶 · 两个八度",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 8,
-    "totalNotes": 29,
-    "totalBeats": 32,
-    "durationSec": 32,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "scale_a_2o",
-    "title": "A 大调音阶 · 两个八度",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 8,
-    "totalNotes": 29,
-    "totalBeats": 32,
-    "durationSec": 32,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "arp_f_2o",
-    "title": "F 大调琶音 · 两个八度",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 13,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "broken_c_2o",
-    "title": "C 分解和弦 · 两个八度",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 16,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "thirds_c_2o",
-    "title": "三度模进 · C 两个八度",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 8,
-    "totalNotes": 30,
-    "totalBeats": 32,
-    "durationSec": 32,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "sixths_f",
-    "title": "六度模进 · F",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "dom7_c",
-    "title": "C 属七分解",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 3,
-    "totalNotes": 9,
-    "totalBeats": 12,
-    "durationSec": 12,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "dom7_g",
-    "title": "G 属七分解",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 3,
-    "totalNotes": 9,
-    "totalBeats": 12,
-    "durationSec": 12,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "minor_e",
-    "title": "e 和声小调音阶",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "chromatic_g",
-    "title": "G 半音阶",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 7,
-    "totalNotes": 25,
-    "totalBeats": 28,
-    "durationSec": 28,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "fifths_g",
-    "title": "五度模进 · G",
-    "level": 4,
-    "levelName": "进阶",
-    "kind": "exercise",
-    "bpm": 60,
-    "totalMeasures": 4,
-    "totalNotes": 15,
-    "totalBeats": 16,
-    "durationSec": 16,
-    "timeSignature": {
-      "beats": 4,
-      "beatType": 4
-    }
-  },
-  {
-    "id": "medley_kids",
-    "title": "儿歌串烧 · 四首连弹",
-    "level": 2,
-    "levelName": "初级",
+    "id": "canon_d",
+    "title": "卡农 · D大调",
+    "level": 3,
+    "levelName": "中级",
     "kind": "song",
-    "bpm": 60,
-    "totalMeasures": 35,
-    "totalNotes": 125,
-    "totalBeats": 140,
-    "durationSec": 140,
+    "bpm": 72,
+    "totalMeasures": 61,
+    "totalNotes": 338,
+    "totalBeats": 244,
+    "durationSec": 203,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
+    }
+  },
+  {
+    "id": "sixths_c",
+    "title": "六度模进 · C",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "thirds_g",
+    "title": "三度模进 · G",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "birthday",
+    "title": "生日快乐",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "song",
+    "bpm": 66,
+    "totalMeasures": 8,
+    "totalNotes": 25,
+    "totalBeats": 24,
+    "durationSec": 22,
+    "timeSignature": {
+      "beats": 3,
+      "beatType": 3
     }
   },
   {
@@ -848,16 +544,208 @@
     }
   },
   {
-    "id": "scale_cycle8",
-    "title": "八个大调音阶串联",
-    "level": 4,
-    "levelName": "进阶",
+    "id": "itsumo",
+    "title": "永远同在 · 千与千寻",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "song",
+    "bpm": 67,
+    "totalMeasures": 54,
+    "totalNotes": 377,
+    "totalBeats": 216,
+    "durationSec": 193,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "yesterday",
+    "title": "昨日重现",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "song",
+    "bpm": 93,
+    "totalMeasures": 83,
+    "totalNotes": 238,
+    "totalBeats": 332,
+    "durationSec": 214,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "minor_a",
+    "title": "a 和声小调音阶",
+    "level": 3,
+    "levelName": "中级",
     "kind": "exercise",
     "bpm": 60,
-    "totalMeasures": 30,
-    "totalNotes": 120,
-    "totalBeats": 120,
-    "durationSec": 120,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "chromatic_c",
+    "title": "C 半音阶",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 7,
+    "totalNotes": 25,
+    "totalBeats": 28,
+    "durationSec": 28,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "arp_c_2o",
+    "title": "C 大调琶音 · 两个八度",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 13,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_c_2o",
+    "title": "C 大调音阶 · 两个八度",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 29,
+    "totalBeats": 32,
+    "durationSec": 32,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "broken_d",
+    "title": "D 分解和弦",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 2,
+    "totalNotes": 8,
+    "totalBeats": 8,
+    "durationSec": 8,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "broken_f",
+    "title": "F 分解和弦",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 2,
+    "totalNotes": 8,
+    "totalBeats": 8,
+    "durationSec": 8,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "arp_g_2o",
+    "title": "G 大调琶音 · 两个八度",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 13,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_g_2o",
+    "title": "G 大调音阶 · 两个八度",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 29,
+    "totalBeats": 32,
+    "durationSec": 32,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "airg",
+    "title": "G弦上的咏叹调",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "song",
+    "bpm": 102,
+    "totalMeasures": 28,
+    "totalNotes": 222,
+    "totalBeats": 112,
+    "durationSec": 66,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "letitsnow",
+    "title": "Let It Snow",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "song",
+    "bpm": 110,
+    "totalMeasures": 12,
+    "totalNotes": 70,
+    "totalBeats": 48,
+    "durationSec": 26,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "moonriver",
+    "title": "Moon River",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "song",
+    "bpm": 78,
+    "totalMeasures": 22,
+    "totalNotes": 54,
+    "totalBeats": 88,
+    "durationSec": 68,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -874,6 +762,86 @@
     "totalNotes": 56,
     "totalBeats": 56,
     "durationSec": 56,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_cycle8",
+    "title": "八个大调音阶串联",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 30,
+    "totalNotes": 120,
+    "totalBeats": 120,
+    "durationSec": 120,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "pathetique",
+    "title": "悲怆 · 第二乐章",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "song",
+    "bpm": 70,
+    "totalMeasures": 14,
+    "totalNotes": 40,
+    "totalBeats": 56,
+    "durationSec": 48,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_eb",
+    "title": "降 E 大调音阶",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "sixths_f",
+    "title": "六度模进 · F",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "thirds_c_2o",
+    "title": "三度模进 · C 两个八度",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 30,
+    "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -922,6 +890,214 @@
     "totalNotes": 148,
     "totalBeats": 212,
     "durationSec": 133,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "fifths_g",
+    "title": "五度模进 · G",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "nocturne",
+    "title": "肖邦 · 升c小调夜曲",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "song",
+    "bpm": 52,
+    "totalMeasures": 51,
+    "totalNotes": 357,
+    "totalBeats": 204,
+    "durationSec": 235,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "furelise",
+    "title": "致爱丽丝",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "song",
+    "bpm": 159,
+    "totalMeasures": 85,
+    "totalNotes": 552,
+    "totalBeats": 340,
+    "durationSec": 128,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_a_2o",
+    "title": "A 大调音阶 · 两个八度",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 29,
+    "totalBeats": 32,
+    "durationSec": 32,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "broken_c_2o",
+    "title": "C 分解和弦 · 两个八度",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 16,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "dom7_c",
+    "title": "C 属七分解",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 3,
+    "totalNotes": 9,
+    "totalBeats": 12,
+    "durationSec": 12,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "minor_e",
+    "title": "e 和声小调音阶",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 15,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "arp_f_2o",
+    "title": "F 大调琶音 · 两个八度",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 4,
+    "totalNotes": 13,
+    "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_f_2o",
+    "title": "F 大调音阶 · 两个八度",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 8,
+    "totalNotes": 29,
+    "totalBeats": 32,
+    "durationSec": 32,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "chromatic_g",
+    "title": "G 半音阶",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 7,
+    "totalNotes": 25,
+    "totalBeats": 28,
+    "durationSec": 28,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "dom7_g",
+    "title": "G 属七分解",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 3,
+    "totalNotes": 9,
+    "totalBeats": 12,
+    "durationSec": 12,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "riverflows",
+    "title": "River Flows in You",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "song",
+    "bpm": 132,
+    "totalMeasures": 32,
+    "totalNotes": 202,
+    "totalBeats": 128,
+    "durationSec": 58,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "summer",
+    "title": "Summer · 菊次郎的夏天",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "song",
+    "bpm": 120,
+    "totalMeasures": 69,
+    "totalNotes": 266,
+    "totalBeats": 276,
+    "durationSec": 138,
     "timeSignature": {
       "beats": 4,
       "beatType": 4

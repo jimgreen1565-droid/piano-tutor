@@ -57,14 +57,20 @@ function typeFor(beats) {
 
 const midi = new Midi(readFileSync(inFile));
 
-// BPM
-const bpm = midi.header.tempos.length
+// BPM（换算到 40~150 的可练范围：倍半关系换算不改变音与拍的相对位置）
+let bpm = midi.header.tempos.length
   ? Math.round(midi.header.tempos[0].bpm)
   : 60;
+while (bpm > 150) bpm = Math.round(bpm / 2);
+while (bpm < 40) bpm = bpm * 2;
 
-// 选旋律轨：平均音高最高、且音符数 > 20
-const candidates = midi.tracks
-  .filter((t) => t.notes.length > 20)
+// 选旋律轨：排除鼓轨（channel 9）；优先名字含 piano 的；再取平均音高最高的
+const NON_DRUMS = (t) => t.channel !== 9;
+const pianoNamed = midi.tracks.filter(
+  (t) => t.notes.length > 20 && NON_DRUMS(t) && /piano|keyboard/i.test(t.name),
+);
+const candidates = (pianoNamed.length ? pianoNamed : midi.tracks)
+  .filter((t) => t.notes.length > 20 && NON_DRUMS(t))
   .map((t) => ({
     track: t,
     avg: t.notes.reduce((s, n) => s + n.midi, 0) / t.notes.length,
