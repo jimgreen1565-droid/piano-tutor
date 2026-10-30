@@ -10,4 +10,4 @@ dist/
 .DS_Store
 live.js
 
-.cp*
+.cp*.cp7/

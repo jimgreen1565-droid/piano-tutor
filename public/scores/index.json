@@ -9,6 +9,7 @@
     "totalMeasures": 12,
     "totalNotes": 42,
     "totalBeats": 48,
+    "durationSec": 48,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -24,6 +25,7 @@
     "totalMeasures": 8,
     "totalNotes": 26,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -39,6 +41,7 @@
     "totalMeasures": 7,
     "totalNotes": 27,
     "totalBeats": 28,
+    "durationSec": 28,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -54,6 +57,7 @@
     "totalMeasures": 8,
     "totalNotes": 30,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -69,6 +73,7 @@
     "totalMeasures": 8,
     "totalNotes": 25,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -84,6 +89,7 @@
     "totalMeasures": 8,
     "totalNotes": 25,
     "totalBeats": 24,
+    "durationSec": 22,
     "timeSignature": {
       "beats": 3,
       "beatType": 3
@@ -99,6 +105,7 @@
     "totalMeasures": 3,
     "totalNotes": 9,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -114,6 +121,7 @@
     "totalMeasures": 3,
     "totalNotes": 9,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -129,6 +137,7 @@
     "totalMeasures": 3,
     "totalNotes": 9,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -144,6 +153,7 @@
     "totalMeasures": 3,
     "totalNotes": 9,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -159,6 +169,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -174,6 +185,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -189,6 +201,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -204,6 +217,7 @@
     "totalMeasures": 2,
     "totalNotes": 7,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -219,6 +233,7 @@
     "totalMeasures": 2,
     "totalNotes": 7,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -234,6 +249,7 @@
     "totalMeasures": 3,
     "totalNotes": 17,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -249,6 +265,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -264,6 +281,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -279,6 +297,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -294,6 +313,7 @@
     "totalMeasures": 2,
     "totalNotes": 7,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -309,6 +329,7 @@
     "totalMeasures": 2,
     "totalNotes": 7,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -324,6 +345,7 @@
     "totalMeasures": 2,
     "totalNotes": 8,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -339,6 +361,7 @@
     "totalMeasures": 2,
     "totalNotes": 8,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -354,6 +377,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -369,6 +393,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -384,6 +409,7 @@
     "totalMeasures": 3,
     "totalNotes": 12,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -399,6 +425,7 @@
     "totalMeasures": 8,
     "totalNotes": 29,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -414,6 +441,7 @@
     "totalMeasures": 8,
     "totalNotes": 29,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -429,6 +457,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -444,6 +473,7 @@
     "totalMeasures": 4,
     "totalNotes": 13,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -459,6 +489,7 @@
     "totalMeasures": 4,
     "totalNotes": 13,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -474,6 +505,7 @@
     "totalMeasures": 2,
     "totalNotes": 8,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -489,6 +521,7 @@
     "totalMeasures": 2,
     "totalNotes": 8,
     "totalBeats": 8,
+    "durationSec": 8,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -504,6 +537,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -519,6 +553,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -534,6 +569,7 @@
     "totalMeasures": 7,
     "totalNotes": 25,
     "totalBeats": 28,
+    "durationSec": 28,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -549,6 +585,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -564,6 +601,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -579,6 +617,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -594,6 +633,7 @@
     "totalMeasures": 8,
     "totalNotes": 29,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -609,6 +649,7 @@
     "totalMeasures": 8,
     "totalNotes": 29,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -624,6 +665,7 @@
     "totalMeasures": 4,
     "totalNotes": 13,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -639,6 +681,7 @@
     "totalMeasures": 4,
     "totalNotes": 16,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -654,6 +697,7 @@
     "totalMeasures": 8,
     "totalNotes": 30,
     "totalBeats": 32,
+    "durationSec": 32,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -669,6 +713,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -684,6 +729,7 @@
     "totalMeasures": 3,
     "totalNotes": 9,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -699,6 +745,7 @@
     "totalMeasures": 3,
     "totalNotes": 9,
     "totalBeats": 12,
+    "durationSec": 12,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -714,6 +761,7 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -729,6 +777,7 @@
     "totalMeasures": 7,
     "totalNotes": 25,
     "totalBeats": 28,
+    "durationSec": 28,
     "timeSignature": {
       "beats": 4,
       "beatType": 4
@@ -744,6 +793,103 @@
     "totalMeasures": 4,
     "totalNotes": 15,
     "totalBeats": 16,
+    "durationSec": 16,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "medley_kids",
+    "title": "儿歌串烧 · 四首连弹",
+    "level": 2,
+    "levelName": "初级",
+    "kind": "song",
+    "bpm": 60,
+    "totalMeasures": 35,
+    "totalNotes": 125,
+    "totalBeats": 140,
+    "durationSec": 140,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "finger_run1_3o",
+    "title": "手指跑动练习 · 顺进（三个八度）",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 43,
+    "totalNotes": 169,
+    "totalBeats": 172,
+    "durationSec": 172,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "finger_run2_2o",
+    "title": "手指跑动练习 · 折返（两个八度）",
+    "level": 3,
+    "levelName": "中级",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 29,
+    "totalNotes": 113,
+    "totalBeats": 116,
+    "durationSec": 116,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "scale_cycle8",
+    "title": "八个大调音阶串联",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 30,
+    "totalNotes": 120,
+    "totalBeats": 120,
+    "durationSec": 120,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "arp_cycle8",
+    "title": "八个大调琶音串联",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 14,
+    "totalNotes": 56,
+    "totalBeats": 56,
+    "durationSec": 56,
+    "timeSignature": {
+      "beats": 4,
+      "beatType": 4
+    }
+  },
+  {
+    "id": "finger_run3_3o",
+    "title": "手指跑动练习 · 三度折返（三个八度）",
+    "level": 4,
+    "levelName": "进阶",
+    "kind": "exercise",
+    "bpm": 60,
+    "totalMeasures": 39,
+    "totalNotes": 153,
+    "totalBeats": 156,
+    "durationSec": 156,
     "timeSignature": {
       "beats": 4,
       "beatType": 4

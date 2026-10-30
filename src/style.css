@@ -665,3 +665,8 @@ h1 {
   border-radius: 4px;
   padding: 0 4px;
 }
+
+.kind-tag.long {
+  color: #fbbf24;
+  border-color: #92400e;
+}

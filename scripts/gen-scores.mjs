@@ -279,7 +279,46 @@ function eighthSeq() {
   ].map(([name, beats]) => ({ name, beats }));
 }
 
-// ---------- 曲目表（共 50 首） ----------
+// ---------- 长曲生成器 ----------
+
+const MAJOR_OFFSETS = [0, 2, 4, 5, 7, 9, 11];
+
+/** 音阶级数（可超出 7）→ 带正确拼写的音名 */
+function degreeName(key, degree) {
+  const root = parsePitch(KEY_ROOT[key]).midi;
+  const oct = Math.floor(degree / 7);
+  const idx = ((degree % 7) + 7) % 7;
+  const midi = root + oct * 12 + MAJOR_OFFSETS[idx];
+  const [step, alter] = MAJOR_SPELL[key][idx];
+  const nameOct = Math.floor(midi / 12) - 1;
+  return `${step}${alter > 0 ? '#' : alter < 0 ? 'b' : ''}${nameOct}`;
+}
+
+/** 手指跑动练习：固定阶数型逐级上行 */
+function fingerRunSeq(key, pattern, lastStart) {
+  const out = [];
+  for (let s = 0; s <= lastStart; s++) {
+    for (const p of pattern) out.push(q(degreeName(key, s + p)));
+  }
+  out.push(q(degreeName(key, 0)));
+  return out;
+}
+
+/** 多调音阶串联 */
+function scaleCycleSeq(keys, octaves) {
+  const out = [];
+  for (const k of keys) out.push(...scaleSeq(k, octaves));
+  return out;
+}
+
+/** 多调琶音串联 */
+function arpCycleSeq(keys, octaves) {
+  const out = [];
+  for (const k of keys) out.push(...arpSeq(k, octaves));
+  return out;
+}
+
+// ---------- 曲目表 ----------
 
 function ex(id, title, level, seq, ts = TS4, bpm = 60) {
   return { id, title, level, kind: 'exercise', measures: toMeasures(seq, ts.beats), ts, bpm };
@@ -425,12 +464,55 @@ const exercises = [
 
 const pieces = [...songs, ...exercises];
 
+// ---------- 长曲（2 分钟量级） ----------
+
+const songById = Object.fromEntries(songs.map((s) => [s.id, s]));
+
+const ALL_KEYS_8 = ['C', 'G', 'D', 'A', 'E', 'F', 'Bb', 'Eb'];
+
+const longPieces = [
+  {
+    id: 'medley_kids',
+    title: '儿歌串烧 · 四首连弹',
+    level: 2,
+    kind: 'song',
+    ts: TS4,
+    bpm: 60,
+    measures: [
+      ...songById.twinkle.measures,
+      ...songById.mary.measures,
+      ...songById.frere.measures,
+      ...songById.ode.measures,
+    ],
+  },
+  ex(
+    'finger_run1_3o',
+    '手指跑动练习 · 顺进（三个八度）',
+    3,
+    fingerRunSeq('C', [0, 1, 2, 3, 4, 3, 2, 1], 20),
+  ),
+  ex(
+    'finger_run2_2o',
+    '手指跑动练习 · 折返（两个八度）',
+    3,
+    fingerRunSeq('C', [0, 2, 4, 5, 4, 2, 1, 0], 13),
+  ),
+  ex('scale_cycle8', '八个大调音阶串联', 4, scaleCycleSeq(ALL_KEYS_8, 1)),
+  ex('arp_cycle8', '八个大调琶音串联', 4, arpCycleSeq(ALL_KEYS_8, 1)),
+  ex(
+    'finger_run3_3o',
+    '手指跑动练习 · 三度折返（三个八度）',
+    4,
+    fingerRunSeq('C', [0, 2, 4, 6, 4, 2, 0, 2], 18),
+  ),
+];
+
 // ---------- 输出 ----------
 
 const index = [];
 const seen = new Set();
 
-for (const p of pieces) {
+for (const p of [...pieces, ...longPieces]) {
   if (seen.has(p.id)) throw new Error('重复 id: ' + p.id);
   seen.add(p.id);
 
@@ -481,6 +563,7 @@ for (const p of pieces) {
     totalMeasures: p.measures.length,
     totalNotes: flat.length,
     totalBeats: beat,
+    durationSec: Math.round((beat * 60) / p.bpm),
     timeSignature: p.ts,
   });
 }

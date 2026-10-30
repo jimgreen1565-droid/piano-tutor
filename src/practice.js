@@ -133,6 +133,13 @@ function status(html) {
   state.ui.pStatus.innerHTML = html;
 }
 
+function fmtDuration(sec) {
+  if (!sec) return '—';
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m ? `${m}分${String(s).padStart(2, '0')}秒` : `${s}秒`;
+}
+
 async function loadIndex() {
   const res = await fetch(`${BASE}scores/index.json`);
   state.index = await res.json();
@@ -175,16 +182,18 @@ function showPicker(root) {
             p.kind === 'exercise'
               ? '<span class="kind-tag">练习</span>'
               : '';
+          const isLong = (p.durationSec || 0) >= 90;
+          const longTag = isLong ? '<span class="kind-tag long">长曲</span>' : '';
           return `
           <button class="piece-item" data-id="${p.id}">
             <span class="piece-line">
               <span class="piece-name">${p.title}</span>
-              ${kindTag}
+              ${kindTag}${longTag}
               ${hist ? `<span class="piece-best">最好 ${hist.best} 分</span>` : ''}
             </span>
             <span class="piece-sub">${p.totalMeasures} 小节 · ${p.totalNotes} 音符 · ${
               p.timeSignature?.beats || 4
-            }/4 拍</span>
+            }/4 拍 · 约 ${fmtDuration(p.durationSec)}</span>
           </button>`;
         })
         .join('');
@@ -226,7 +235,7 @@ async function openPiece(id, root) {
   const hist = summaryFor(item.id);
   const level = item.level || item.difficulty || 1;
   state.ui.pieceMeta.textContent =
-    `${item.levelName || ''} · ${item.totalMeasures} 小节 · ${item.totalNotes} 音符 · ${item.timeSignature?.beats || 4}/4 拍` +
+    `${item.levelName || ''} · ${item.totalMeasures} 小节 · ${item.totalNotes} 音符 · ${item.timeSignature?.beats || 4}/4 拍 · 约 ${fmtDuration(item.durationSec)}` +
     (hist ? `　|　最好 ${hist.best} 分 · 练过 ${hist.count} 次` : '');
 
   clearReport();
