@@ -220,6 +220,14 @@ function showPicker(root) {
     .join('');
 
   root.querySelector('#report').innerHTML = `
+    <div class="pcard hero">
+      <img class="hero-img" src="${BASE}img/keys.jpg" alt="钢琴黑白键特写" />
+      <div class="hero-scrim"></div>
+      <div class="hero-text">
+        <div class="hero-title">今天练哪一首？</div>
+        <div class="hero-sub">${state.index.length} 首已按难度排好 · 从入门到进阶</div>
+      </div>
+    </div>
     <div class="pcard">
       <div class="plabel" style="margin-bottom:12px">选择曲目 · 共 ${state.index.length} 首（按等级分组，点等级展开）</div>
       ${sections}

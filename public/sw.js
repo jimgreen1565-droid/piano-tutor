@@ -52,7 +52,8 @@ self.addEventListener('fetch', (event) => {
   const isStatic =
     url.pathname.includes('/assets/') ||
     url.pathname.includes('/model/') ||
-    url.pathname.includes('/scores/');
+    url.pathname.includes('/scores/') ||
+    url.pathname.includes('/img/');
 
   if (isStatic) {
     event.respondWith(
