@@ -6,9 +6,10 @@ import { icons } from './icons.js';
 const app = document.getElementById('app');
 
 // 版本号：用来确认 iPad 上跑的确实是新版（缓存排查）
-const VERSION = 'v3.0';
+const VERSION = 'v3.1';
 
 app.innerHTML = `
+  <div class="bg-layer" style="background-image:url('${import.meta.env.BASE_URL}img/bg-keys.jpg')"></div>
   <header class="app-head">
     <h1><span class="logo">${icons.piano()}</span>钢琴陪练 <span class="ver">${VERSION}</span></h1>
     <div class="tabs">
