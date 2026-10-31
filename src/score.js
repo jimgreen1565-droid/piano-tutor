@@ -271,7 +271,7 @@ function buildAdvice(s) {
     const dir = s.octaveShift > 0 ? '高' : '低';
     const oct = Math.abs(s.octaveShift) / 12;
     tips.unshift(
-      `⚠️ 这次识别出的音整体比谱面${dir}了 ${oct} 个八度，这是识别环节的偏差，不是你弹错。`,
+      `注意：这次识别出的音整体比谱面${dir}了 ${oct} 个八度，这是识别环节的偏差，不是你弹错。`,
     );
   }
 
@@ -328,7 +328,7 @@ function buildAdvice(s) {
       .map((m) => `第 ${m.measure} 小节`)
       .join('、');
     tips.push(
-      `🔁 ${list} 在最近几次练习里反复出错，这是你的固定瓶颈，建议单独抽出来慢练，而不是整首反复过。`,
+      `${list} 在最近几次练习里反复出错，这是你的固定瓶颈，建议单独抽出来慢练，而不是整首反复过。`,
     );
   }
 

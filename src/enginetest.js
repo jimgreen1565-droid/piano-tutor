@@ -1,6 +1,7 @@
 // 引擎自检页（原 V0 冒烟测试）：验证「听音」链路是否正常
 import { ensureModel, startCapture, transcribeBlob, getBackend } from './transcribe.js';
 import { midiToName } from './score.js';
+import { icons } from './icons.js';
 
 export function mountEngineTest(root) {
   root.innerHTML = `
@@ -12,7 +13,7 @@ export function mountEngineTest(root) {
 
     <div class="pcard">
       <div class="plabel">录制与识别</div>
-      <button class="btn btn-primary" id="eBtn" disabled>🎙 开始录音</button>
+      <button class="btn btn-primary" id="eBtn" disabled><span class="ic">${icons.mic()}</span>开始录音</button>
       <div class="meter" id="eMeter"><div class="meter-bar" id="eMeterBar"></div></div>
       <div class="notes" id="eNotes"></div>
       <div class="hint">弹几个音，看看能不能被正确识别。这里不做评分，只验证耳朵是否灵。</div>
@@ -84,7 +85,7 @@ export function mountEngineTest(root) {
         say(`<span class="err">失败：${e.message}</span>`);
         log(e.stack || e.message);
       } finally {
-        el.btn.textContent = '🎙 开始录音';
+        el.btn.innerHTML = `<span class="ic">${icons.mic()}</span>开始录音`;
         el.btn.classList.remove('btn-stop');
         el.btn.classList.add('btn-primary');
         el.btn.disabled = false;
@@ -95,7 +96,7 @@ export function mountEngineTest(root) {
     try {
       capture = await startCapture();
       running = true;
-      el.btn.textContent = '⏹ 停止并识别';
+      el.btn.innerHTML = `<span class="ic">${icons.stop()}</span>停止并识别`;
       el.btn.classList.remove('btn-primary');
       el.btn.classList.add('btn-stop');
       say('<span class="ok">录音中…</span>');

@@ -3,6 +3,7 @@ import { evaluate, midiToName } from './score.js';
 import { ensureModel, prepareMic, transcribeBlob, getBackend } from './transcribe.js';
 import { playDemo } from './demo.js';
 import { addRecord, summaryFor, persistentProblems } from './history.js';
+import { icons } from './icons.js';
 
 // 谱面库体积较大，按需加载，避免首屏就下载
 let OSMDClass = null;
@@ -51,7 +52,7 @@ export function mountPractice(root) {
         <div id="scoreHost" class="score-host"></div>
         <div id="cue" class="cue"></div>
       </div>
-      <div class="hint">黄色高亮 = 现在该弹的小节</div>
+      <div class="hint">蓝色高亮 = 现在该弹的小节</div>
     </div>
 
     <div class="pcard">
@@ -70,13 +71,15 @@ export function mountPractice(root) {
         </select>
       </div>
 
-      <button class="btn btn-ghost btn-sm" id="btnDemo" style="margin-top:14px;width:100%">
-        🎧 先听一遍示范
+      <button class="btn btn-ghost" id="btnDemo" style="margin-top:14px">
+        <span class="ic">${icons.headphones()}</span>先听一遍示范
       </button>
       <div class="hint">示范会把每个音弹出来，谱面同步高亮，用来先建立"手感位置"</div>
     </div>
 
-    <button class="btn btn-primary btn-lg" id="btnPractice">▶ 开始练习</button>
+    <button class="btn btn-primary btn-lg" id="btnPractice">
+      <span class="ic">${icons.play()}</span>开始练习
+    </button>
     <div class="status" id="pStatus"></div>
     <div class="meter" id="pMeter"><div class="meter-bar" id="pMeterBar"></div></div>
 
@@ -131,6 +134,11 @@ export function mountPractice(root) {
 
 function status(html) {
   state.ui.pStatus.innerHTML = html;
+}
+
+// 带图标的按钮文案（图标+文字同语言，切换状态时整块替换）
+function setBtn(el, icon, text) {
+  el.innerHTML = `<span class="ic">${icon}</span>${text}`;
 }
 
 function fmtDuration(sec) {
@@ -202,9 +210,9 @@ function showPicker(root) {
         <details class="level-group" ${g.level === 1 ? 'open' : ''}>
           <summary class="level-head">
             <span class="level-badge">${g.name}</span>
-            <span class="level-stars">${'★'.repeat(g.level)}${'☆'.repeat(4 - g.level)}</span>
             <span class="level-count">${g.pieces.length} 首</span>
             <span class="level-desc">${g.desc}</span>
+            <span class="level-chevron">${icons.chevronDown()}</span>
           </summary>
           <div class="level-body">${items}</div>
         </details>`;
@@ -326,12 +334,12 @@ async function startPractice() {
   if (state.demo) {
     state.demo.stop();
     state.demo = null;
-    state.ui.btnDemo.textContent = '🎧 先听一遍示范';
+    setBtn(state.ui.btnDemo, icons.headphones(), '先听一遍示范');
   }
   clearMarks();
   clearReport();
   state.phase = 'counting';
-  state.ui.btnPractice.textContent = '⏹ 结束';
+  setBtn(state.ui.btnPractice, icons.stop(), '结束');
   state.ui.btnPractice.classList.remove('btn-primary');
   state.ui.btnPractice.classList.add('btn-stop');
   state.ui.pMeter.classList.remove('active');
@@ -421,7 +429,7 @@ function highlightMeasure(measureNo) {
         'http://www.w3.org/2000/svg',
         'rect',
       );
-      highlightRect.setAttribute('fill', 'rgba(245, 158, 11, 0.25)');
+      highlightRect.setAttribute('fill', 'rgba(37, 99, 235, 0.10)');
       highlightRect.setAttribute('rx', '5');
       highlightRect.setAttribute('pointer-events', 'none');
       // 插入到最前面，保证在音符下面
@@ -477,7 +485,7 @@ function toggleDemo() {
   if (state.demo) {
     state.demo.stop();
     state.demo = null;
-    state.ui.btnDemo.textContent = '🎧 先听一遍示范';
+    setBtn(state.ui.btnDemo, icons.headphones(), '先听一遍示范');
     state.phase = 'idle';
     clearHighlight();
     status('示范已停止。');
@@ -493,7 +501,7 @@ function toggleDemo() {
   if (!state.scoreJson) return;
 
   state.phase = 'demo';
-  state.ui.btnDemo.textContent = '⏹ 停止示范';
+  setBtn(state.ui.btnDemo, icons.stop(), '停止示范');
   status(`示范播放中（${state.bpm} BPM）…`);
 
   state.demo = playDemo(state.scoreJson, state.bpm, {
@@ -503,7 +511,7 @@ function toggleDemo() {
     },
     onEnd: () => {
       state.demo = null;
-      state.ui.btnDemo.textContent = '🎧 先听一遍示范';
+      setBtn(state.ui.btnDemo, icons.headphones(), '先听一遍示范');
       state.phase = 'idle';
       clearHighlight();
       status('<span class="ok">示范结束，可以开始练了。</span>');
@@ -559,8 +567,8 @@ function markErrors(report) {
         'http://www.w3.org/2000/svg',
         'rect',
       );
-      rect.setAttribute('fill', wrong ? 'rgba(239, 68, 68, 0.32)' : 'rgba(249, 115, 22, 0.32)');
-      rect.setAttribute('stroke', wrong ? '#ef4444' : '#f97316');
+      rect.setAttribute('fill', wrong ? 'rgba(220, 38, 38, 0.14)' : 'rgba(217, 119, 6, 0.14)');
+      rect.setAttribute('stroke', wrong ? '#dc2626' : '#d97706');
       rect.setAttribute('stroke-width', '1.2');
       rect.setAttribute('rx', '3');
       rect.setAttribute('pointer-events', 'none');
@@ -669,7 +677,7 @@ async function stopPractice(silent = false) {
 }
 
 function resetButton() {
-  state.ui.btnPractice.textContent = '▶ 开始练习';
+  setBtn(state.ui.btnPractice, icons.play(), '开始练习');
   state.ui.btnPractice.classList.remove('btn-stop');
   state.ui.btnPractice.classList.add('btn-primary');
 }
@@ -683,7 +691,7 @@ function renderReport(r, notes, prev) {
   const grade =
     r.overall >= 95 ? '优秀' : r.overall >= 80 ? '良好' : r.overall >= 60 ? '及格' : '继续加油';
   const color =
-    r.overall >= 80 ? 'var(--accent2)' : r.overall >= 60 ? 'var(--warn)' : 'var(--danger)';
+    r.overall >= 80 ? 'var(--success)' : r.overall >= 60 ? 'var(--warning)' : 'var(--danger)';
 
   const deltaText =
     prev && typeof prev.last === 'number'
@@ -836,7 +844,7 @@ function diagnosisBlock(d) {
 
   const bottleneck = (d.persistentMeasures || []).length
     ? `<div class="bottleneck">
-         🔁 反复卡住：${d.persistentMeasures
+         反复卡住：${d.persistentMeasures
            .slice(0, 3)
            .map((m) => `第 ${m.measure} 小节（近几次错了 ${m.fails} 次）`)
            .join('、')}
