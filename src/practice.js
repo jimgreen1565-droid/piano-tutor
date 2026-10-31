@@ -4,6 +4,7 @@ import { ensureModel, prepareMic, transcribeBlob, getBackend } from './transcrib
 import { playDemo } from './demo.js';
 import { addRecord, summaryFor, persistentProblems } from './history.js';
 import { icons } from './icons.js';
+import { transposeMusicXml, transposeScore } from './transpose.js';
 
 // 谱面库体积较大，按需加载，避免首屏就下载
 let OSMDClass = null;
@@ -23,13 +24,17 @@ const state = {
   index: [],
   piece: null, // 当前曲目 index 项
   scoreJson: null, // 含逐音时间信息
+  rawXml: null, // 原始 MusicXML（未移调，重载时用）
   osmd: null,
   bpm: 60,
+  transpose: 0, // 半音移调（-24..24），默认 0 = 原调
+  transposeApplied: false, // 当前显示是否已应用移调
   metronome: null,
   mic: null,
   recordStartedAt: 0,
   recordDelayMs: 0,
   demo: null,
+  userScrolling: false, // 用户是否正手动拖动谱面
   phase: 'idle', // idle | counting | recording | processing | report | demo
   ui: {},
 };
@@ -71,6 +76,25 @@ export function mountPractice(root) {
         </select>
       </div>
 
+      <div class="prow" style="margin-top:14px">
+        <div class="plabel">移调</div>
+        <div class="transpose-row">
+          <button class="btn btn-ghost btn-xs" id="transDown">−1</button>
+          <span class="transpose-val" id="transposeLabel">原调</span>
+          <button class="btn btn-ghost btn-xs" id="transUp">＋1</button>
+        </div>
+      </div>
+      <div class="hint">谱子偏高够不着就移低，偏低就移高，选完会自动重排谱面</div>
+
+      <div class="prow" style="margin-top:8px">
+        <div class="plabel">自动滚动</div>
+        <label class="switch-row">
+          <input type="checkbox" id="autoScroll" checked />
+          <span class="switch-ui"></span>
+          <span class="switch-label">跟随小节</span>
+        </label>
+      </div>
+
       <button class="btn btn-ghost" id="btnDemo" style="margin-top:14px">
         <span class="ic">${icons.headphones()}</span>先听一遍示范
       </button>
@@ -96,6 +120,10 @@ export function mountPractice(root) {
     'bpm',
     'bpmLabel',
     'countIn',
+    'transDown',
+    'transUp',
+    'transposeLabel',
+    'autoScroll',
     'btnDemo',
     'btnPractice',
     'btnSwitch',
@@ -106,6 +134,35 @@ export function mountPractice(root) {
   ]) {
     ui[id] = root.querySelector('#' + id);
   }
+
+  // 移调 ±1
+  ui.transDown.addEventListener('click', () => {
+    applyTranspose(state.transpose - 1);
+  });
+  ui.transUp.addEventListener('click', () => {
+    applyTranspose(state.transpose + 1);
+  });
+
+  // 自动滚动开关
+  ui.autoScroll.addEventListener('change', () => {
+    state.autoScroll = ui.autoScroll.checked;
+  });
+  state.autoScroll = ui.autoScroll.checked;
+
+  // 用户手动滚动谱面时，临时暂停自动滚动（避免和手指抢），松手后恢复
+  let scrollTimer = null;
+  ui.scoreHost.addEventListener('wheel', () => {
+    state.userScrolling = true;
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => (state.userScrolling = false), 800);
+  });
+  ui.scoreHost.addEventListener('touchstart', () => {
+    state.userScrolling = true;
+  });
+  ui.scoreHost.addEventListener('touchend', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => (state.userScrolling = false), 800);
+  });
 
   ui.bpm.addEventListener('input', () => {
     state.bpm = Number(ui.bpm.value);
@@ -263,24 +320,10 @@ async function openPiece(id, root) {
   ]);
   const xml = await xmlRes.text();
   state.scoreJson = await jsonRes.json();
-
-  const host = state.ui.scoreHost;
-  host.innerHTML = '';
-
-  if (!state.osmd) {
-    const OpenSheetMusicDisplay = await loadOSMD();
-    state.osmd = new OpenSheetMusicDisplay(host, {
-      autoResize: true,
-      backend: 'svg',
-      drawingParameters: 'compacttight',
-      disableCursor: true,
-    });
-  }
-
-  await state.osmd.load(xml);
-  state.osmd.render();
-  state.currentMeasure = null;
-  clearHighlight();
+  state.rawXml = xml;
+  state.transpose = 0;
+  state.transposeApplied = false;
+  renderScore();
 
   // 诊断用：?hl=3 单独验证高亮；?testmarks=1 验证错音标注
   const qs = new URLSearchParams(location.search);
@@ -323,6 +366,73 @@ async function openPiece(id, root) {
 
   status('<span class="ok">谱面已就绪。可以先「听一遍示范」，再点「开始练习」。</span>');
   console.debug(`谱面加载耗时 ${Math.round(performance.now() - t0)}ms`);
+}
+
+// 按当前移调渲染谱面（每次移调变化后调用）
+async function renderScore() {
+  try {
+    const host = state.ui.scoreHost;
+    if (!host) return;
+    host.innerHTML = '';
+    const st = state.scoreJson;
+    if (!st) return;
+
+    const appliedXml = transposeMusicXml(state.rawXml, state.transpose);
+    const appliedNotes = transposeScore(st, state.transpose);
+    state.scoreJson = appliedNotes;
+    state.transposeApplied = true;
+
+    if (!state.osmd) {
+      const OpenSheetMusicDisplay = await loadOSMD();
+      state.osmd = new OpenSheetMusicDisplay(host, {
+        autoResize: true,
+        backend: 'svg',
+        drawingParameters: 'compacttight',
+        disableCursor: true,
+      });
+    }
+    await state.osmd.load(appliedXml);
+    state.osmd.render();
+    state.currentMeasure = null;
+    clearHighlight();
+    clearMarks();
+  } catch (e) {
+    console.error('renderScore 失败', e);
+  }
+}
+
+// 移调（半音）
+async function applyTranspose(shift) {
+  state.transpose = Math.max(-24, Math.min(24, shift));
+  // 停掉可能正在进行的播放/练习，避免谱面和播放不一致
+  if (state.phase === 'recording' || state.phase === 'counting') {
+    stopPractice(true);
+  }
+  if (state.demo) {
+    state.demo.stop();
+    state.demo = null;
+    setBtn(state.ui.btnDemo, icons.headphones(), '先听一遍示范');
+  }
+  // 重载原始 JSON 再应用，避免在已移调数据上叠加
+  if (state.rawXml) {
+    try {
+      const jres = await fetch(`${BASE}scores/${state.piece.id}.json`);
+      state.scoreJson = await jres.json();
+    } catch {
+      /* 保留当前 */
+    }
+    state.transposeApplied = false;
+    await renderScore();
+    updateTransposeLabel();
+  }
+}
+
+// 刷新移调标签显示
+function updateTransposeLabel() {
+  if (!state.ui.transposeLabel) return;
+  const t = state.transpose;
+  state.ui.transposeLabel.textContent =
+    t === 0 ? '原调' : t % 12 === 0 ? `±${Math.abs(t / 12)} 八度` : `${t > 0 ? '+' : ''}${t}`;
 }
 
 async function startPractice() {
@@ -439,8 +549,43 @@ function highlightMeasure(measureNo) {
     highlightRect.setAttribute('y', String(bbox.y - 8));
     highlightRect.setAttribute('width', String(bbox.width + 16));
     highlightRect.setAttribute('height', String(bbox.height + 16));
+
+    // 自动滚动：让当前小节进入视野（长曲铺满多页时保证跟得上）
+    scrollMeasureIntoView(g);
   } catch {
     /* 高亮失败不影响练习 */
+  }
+}
+
+// 把当前小节滚动到谱面可视区（水平用 bbox 锚定，垂直保持稳定）
+function scrollMeasureIntoView(measureGroup) {
+  try {
+    if (!state.autoScroll) return; // 用户关了自动滚动
+    const host = state.ui.scoreHost;
+    if (!host) return;
+    // 用户手动拖动过谱面时，暂时不自动滚（避免和手指抢控制权）
+    if (state.userScrolling) return;
+
+    const bbox = measureGroup.getBBox();
+    const hostRect = host.getBoundingClientRect();
+    const hostScrollLeft = host.scrollLeft;
+    const hostScrollTop = host.scrollTop;
+
+    // 水平：让当前小节滚到相对视口左 35% 处，留出右边剩余谱面
+    const desiredLeft = bbox.x - hostRect.width * 0.35;
+    if (Math.abs(desiredLeft - hostScrollLeft) > 8) {
+      host.scrollTo({ left: Math.max(0, desiredLeft), behavior: 'smooth' });
+    }
+
+    // 垂直：目标 y 保持在上 1/3 位置，让下方谱面可见
+    if (bbox.y > 0) {
+      const desiredTop = bbox.y - hostRect.height * 0.25;
+      if (Math.abs(desiredTop - hostScrollTop) > 8) {
+        host.scrollTo({ top: Math.max(0, desiredTop), behavior: 'smooth' });
+      }
+    }
+  } catch {
+    /* 滚动失败不影响练习 */
   }
 }
 
