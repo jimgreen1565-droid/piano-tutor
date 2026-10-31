@@ -5,7 +5,7 @@
 
 :root {
   /* 色板（规范 1.1，不许新增） */
-  --bg: #fbfaf8;
+  --bg: #f6f4f0;
   --surface: #f7f8fa;
   --surface-2: #eef0f4;
   --border: #e5e7eb;
@@ -133,7 +133,9 @@ h1 .logo {
 
 .pcard,
 .card {
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: saturate(150%) blur(14px);
+  backdrop-filter: saturate(150%) blur(14px);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 16px;
@@ -498,6 +500,9 @@ details[open] > .level-head .level-chevron {
   position: relative;
 }
 
+.score-host, .stat, .score-row, .debug summary { background: rgba(255,255,255,0.92);
+}
+
 .score-host {
   background: var(--bg);
   border-radius: var(--r-md);
@@ -802,9 +807,9 @@ details[open] > .level-head .level-chevron {
   inset: 0;
   z-index: -1;
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: center;
   background-size: cover;
-  opacity: 0.2;
+  opacity: 0.32;
   pointer-events: none;
-  filter: grayscale(0.4);
+  filter: grayscale(0.25) saturate(1.1);
 }
