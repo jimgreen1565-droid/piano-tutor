@@ -7,7 +7,7 @@ import { loadTheme, applyTheme, mountThemePicker } from './theme.js';
 const app = document.getElementById('app');
 
 // 版本号：用来确认 iPad 上跑的确实是新版（缓存排查）
-const VERSION = 'v3.3';
+const VERSION = 'v3.6';
 
 app.innerHTML = `
   <div class="bg-layer"></div>
