@@ -27,6 +27,68 @@
   --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
+/* ---------- 主题系统 ----------
+   每个主题：背景图 + 卡片色 + 主色 + 文字色
+   body[data-theme=X] 一次性切换全部 token */
+
+body[data-theme='default'] {
+  --bg: #f6f4f0;
+  --card: rgba(255, 255, 255, 0.72);
+  --card-solid: rgba(255, 255, 255, 0.92);
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-img: url('img/bg-keys.jpg');
+  --bg-opacity: 0.32;
+  --text: #111827;
+}
+
+body[data-theme='warm'] {
+  --bg: #f6e9dd;
+  --card: rgba(255, 250, 244, 0.78);
+  --card-solid: rgba(255, 250, 244, 0.94);
+  --primary: #c2571d;
+  --primary-hover: #a54414;
+  --bg-img: url('img/theme/warm.jpg');
+  --bg-opacity: 0.4;
+  --text: #3b2a1e;
+}
+
+body[data-theme='dark'] {
+  --bg: #1a1d24;
+  --card: rgba(30, 34, 44, 0.7);
+  --card-solid: rgba(30, 34, 44, 0.92);
+  --primary: #5b8def;
+  --primary-hover: #4a7ae0;
+  --bg-img: url('img/theme/dark.jpg');
+  --bg-opacity: 0.5;
+  --text: #e8eaf0;
+  --text-2: #aab1c0;
+  --text-3: #7a8292;
+  --border: #3a4150;
+}
+
+body[data-theme='sky'] {
+  --bg: #eef3f7;
+  --card: rgba(250, 253, 255, 0.75);
+  --card-solid: rgba(250, 253, 255, 0.94);
+  --primary: #1e88c8;
+  --primary-hover: #176fa8;
+  --bg-img: url('img/theme/sky.jpg');
+  --bg-opacity: 0.35;
+  --text: #1c2a35;
+}
+
+body[data-theme='rose'] {
+  --bg: #f8ebee;
+  --card: rgba(255, 248, 250, 0.78);
+  --card-solid: rgba(255, 248, 250, 0.94);
+  --primary: #c2456a;
+  --primary-hover: #a9365a;
+  --bg-img: url('img/theme/rose.jpg');
+  --bg-opacity: 0.38;
+  --text: #3b2230;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -133,7 +195,7 @@ h1 .logo {
 
 .pcard,
 .card {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--card, rgba(255, 255, 255, 0.72));
   -webkit-backdrop-filter: saturate(150%) blur(14px);
   backdrop-filter: saturate(150%) blur(14px);
   border: 1px solid var(--border);
@@ -500,10 +562,11 @@ details[open] > .level-head .level-chevron {
   position: relative;
 }
 
-.score-host, .stat, .score-row, .debug summary { background: rgba(255,255,255,0.92);
+.score-host, .stat, .score-row, .debug summary { background: var(--card-solid, rgba(255,255,255,0.92));
 }
 
 .score-host {
+  background: var(--card-solid, rgba(255,255,255,0.92));
   background: var(--bg);
   border-radius: var(--r-md);
   padding: 8px 4px;
@@ -797,19 +860,52 @@ details[open] > .level-head .level-chevron {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-\n
-}
-
-/* ---------- 页面背景纹理 ---------- */
 
 .bg-layer {
   position: fixed;
   inset: 0;
   z-index: -1;
+  background-image: var(--bg-img);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: 0.32;
+  opacity: var(--bg-opacity, 0.32);
   pointer-events: none;
   filter: grayscale(0.25) saturate(1.1);
+  transition: opacity 0.3s ease;
+}
+
+/* ---------- 主题选择器 ---------- */
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-picker {
+  display: flex;
+  gap: 6px;
+}
+
+.theme-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--sw);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  box-shadow: var(--shadow-1);
+}
+
+.theme-swatch:hover {
+  transform: scale(1.15);
+}
+
+.theme-swatch.active {
+  border-color: var(--ring, var(--primary));
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--ring, var(--primary));
 }

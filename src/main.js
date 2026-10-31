@@ -2,16 +2,20 @@ import './style.css';
 import { mountPractice } from './practice.js';
 import { mountEngineTest } from './enginetest.js';
 import { icons } from './icons.js';
+import { loadTheme, applyTheme, mountThemePicker } from './theme.js';
 
 const app = document.getElementById('app');
 
 // 版本号：用来确认 iPad 上跑的确实是新版（缓存排查）
-const VERSION = 'v3.1';
+const VERSION = 'v3.3';
 
 app.innerHTML = `
-  <div class="bg-layer" style="background-image:url('${import.meta.env.BASE_URL}img/bg-keys.jpg')"></div>
+  <div class="bg-layer"></div>
   <header class="app-head">
-    <h1><span class="logo">${icons.piano()}</span>钢琴陪练 <span class="ver">${VERSION}</span></h1>
+    <div class="titlebar">
+      <h1><span class="logo">${icons.piano()}</span>钢琴陪练 <span class="ver">${VERSION}</span></h1>
+      <div id="themePicker"></div>
+    </div>
     <div class="tabs">
       <button class="tab active" data-tab="practice">练习</button>
       <button class="tab" data-tab="engine">引擎自检</button>
@@ -19,6 +23,10 @@ app.innerHTML = `
   </header>
   <main id="view"></main>
 `;
+
+// 应用保存的主题
+applyTheme(loadTheme());
+mountThemePicker(document.getElementById('themePicker'));
 
 const view = document.getElementById('view');
 const tabs = [...app.querySelectorAll('.tab')];
