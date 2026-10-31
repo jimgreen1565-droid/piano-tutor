@@ -99,6 +99,7 @@ export function mountPractice(root) {
         <span class="ic">${icons.headphones()}</span>先听一遍示范
       </button>
       <div class="hint">示范会把每个音弹出来，谱面同步高亮，用来先建立"手感位置"</div>
+      <div class="hint">音色为真实三角钢琴录音（Salamander Grand Piano，CC-BY 3.0）</div>
     </div>
 
     <button class="btn btn-primary btn-lg" id="btnPractice">
@@ -186,6 +187,18 @@ export function mountPractice(root) {
     showPicker: () => showPicker(root),
     openPiece: (id) => openPiece(id, root),
     root,
+  };
+}
+
+// 诊断出口：给自动化测试读内部状态（不参与业务逻辑，只读）
+if (typeof window !== 'undefined') {
+  window.__pt = {
+    phase: () => state.phase,
+    measure: () => state.currentMeasure,
+    bpm: () => state.bpm,
+    piece: () => state.pieceId,
+    transpose: () => state.transpose,
+    statusText: () => state.ui.pStatus?.textContent?.trim() || '',
   };
 }
 
@@ -361,6 +374,12 @@ async function openPiece(id, root) {
     });
     renderReport(report, played, { last: report.overall - 6, count: 4, best: report.overall });
     markErrors(report);
+    return;
+  }
+
+  // 诊断用：?testdemo=1 自动开播示范（无头环境验证采样加载链路：状态行会写出实际载到几段采样）
+  if (qs.get('testdemo')) {
+    toggleDemo();
     return;
   }
 
@@ -650,6 +669,7 @@ function toggleDemo() {
   status(`示范播放中（${state.bpm} BPM）…`);
 
   state.demo = playDemo(state.scoreJson, state.bpm, {
+    onStatus: (msg) => status(msg),
     onMeasure: (m) => {
       state.currentMeasure = m;
       highlightMeasure(m);

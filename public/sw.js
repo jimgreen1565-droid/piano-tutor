@@ -53,6 +53,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.includes('/assets/') ||
     url.pathname.includes('/model/') ||
     url.pathname.includes('/scores/') ||
+    url.pathname.includes('/samples/') ||
     url.pathname.includes('/img/');
 
   if (isStatic) {

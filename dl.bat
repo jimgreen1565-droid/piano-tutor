@@ -1,0 +1,37 @@
+@echo off
+rem Salamander Grand Piano 采样（Alexander Holm, CC-BY 3.0）
+rem 注意：升号音文件名是 Ds/Fs，不是 D#/F#；用 %23 编码会拿到 9379B 的 404 HTML 页
+rem 注意：A8 不存在（高位最高到 C8），C0 也不存在
+cd /d "%~dp0"
+mkdir public\samples\piano 2>nul
+curl -s --max-time 40 -o public\samples\piano\A0.mp3 "https://tonejs.github.io/audio/salamander/A0.mp3"
+curl -s --max-time 40 -o public\samples\piano\A1.mp3 "https://tonejs.github.io/audio/salamander/A1.mp3"
+curl -s --max-time 40 -o public\samples\piano\A2.mp3 "https://tonejs.github.io/audio/salamander/A2.mp3"
+curl -s --max-time 40 -o public\samples\piano\A3.mp3 "https://tonejs.github.io/audio/salamander/A3.mp3"
+curl -s --max-time 40 -o public\samples\piano\A4.mp3 "https://tonejs.github.io/audio/salamander/A4.mp3"
+curl -s --max-time 40 -o public\samples\piano\A5.mp3 "https://tonejs.github.io/audio/salamander/A5.mp3"
+curl -s --max-time 40 -o public\samples\piano\A6.mp3 "https://tonejs.github.io/audio/salamander/A6.mp3"
+curl -s --max-time 40 -o public\samples\piano\A7.mp3 "https://tonejs.github.io/audio/salamander/A7.mp3"
+curl -s --max-time 40 -o public\samples\piano\C1.mp3 "https://tonejs.github.io/audio/salamander/C1.mp3"
+curl -s --max-time 40 -o public\samples\piano\C2.mp3 "https://tonejs.github.io/audio/salamander/C2.mp3"
+curl -s --max-time 40 -o public\samples\piano\C3.mp3 "https://tonejs.github.io/audio/salamander/C3.mp3"
+curl -s --max-time 40 -o public\samples\piano\C4.mp3 "https://tonejs.github.io/audio/salamander/C4.mp3"
+curl -s --max-time 40 -o public\samples\piano\C5.mp3 "https://tonejs.github.io/audio/salamander/C5.mp3"
+curl -s --max-time 40 -o public\samples\piano\C6.mp3 "https://tonejs.github.io/audio/salamander/C6.mp3"
+curl -s --max-time 40 -o public\samples\piano\C7.mp3 "https://tonejs.github.io/audio/salamander/C7.mp3"
+curl -s --max-time 40 -o public\samples\piano\C8.mp3 "https://tonejs.github.io/audio/salamander/C8.mp3"
+curl -s --max-time 40 -o public\samples\piano\Ds1.mp3 "https://tonejs.github.io/audio/salamander/Ds1.mp3"
+curl -s --max-time 40 -o public\samples\piano\Ds2.mp3 "https://tonejs.github.io/audio/salamander/Ds2.mp3"
+curl -s --max-time 40 -o public\samples\piano\Ds3.mp3 "https://tonejs.github.io/audio/salamander/Ds3.mp3"
+curl -s --max-time 40 -o public\samples\piano\Ds4.mp3 "https://tonejs.github.io/audio/salamander/Ds4.mp3"
+curl -s --max-time 40 -o public\samples\piano\Ds5.mp3 "https://tonejs.github.io/audio/salamander/Ds5.mp3"
+curl -s --max-time 40 -o public\samples\piano\Ds6.mp3 "https://tonejs.github.io/audio/salamander/Ds6.mp3"
+curl -s --max-time 40 -o public\samples\piano\Ds7.mp3 "https://tonejs.github.io/audio/salamander/Ds7.mp3"
+curl -s --max-time 40 -o public\samples\piano\Fs1.mp3 "https://tonejs.github.io/audio/salamander/Fs1.mp3"
+curl -s --max-time 40 -o public\samples\piano\Fs2.mp3 "https://tonejs.github.io/audio/salamander/Fs2.mp3"
+curl -s --max-time 40 -o public\samples\piano\Fs3.mp3 "https://tonejs.github.io/audio/salamander/Fs3.mp3"
+curl -s --max-time 40 -o public\samples\piano\Fs4.mp3 "https://tonejs.github.io/audio/salamander/Fs4.mp3"
+curl -s --max-time 40 -o public\samples\piano\Fs5.mp3 "https://tonejs.github.io/audio/salamander/Fs5.mp3"
+curl -s --max-time 40 -o public\samples\piano\Fs6.mp3 "https://tonejs.github.io/audio/salamander/Fs6.mp3"
+curl -s --max-time 40 -o public\samples\piano\Fs7.mp3 "https://tonejs.github.io/audio/salamander/Fs7.mp3"
+echo DONE
