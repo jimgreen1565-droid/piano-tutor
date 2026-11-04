@@ -1,0 +1,582 @@
+{
+ "clips": {
+  "f:octave_head": {
+   "id": "085464aded",
+   "file": "clips/085464aded.mp3",
+   "text": "先说一句，这次听出来的音整体比谱面",
+   "dur": 3.528
+  },
+  "f:higher": {
+   "id": "3b80c30470",
+   "file": "clips/3b80c30470.mp3",
+   "text": "高了",
+   "dur": 0.504
+  },
+  "f:lower": {
+   "id": "5d9ecaa652",
+   "file": "clips/5d9ecaa652.mp3",
+   "text": "低了",
+   "dur": 0.456
+  },
+  "f:octave_tail": {
+   "id": "b8e086aa8e",
+   "file": "clips/b8e086aa8e.mp3",
+   "text": "个八度，这是麦克风识别的问题，不是你弹错。下面按位置说。",
+   "dur": 5.472
+  },
+  "f:shift_head": {
+   "id": "d6ee2248ef",
+   "file": "clips/d6ee2248ef.mp3",
+   "text": "另外整体节奏偏",
+   "dur": 1.416
+  },
+  "f:faster": {
+   "id": "da030b8c37",
+   "file": "clips/da030b8c37.mp3",
+   "text": "快了",
+   "dur": 0.432
+  },
+  "f:slower": {
+   "id": "e59a957547",
+   "file": "clips/e59a957547.mp3",
+   "text": "慢了",
+   "dur": 0.336
+  },
+  "f:shift_mid": {
+   "id": "96e1eaef65",
+   "file": "clips/96e1eaef65.mp3",
+   "text": "毫秒，但每次都偏得很一致。",
+   "dur": 2.568
+  },
+  "f:shift_tail": {
+   "id": "322223f058",
+   "file": "clips/322223f058.mp3",
+   "text": "这里面有一部分是录音启动的延迟，不全怪你。",
+   "dur": 3.336
+  },
+  "f:praise_progress_head": {
+   "id": "b399328af6",
+   "file": "clips/b399328af6.mp3",
+   "text": "比上次进步了",
+   "dur": 1.08
+  },
+  "f:score_unit": {
+   "id": "03ad9b1e35",
+   "file": "clips/03ad9b1e35.mp3",
+   "text": "分。",
+   "dur": 0.288
+  },
+  "f:praise_pitch_mid": {
+   "id": "a4ddab0122",
+   "file": "clips/a4ddab0122.mp3",
+   "text": "个音弹对了",
+   "dur": 1.032
+  },
+  "f:praise_pitch_tail": {
+   "id": "a08427002e",
+   "file": "clips/a08427002e.mp3",
+   "text": "个，音准基本没问题。",
+   "dur": 1.848
+  },
+  "f:praise_rhythm_head": {
+   "id": "7aab7942e5",
+   "file": "clips/7aab7942e5.mp3",
+   "text": "节奏很稳，跟节拍器的偏差只有正负",
+   "dur": 3.096
+  },
+  "f:ms_unit": {
+   "id": "48f95dc91d",
+   "file": "clips/48f95dc91d.mp3",
+   "text": "毫秒。",
+   "dur": 0.456
+  },
+  "f:praise_flow": {
+   "id": "819a84dead",
+   "file": "clips/819a84dead.mp3",
+   "text": "整首一次顺下来了，中间没有卡壳。",
+   "dur": 2.472
+  },
+  "f:praise_head_ok": {
+   "id": "0e9aacfe3e",
+   "file": "clips/0e9aacfe3e.mp3",
+   "text": "开头到",
+   "dur": 1.392
+  },
+  "f:praise_head_ok_tail": {
+   "id": "4867f65495",
+   "file": "clips/4867f65495.mp3",
+   "text": "是顺的。",
+   "dur": 0.696
+  },
+  "f:measure_unit": {
+   "id": "df6baafe69",
+   "file": "clips/df6baafe69.mp3",
+   "text": "小节",
+   "dur": 0.528
+  },
+  "f:ordinal": {
+   "id": "12d5e4c7b2",
+   "file": "clips/12d5e4c7b2.mp3",
+   "text": "第",
+   "dur": 0.408
+  },
+  "f:miss_solo_head": {
+   "id": "4ad1974a45",
+   "file": "clips/4ad1974a45.mp3",
+   "text": "最明显，一共",
+   "dur": 1.488
+  },
+  "f:miss_one_head": {
+   "id": "544d02dc31",
+   "file": "clips/544d02dc31.mp3",
+   "text": "最明显，另外",
+   "dur": 1.728
+  },
+  "f:miss_one_mid": {
+   "id": "57db6b2e2e",
+   "file": "clips/57db6b2e2e.mp3",
+   "text": "也有，一共",
+   "dur": 1.752
+  },
+  "f:miss_many_head": {
+   "id": "b8a92326e6",
+   "file": "clips/b8a92326e6.mp3",
+   "text": "最明显，另外",
+   "dur": 1.728
+  },
+  "f:miss_many_unit": {
+   "id": "1452f96af8",
+   "file": "clips/1452f96af8.mp3",
+   "text": "个小节也有，一共",
+   "dur": 1.416
+  },
+  "f:note_count_unit": {
+   "id": "646af87fd6",
+   "file": "clips/646af87fd6.mp3",
+   "text": "个音",
+   "dur": 0.408
+  },
+  "f:miss_tail": {
+   "id": "9c2ac731a8",
+   "file": "clips/9c2ac731a8.mp3",
+   "text": "没弹出来。通常是手位没提前找好，到那儿就顿了一下。",
+   "dur": 6.528
+  },
+  "f:wrong_mid": {
+   "id": "813f91e606",
+   "file": "clips/813f91e606.mp3",
+   "text": "错了",
+   "dur": 0.288
+  },
+  "f:wrong_tail": {
+   "id": "7292522caf",
+   "file": "clips/7292522caf.mp3",
+   "text": "个音，是",
+   "dur": 1.776
+  },
+  "f:why_big_leap": {
+   "id": "b079353414",
+   "file": "clips/b079353414.mp3",
+   "text": "跨八度的大跳，手位移动没到位。",
+   "dur": 2.472
+  },
+  "f:why_leap": {
+   "id": "c0107e8f79",
+   "file": "clips/c0107e8f79.mp3",
+   "text": "五度以上的跳进，跨度还没形成肌肉记忆。",
+   "dur": 3.216
+  },
+  "f:why_repeat": {
+   "id": "c87f7b8d45",
+   "file": "clips/c87f7b8d45.mp3",
+   "text": "同音重复的地方，容易多按或者提前离键。",
+   "dur": 3.504
+  },
+  "f:why_short": {
+   "id": "1e7106180f",
+   "file": "clips/1e7106180f.mp3",
+   "text": "八分音符连着走的地方，节奏型还没弹匀。",
+   "dur": 3.504
+  },
+  "f:why_first_beat": {
+   "id": "da7f2661c3",
+   "file": "clips/da7f2661c3.mp3",
+   "text": "每个小节第一拍容易犹豫。",
+   "dur": 2.952
+  },
+  "f:note_tail_head": {
+   "id": "4195cc187f",
+   "file": "clips/4195cc187f.mp3",
+   "text": "另外，",
+   "dur": 0.48
+  },
+  "f:note_head": {
+   "id": "0d8c119340",
+   "file": "clips/0d8c119340.mp3",
+   "text": "里有个",
+   "dur": 0.84
+  },
+  "f:note_mid": {
+   "id": "1daab3b2fe",
+   "file": "clips/1daab3b2fe.mp3",
+   "text": "弹成了",
+   "dur": 0.936
+  },
+  "f:rhythm_unstable_head": {
+   "id": "558d424542",
+   "file": "clips/558d424542.mp3",
+   "text": "节奏忽快忽慢，偏差到正负",
+   "dur": 2.928
+  },
+  "f:rhythm_unstable_tail": {
+   "id": "e1d6bc69f1",
+   "file": "clips/e1d6bc69f1.mp3",
+   "text": "毫秒，说明拍子还没吃到心里。",
+   "dur": 2.448
+  },
+  "f:drift_faster": {
+   "id": "50dc766313",
+   "file": "clips/50dc766313.mp3",
+   "text": "后半段明显赶起来了，越弹越快。",
+   "dur": 2.448
+  },
+  "f:drift_faster_tail": {
+   "id": "f7584401e0",
+   "file": "clips/f7584401e0.mp3",
+   "text": "这是最容易听出来的问题。",
+   "dur": 1.584
+  },
+  "f:drift_slower": {
+   "id": "3d096505c9",
+   "file": "clips/3d096505c9.mp3",
+   "text": "后半段慢下来了，越弹越拖。",
+   "dur": 3.024
+  },
+  "f:dyn_light": {
+   "id": "8c0c0e9e14",
+   "file": "clips/8c0c0e9e14.mp3",
+   "text": "整体弹得有点轻，很多琴键没把琴键送到底。",
+   "dur": 3.912
+  },
+  "f:dyn_uneven": {
+   "id": "800fcfbc70",
+   "file": "clips/800fcfbc70.mp3",
+   "text": "力度忽大忽小，句子的起伏还没控制住。",
+   "dur": 3.24
+  },
+  "f:extras_head": {
+   "id": "c633fe256e",
+   "file": "clips/c633fe256e.mp3",
+   "text": "另外还多出",
+   "dur": 1.008
+  },
+  "f:extras_unit": {
+   "id": "43d50c5a65",
+   "file": "clips/43d50c5a65.mp3",
+   "text": "个",
+   "dur": 1.272
+  },
+  "f:extras_tail": {
+   "id": "af8f0a0da6",
+   "file": "clips/af8f0a0da6.mp3",
+   "text": "音，如果是踩了踏板让弦继续共振，那是正常的，不用管。",
+   "dur": 5.784
+  },
+  "f:drill_now": {
+   "id": "61685bb824",
+   "file": "clips/61685bb824.mp3",
+   "text": "现在就练",
+   "dur": 1.104
+  },
+  "f:drill_speed": {
+   "id": "532b100360",
+   "file": "clips/532b100360.mp3",
+   "text": "，速度降到",
+   "dur": 1.392
+  },
+  "f:drill_tail": {
+   "id": "2bea0f425b",
+   "file": "clips/2bea0f425b.mp3",
+   "text": "，慢弹三遍，每遍只盯一个地方。",
+   "dur": 2.832
+  },
+  "f:drill_fast_head": {
+   "id": "bf53fed19b",
+   "file": "clips/bf53fed19b.mp3",
+   "text": "保持现在这样，再把速度提到",
+   "dur": 2.352
+  },
+  "f:drill_fast_tail": {
+   "id": "54715e7a24",
+   "file": "clips/54715e7a24.mp3",
+   "text": "走一遍，或者换一首更难的。",
+   "dur": 2.424
+  },
+  "f:drill_metronome": {
+   "id": "6974e92a34",
+   "file": "clips/6974e92a34.mp3",
+   "text": "开着节拍器再走一遍，后半段刻意压住，听见节拍器再落键，不要往前赶。",
+   "dur": 6.6
+  },
+  "f:drill_count": {
+   "id": "2903b4fb76",
+   "file": "clips/2903b4fb76.mp3",
+   "text": "先不弹，跟着节拍器把整首的拍子拍一遍，再回琴上弹。",
+   "dur": 4.92
+  },
+  "f:drill_dynamics": {
+   "id": "79c217cbb2",
+   "file": "clips/79c217cbb2.mp3",
+   "text": "单独练一遍力度，每个音都弹到底，强的地方真强。",
+   "dur": 4.128
+  },
+  "f:drill_extras": {
+   "id": "43c22b8fa4",
+   "file": "clips/43c22b8fa4.mp3",
+   "text": "一直有多余的音混进来，注意把手放松，弹完及时离键。",
+   "dur": 4.2
+  },
+  "f:drill_slow_head": {
+   "id": "7a90f25c56",
+   "file": "clips/7a90f25c56.mp3",
+   "text": "先把速度降到",
+   "dur": 1.2
+  },
+  "f:drill_slow_tail": {
+   "id": "3bbb303875",
+   "file": "clips/3bbb303875.mp3",
+   "text": "，整首再走一遍，只求把每个音弹准。",
+   "dur": 3.12
+  },
+  "f:next_perfect": {
+   "id": "9f752a5ea6",
+   "file": "clips/9f752a5ea6.mp3",
+   "text": "这一遍已经没什么可挑的了，难点都过了。",
+   "dur": 2.664
+  },
+  "f:next_plain": {
+   "id": "03bf6302c3",
+   "file": "clips/03bf6302c3.mp3",
+   "text": "这次没抓到明显的错处，注意把每个音弹到底、声音立起来。",
+   "dur": 4.56
+  },
+  "f:closing_ok": {
+   "id": "bf754b1686",
+   "file": "clips/bf754b1686.mp3",
+   "text": "准备好了就再来一遍，我听着。",
+   "dur": 1.92
+  },
+  "f:closing_slow": {
+   "id": "f71cbabc6b",
+   "file": "clips/f71cbabc6b.mp3",
+   "text": "慢练比多弹有用，先按这个速度来。",
+   "dur": 2.568
+  },
+  "u:measure": {
+   "id": "be4fc12a2a",
+   "file": "clips/be4fc12a2a.mp3",
+   "text": "小节",
+   "dur": 0.528
+  },
+  "u:ordinal": {
+   "id": "9227aa3a82",
+   "file": "clips/9227aa3a82.mp3",
+   "text": "第",
+   "dur": 0.408
+  },
+  "u:to": {
+   "id": "79e3cbf034",
+   "file": "clips/79e3cbf034.mp3",
+   "text": "到",
+   "dur": 0.36
+  },
+  "u:positive_negative": {
+   "id": "594c0fa0af",
+   "file": "clips/594c0fa0af.mp3",
+   "text": "正负",
+   "dur": 0.72
+  },
+  "n:零": {
+   "id": "ca036d5b75",
+   "file": "clips/ca036d5b75.mp3",
+   "text": "零",
+   "dur": 0.216
+  },
+  "n:一": {
+   "id": "fa04db5edf",
+   "file": "clips/fa04db5edf.mp3",
+   "text": "一",
+   "dur": 0.288
+  },
+  "n:二": {
+   "id": "5b088fc070",
+   "file": "clips/5b088fc070.mp3",
+   "text": "二",
+   "dur": 0.384
+  },
+  "n:三": {
+   "id": "e2b5fa6d37",
+   "file": "clips/e2b5fa6d37.mp3",
+   "text": "三",
+   "dur": 0.384
+  },
+  "n:四": {
+   "id": "75e7ad8380",
+   "file": "clips/75e7ad8380.mp3",
+   "text": "四",
+   "dur": 0.432
+  },
+  "n:五": {
+   "id": "06a3363872",
+   "file": "clips/06a3363872.mp3",
+   "text": "五",
+   "dur": 0.456
+  },
+  "n:六": {
+   "id": "f164be0eba",
+   "file": "clips/f164be0eba.mp3",
+   "text": "六",
+   "dur": 0.36
+  },
+  "n:七": {
+   "id": "21a7bf8230",
+   "file": "clips/21a7bf8230.mp3",
+   "text": "七",
+   "dur": 0.408
+  },
+  "n:八": {
+   "id": "08082b00b6",
+   "file": "clips/08082b00b6.mp3",
+   "text": "八",
+   "dur": 0.336
+  },
+  "n:九": {
+   "id": "e4541ebcd9",
+   "file": "clips/e4541ebcd9.mp3",
+   "text": "九",
+   "dur": 0.432
+  },
+  "n:十": {
+   "id": "319a323600",
+   "file": "clips/319a323600.mp3",
+   "text": "十",
+   "dur": 0.576
+  },
+  "n:二十": {
+   "id": "846d2236e0",
+   "file": "clips/846d2236e0.mp3",
+   "text": "二十",
+   "dur": 0.648
+  },
+  "n:三十": {
+   "id": "06f4c46eea",
+   "file": "clips/06f4c46eea.mp3",
+   "text": "三十",
+   "dur": 0.744
+  },
+  "n:四十": {
+   "id": "6a2b83155b",
+   "file": "clips/6a2b83155b.mp3",
+   "text": "四十",
+   "dur": 1.656
+  },
+  "n:五十": {
+   "id": "ff4f25e37b",
+   "file": "clips/ff4f25e37b.mp3",
+   "text": "五十",
+   "dur": 0.744
+  },
+  "n:六十": {
+   "id": "a242683ae9",
+   "file": "clips/a242683ae9.mp3",
+   "text": "六十",
+   "dur": 1.68
+  },
+  "n:七十": {
+   "id": "a51b8aaf35",
+   "file": "clips/a51b8aaf35.mp3",
+   "text": "七十",
+   "dur": 0.984
+  },
+  "n:八十": {
+   "id": "c8bb24857c",
+   "file": "clips/c8bb24857c.mp3",
+   "text": "八十",
+   "dur": 0.696
+  },
+  "n:九十": {
+   "id": "99eca19909",
+   "file": "clips/99eca19909.mp3",
+   "text": "九十",
+   "dur": 0.624
+  },
+  "n:一百": {
+   "id": "9f4ef3cfd0",
+   "file": "clips/9f4ef3cfd0.mp3",
+   "text": "一百",
+   "dur": 0.456
+  },
+  "n:二百": {
+   "id": "0eccaab564",
+   "file": "clips/0eccaab564.mp3",
+   "text": "二百",
+   "dur": 0.384
+  },
+  "k:C": {
+   "id": "32be2d95a4",
+   "file": "clips/32be2d95a4.mp3",
+   "text": "C",
+   "dur": 0.384
+  },
+  "k:D": {
+   "id": "f56f66bd24",
+   "file": "clips/f56f66bd24.mp3",
+   "text": "D",
+   "dur": 0.288
+  },
+  "k:E": {
+   "id": "128c7f9976",
+   "file": "clips/128c7f9976.mp3",
+   "text": "E",
+   "dur": 0.336
+  },
+  "k:F": {
+   "id": "91e5f275b8",
+   "file": "clips/91e5f275b8.mp3",
+   "text": "F",
+   "dur": 0.264
+  },
+  "k:G": {
+   "id": "e7b6ee8ef0",
+   "file": "clips/e7b6ee8ef0.mp3",
+   "text": "G",
+   "dur": 0.408
+  },
+  "k:A": {
+   "id": "4b54080275",
+   "file": "clips/4b54080275.mp3",
+   "text": "A",
+   "dur": 0.384
+  },
+  "k:B": {
+   "id": "c86287d8f3",
+   "file": "clips/c86287d8f3.mp3",
+   "text": "B",
+   "dur": 0.384
+  },
+  "k:升": {
+   "id": "bcabb75b13",
+   "file": "clips/bcabb75b13.mp3",
+   "text": "升",
+   "dur": 0.336
+  },
+  "k:降": {
+   "id": "744d184e37",
+   "file": "clips/744d184e37.mp3",
+   "text": "降",
+   "dur": 0.336
+  }
+ },
+ "version": 1,
+ "voice": "female_anchor"
+}

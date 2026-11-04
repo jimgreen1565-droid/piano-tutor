@@ -6,6 +6,7 @@ import { addRecord, summaryFor, persistentProblems } from './history.js';
 import { icons } from './icons.js';
 import { transposeMusicXml, transposeScore } from './transpose.js';
 import { coachScript } from './coach.js';
+import { ClipVoice, prepareClips } from './voice-clips.js';
 import {
   ttsSupported,
   speakLines,
@@ -47,7 +48,9 @@ const state = {
   userScrolling: false, // 用户是否正手动拖动谱面
   phase: 'idle', // idle | counting | recording | processing | report | demo
   coach: null, // 本次点评脚本
-  speech: null, // 正在朗读的句柄
+  speech: null, // 正在朗读的句柄（ClipVoice 或系统语音）
+  speechToken: 0, // 递增令牌：停止/重开时作废进行中的异步准备
+  clipVoice: null, // 真人音色片段播放器
   ui: {},
 };
 
@@ -211,6 +214,18 @@ if (typeof window !== 'undefined') {
     piece: () => state.pieceId,
     transpose: () => state.transpose,
     statusText: () => state.ui.pStatus?.textContent?.trim() || '',
+    // 语音链路（自动化验证用）：真人片段是否就绪、当前在念第几句
+    speech: () => ({
+      kind: state.speech === state.clipVoice && state.speech ? 'clips' : state.speech ? 'tts' : 'none',
+      lines: state.coach ? state.coach.lines.length : 0,
+      clipsReady: state.clipVoice && state.clipVoice.manifest
+        ? Object.keys(state.clipVoice.manifest.clips).length
+        : 0,
+      loaded: state.clipVoice ? state.clipVoice.buffers.size : 0,
+      ctx: state.clipVoice && state.clipVoice.ctx ? state.clipVoice.ctx.state : 'none',
+      failures: state.clipVoice ? state.clipVoice.failures.slice(0, 3) : [],
+    }),
+    coachKinds: () => (state.coach ? state.coach.lines.map((l) => l.kind + ':' + l.say.length) : []),
   };
 }
 
@@ -1019,7 +1034,8 @@ function coachBlock(r, notes, prev) {
     )
     .join('');
 
-  const support = ttsSupported();
+  // 语音来自随包发布的真人音色片段库，不依赖浏览器 TTS；系统语音只作兜底
+  const support = true;
   const focus = coach.focus;
 
   return `
@@ -1043,7 +1059,7 @@ function coachBlock(r, notes, prev) {
         ${
           support
             ? `<label class="coach-auto"><input type="checkbox" id="chkAuto"> 每次弹完自动念</label>
-               <span class="coach-note" id="coachVoice">语音：${voiceName()}</span>`
+               <span class="coach-note" id="coachVoice">语音：真人音色</span>`
             : ''
         }
       </div>
@@ -1051,29 +1067,69 @@ function coachBlock(r, notes, prev) {
   `;
 }
 
-/** 读出当前点评（供按钮与自动播报共用） */
-function startCoachSpeech() {
+/** 读出当前点评（供按钮与自动播报共用）。
+ *  优先级：真人音色片段库 → 浏览器系统语音兜底。 */
+async function startCoachSpeech() {
   const coach = state.coach;
-  if (!coach || !ttsSupported()) return;
+  if (!coach) return;
   const list = state.ui.report?.querySelector('#coachLines');
   const btn = state.ui.report?.querySelector('#btnCoach');
   const stopBtn = state.ui.report?.querySelector('#btnCoachStop');
 
-  unlock();
+  unlock(); // 手势里顺手解锁系统语音（兜底路径要用）
   stopCoachSpeech();
+  const token = ++state.speechToken;
   setCoachLine(list, -1);
   if (stopBtn) stopBtn.hidden = false;
+  if (btn) setBtn(btn, icons.speaker(), '准备中…');
+  status('正在准备语音…');
 
+  if (!state.clipVoice) state.clipVoice = new ClipVoice();
+  const cv = state.clipVoice;
+  cv.prime(); // 必须在手势的同步调用栈里建 AudioContext（iOS 的硬要求）
+  const ready = await prepareClips(cv, coach.lines, (msg) => status(msg));
+  if (token !== state.speechToken) return; // 用户中途点了停止
+
+  if (ready) {
+    status('');
+    state.speech = cv;
+    setBtn(btn, icons.stop(), '停止');
+    cv.speakLines(coach.lines, {
+      onLine: (i) => setCoachLine(list, i),
+      onEnd: () => {
+        if (state.speech === cv) state.speech = null;
+        setCoachLine(list, -1);
+        if (stopBtn) stopBtn.hidden = true;
+        setBtn(btn, icons.speaker(), '听点评');
+      },
+    });
+    if (btn) btn.blur();
+    return;
+  }
+
+  // 兜底：系统语音。宁可机器腔，也不能点了没反应。
+  if (!ttsSupported()) {
+    status('');
+    if (stopBtn) stopBtn.hidden = true;
+    setBtn(btn, icons.speaker(), '听点评');
+    const foot = state.ui.report?.querySelector('#coachCard .coach-foot');
+    if (foot) foot.insertAdjacentHTML('afterbegin', '<div class="coach-note">语音没能播放（真人语音包未加载成功，这台设备也不支持系统朗读）。下面文字同样可以看。</div>');
+    return;
+  }
+  status('');
+  setBtn(btn, icons.stop(), '停止');
   state.speech = speakLines(coach.lines, {
     onLine: (i) => setCoachLine(list, i),
     onEnd: () => {
       state.speech = null;
       setCoachLine(list, -1);
       if (stopBtn) stopBtn.hidden = true;
+      setBtn(btn, icons.speaker(), '听点评');
     },
     onError: (msg) => {
       state.speech = null;
       if (stopBtn) stopBtn.hidden = true;
+      setBtn(btn, icons.speaker(), '听点评');
       status(`<span class="warn">${msg}</span>`);
       // iOS 静音开关的情况：文字照给，不假装念过了
       const foot = state.ui.report?.querySelector('#coachCard .coach-foot');
@@ -1096,6 +1152,7 @@ function setCoachLine(list, idx) {
 }
 
 function stopCoachSpeech() {
+  state.speechToken++; // 作废进行中的"准备语音"
   if (state.speech) {
     state.speech.stop();
     state.speech = null;
@@ -1105,6 +1162,8 @@ function stopCoachSpeech() {
   setCoachLine(list, -1);
   const stopBtn = state.ui.report?.querySelector('#btnCoachStop');
   if (stopBtn) stopBtn.hidden = true;
+  const btn = state.ui.report?.querySelector('#btnCoach');
+  if (btn && !btn.hidden) setBtn(btn, icons.speaker(), '听点评');
 }
 
 function wireCoach(r, notes, prev) {
@@ -1178,10 +1237,20 @@ function wireCoach(r, notes, prev) {
     });
   }
 
+  // 语音标签：拿到真人片段清单就写"真人音色"，否则说明将走系统语音
+  if (!state.clipVoice) state.clipVoice = new ClipVoice();
+  state.clipVoice.load().then((m) => {
+    const el = card.querySelector('#coachVoice');
+    if (!el) return;
+    el.textContent = m
+      ? `语音：真人音色（${Object.keys(m.clips).length} 段已就绪）`
+      : `语音：系统朗读（${voiceName()}）`;
+  });
+
   // iOS 的语音表是异步填的：拿到真音色后把提示里的名字刷新
   onVoicesReady(() => {
     const el = card.querySelector('#coachVoice');
-    if (el) el.textContent = `语音：${voiceName()}`;
+    if (el && /系统朗读/.test(el.textContent)) el.textContent = `语音：系统朗读（${voiceName()}）`;
   });
 }
 

@@ -54,6 +54,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.includes('/model/') ||
     url.pathname.includes('/scores/') ||
     url.pathname.includes('/samples/') ||
+    url.pathname.includes('/voice/') ||
     url.pathname.includes('/img/');
 
   if (isStatic) {
