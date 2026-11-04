@@ -5,6 +5,16 @@ import { playDemo } from './demo.js';
 import { addRecord, summaryFor, persistentProblems } from './history.js';
 import { icons } from './icons.js';
 import { transposeMusicXml, transposeScore } from './transpose.js';
+import { coachScript } from './coach.js';
+import {
+  ttsSupported,
+  speakLines,
+  stopSpeaking,
+  unlock,
+  voiceName,
+  pickZhVoice,
+  onVoicesReady,
+} from './voice.js';
 
 // 谱面库体积较大，按需加载，避免首屏就下载
 let OSMDClass = null;
@@ -36,6 +46,8 @@ const state = {
   demo: null,
   userScrolling: false, // 用户是否正手动拖动谱面
   phase: 'idle', // idle | counting | recording | processing | report | demo
+  coach: null, // 本次点评脚本
+  speech: null, // 正在朗读的句柄
   ui: {},
 };
 
@@ -465,6 +477,7 @@ async function startPractice() {
     state.demo = null;
     setBtn(state.ui.btnDemo, icons.headphones(), '先听一遍示范');
   }
+  stopCoachSpeech();
   clearMarks();
   clearReport();
   state.phase = 'counting';
@@ -958,8 +971,10 @@ function renderReport(r, notes, prev) {
 
       ${debugBlock(r)}
 
+      ${coachBlock(r, notes, prev)}
+
       <div class="block">
-        <div class="plabel">讲评</div>
+        <div class="plabel">详细要点</div>
         <ul class="advice">
           ${r.advice.map((t) => `<li>${t}</li>`).join('')}
         </ul>
@@ -970,9 +985,203 @@ function renderReport(r, notes, prev) {
   `;
 
   state.ui.report.querySelector('#btnAgain').addEventListener('click', () => {
+    stopCoachSpeech();
     state.phase = 'idle';
     clearReport();
     startPractice();
+  });
+
+  wireCoach(r, notes, prev);
+}
+
+// ---------- 老师点评（语音指导）----------
+
+const KIND_LABEL = {
+  caution: '说明',
+  praise: '好的地方',
+  issue: '问题',
+  drill: '怎么练',
+  next: '下一步',
+  plain: '提醒',
+  closing: '',
+};
+
+function coachBlock(r, notes, prev) {
+  const coach = coachScript(r, state.scoreJson, notes, { bpm: state.bpm, prev });
+  state.coach = coach;
+
+  const linesHtml = coach.lines
+    .map(
+      (l, i) =>
+        `<li class="coach-line kind-${l.kind}" data-i="${i}">${
+          KIND_LABEL[l.kind] ? `<span class="coach-kind">${KIND_LABEL[l.kind]}</span>` : ''
+        }<span class="coach-text">${l.text}</span></li>`,
+    )
+    .join('');
+
+  const support = ttsSupported();
+  const focus = coach.focus;
+
+  return `
+    <div class="block coach" id="coachCard">
+      <div class="plabel">老师点评</div>
+      <div class="coach-bar">
+        ${
+          support
+            ? `<button class="btn btn-sm btn-primary" id="btnCoach">${icons.speaker()}<span>听点评</span></button>
+               <button class="btn btn-sm" id="btnCoachStop" hidden>${icons.stop()}<span>停止</span></button>`
+            : `<span class="coach-note">这台设备/浏览器不支持语音播报，下面文字同样可以看</span>`
+        }
+        ${
+          focus
+            ? `<button class="btn btn-sm" id="btnCoachRange">${icons.headphones()}<span>试听第 ${focus.from}–${focus.to} 小节</span></button>`
+            : ''
+        }
+      </div>
+      <ol class="coach-lines" id="coachLines">${linesHtml}</ol>
+      <div class="coach-foot">
+        ${
+          support
+            ? `<label class="coach-auto"><input type="checkbox" id="chkAuto"> 每次弹完自动念</label>
+               <span class="coach-note" id="coachVoice">语音：${voiceName()}</span>`
+            : ''
+        }
+      </div>
+    </div>
+  `;
+}
+
+/** 读出当前点评（供按钮与自动播报共用） */
+function startCoachSpeech() {
+  const coach = state.coach;
+  if (!coach || !ttsSupported()) return;
+  const list = state.ui.report?.querySelector('#coachLines');
+  const btn = state.ui.report?.querySelector('#btnCoach');
+  const stopBtn = state.ui.report?.querySelector('#btnCoachStop');
+
+  unlock();
+  stopCoachSpeech();
+  setCoachLine(list, -1);
+  if (stopBtn) stopBtn.hidden = false;
+
+  state.speech = speakLines(coach.lines, {
+    onLine: (i) => setCoachLine(list, i),
+    onEnd: () => {
+      state.speech = null;
+      setCoachLine(list, -1);
+      if (stopBtn) stopBtn.hidden = true;
+    },
+    onError: (msg) => {
+      state.speech = null;
+      if (stopBtn) stopBtn.hidden = true;
+      status(`<span class="warn">${msg}</span>`);
+      // iOS 静音开关的情况：文字照给，不假装念过了
+      const foot = state.ui.report?.querySelector('#coachCard .coach-foot');
+      if (foot) foot.insertAdjacentHTML('afterbegin', `<div class="coach-note">${msg}</div>`);
+    },
+  });
+  if (btn) btn.blur();
+}
+
+function setCoachLine(list, idx) {
+  if (!list) return;
+  list.querySelectorAll('.coach-line').forEach((el) => {
+    const on = Number(el.dataset.i) === idx;
+    el.classList.toggle('on', on);
+    if (on) {
+      const top = el.offsetTop - list.offsetTop - list.clientHeight / 2 + el.clientHeight / 2;
+      list.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+  });
+}
+
+function stopCoachSpeech() {
+  if (state.speech) {
+    state.speech.stop();
+    state.speech = null;
+  }
+  stopSpeaking();
+  const list = state.ui.report?.querySelector('#coachLines');
+  setCoachLine(list, -1);
+  const stopBtn = state.ui.report?.querySelector('#btnCoachStop');
+  if (stopBtn) stopBtn.hidden = true;
+}
+
+function wireCoach(r, notes, prev) {
+  const card = state.ui.report?.querySelector('#coachCard');
+  if (!card) return;
+
+  const btn = card.querySelector('#btnCoach');
+  const stopBtn = card.querySelector('#btnCoachStop');
+  const rangeBtn = card.querySelector('#btnCoachRange');
+  const chk = card.querySelector('#chkAuto');
+
+  if (btn) {
+    btn.addEventListener('click', () => {
+      if (state.speech) {
+        stopCoachSpeech();
+      } else {
+        startCoachSpeech();
+      }
+    });
+  }
+  if (stopBtn) stopBtn.addEventListener('click', stopCoachSpeech);
+
+  if (rangeBtn && state.coach?.focus) {
+    rangeBtn.addEventListener('click', () => {
+      stopCoachSpeech();
+      if (state.demo) {
+        state.demo.stop();
+        state.demo = null;
+      }
+      const f = state.coach.focus;
+      const prevDemoPhase = state.phase;
+      state.phase = 'demo';
+      setBtn(rangeBtn, icons.stop(), `停止（第 ${f.from}–${f.to} 小节）`);
+      status(`试听第 ${f.from} 到 ${f.to} 小节（${f.bpm} BPM）…`);
+      state.demo = playDemo(state.scoreJson, f.bpm, {
+        fromMeasure: f.from,
+        toMeasure: f.to,
+        onStatus: (msg) => status(msg),
+        onMeasure: (m) => {
+          state.currentMeasure = m;
+          highlightMeasure(m);
+        },
+        onEnd: () => {
+          state.demo = null;
+          state.phase = prevDemoPhase === 'demo' ? 'idle' : prevDemoPhase;
+          setBtn(rangeBtn, icons.headphones(), `试听第 ${f.from}–${f.to} 小节`);
+          clearHighlight();
+          status('<span class="ok">这一段听完了，照着慢练三遍。</span>');
+        },
+      });
+    });
+  }
+
+  if (chk) {
+    let auto = false;
+    try {
+      auto = localStorage.getItem('pt.autocoach') === '1';
+    } catch {
+      /* ignore */
+    }
+    chk.checked = auto;
+    if (auto) setTimeout(() => startCoachSpeech(), 350);
+    chk.addEventListener('change', () => {
+      try {
+        localStorage.setItem('pt.autocoach', chk.checked ? '1' : '0');
+      } catch {
+        /* ignore */
+      }
+      if (chk.checked) startCoachSpeech();
+      else stopCoachSpeech();
+    });
+  }
+
+  // iOS 的语音表是异步填的：拿到真音色后把提示里的名字刷新
+  onVoicesReady(() => {
+    const el = card.querySelector('#coachVoice');
+    if (el) el.textContent = `语音：${voiceName()}`;
   });
 }
 

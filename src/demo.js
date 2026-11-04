@@ -78,10 +78,21 @@ function pianoNote(ctx, midi, t0, dur) {
  * @param onStatus 加载/就绪状态回调（用于界面提示"正在准备钢琴音色…"）
  * @returns {{stop: Function}} stop 可在加载完成前调用，会取消本次播放
  */
-export function playDemo(scoreJson, bpm, { onMeasure, onEnd, onStatus } = {}) {
+export function playDemo(scoreJson, bpm, opts = {}) {
+  const { onMeasure, onEnd, onStatus, fromMeasure, toMeasure } = opts;
   const Ctx = window.AudioContext || window.webkitAudioContext;
   const ctx = new Ctx();
   const spb = 60 / bpm;
+
+  // 片段模式：只弹某几小节（教练说"先练第 5 到 8 小节"时用）
+  const ranged = Number.isFinite(fromMeasure) && Number.isFinite(toMeasure);
+  const notes = ranged
+    ? scoreJson.notes.filter((n) => n.measure >= fromMeasure && n.measure <= toMeasure)
+    : scoreJson.notes;
+  const baseBeat = notes.length ? Math.min(...notes.map((n) => n.beat)) : 0;
+  const spanBeats = notes.length
+    ? Math.max(...notes.map((n) => n.beat + (n.durationBeats || 1))) - baseBeat
+    : 0;
 
   let stopped = false;
   let raf = null;
@@ -102,13 +113,15 @@ export function playDemo(scoreJson, bpm, { onMeasure, onEnd, onStatus } = {}) {
     const beat = (ctx.currentTime - startAt) / spb;
 
     if (beat >= 0) {
-      const m = Math.min(totalMeasures, Math.floor(beat / beatsPerBar) + 1);
+      const m = ranged
+        ? Math.min(toMeasure, fromMeasure + Math.floor(beat / beatsPerBar))
+        : Math.min(totalMeasures, Math.floor(beat / beatsPerBar) + 1);
       if (m !== last) {
         last = m;
         onMeasure?.(m);
       }
     }
-    if (beat >= scoreJson.totalBeats + 0.3) {
+    if (beat >= (ranged ? spanBeats : scoreJson.totalBeats) + 0.3) {
       stop();
       onEnd?.();
       return;
@@ -137,7 +150,7 @@ export function playDemo(scoreJson, bpm, { onMeasure, onEnd, onStatus } = {}) {
 
   // 采样就绪后再排音（加载期间界面显示进度，stop 可随时打断）
   (async () => {
-    const midis = scoreJson.notes.map((n) => n.pitchMidi);
+    const midis = notes.map((n) => n.pitchMidi);
     const sampler = new PianoSampler(ctx, master);
     const total = PianoSampler.needed(midis).length;
 
@@ -166,8 +179,8 @@ export function playDemo(scoreJson, bpm, { onMeasure, onEnd, onStatus } = {}) {
 
     startAt = ctx.currentTime + 0.35;
 
-    for (const n of scoreJson.notes) {
-      const t0 = startAt + n.beat * spb;
+    for (const n of notes) {
+      const t0 = startAt + (n.beat - baseBeat) * spb;
       const dur = Math.max(0.2, n.durationBeats * spb * 0.96);
 
       const node = sampler.play(n.pitchMidi, t0, dur, 0.9);
@@ -185,7 +198,7 @@ export function playDemo(scoreJson, bpm, { onMeasure, onEnd, onStatus } = {}) {
     }
 
     loop();
-    onMeasure?.(1);
+    onMeasure?.(ranged ? fromMeasure : 1);
   })();
 
   return { stop };
