@@ -116,6 +116,15 @@ try {
   console.log('点击后 bar 文本:', await evaluate('(() => { const b = document.getElementById("scopeBar"); return b ? (b.textContent||"").replace(/\\s+/g," ").trim() : "none"; })()'));
   console.log('点击后 bar hidden:', await evaluate('(() => { const b = document.getElementById("scopeBar"); return b ? b.hasAttribute("hidden") : null; })()'));
   console.log('状态行:', await evaluate('window.__pt.statusText()'));
+
+  // 「练整首」必须能把范围清掉，否则用户会被困在只练一段里
+  const cleared = await evaluate('(() => { const b = document.getElementById("btnScopeClear"); if (!b) return "no-button"; b.click(); return "clicked"; })()');
+  console.log('练整首点击:', cleared);
+  await sleep(800);
+  console.log('练整首后 scope:', await evaluate('JSON.stringify(window.__pt.scope())'));
+  console.log('练整首后 activeNotes:', await evaluate('window.__pt.activeNotes()'));
+  console.log('练整首后 bar hidden:', await evaluate('(() => { const b = document.getElementById("scopeBar"); return b ? b.hasAttribute("hidden") : null; })()'));
+  console.log('练整首后 bpm:', await evaluate('window.__pt.bpm()'));
 } catch (e) {
   console.log('探测失败:', e.message);
 } finally {
