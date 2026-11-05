@@ -66,6 +66,9 @@ if ('serviceWorker' in navigator) {
       .register(`${import.meta.env.BASE_URL}sw.js`, {
         scope: import.meta.env.BASE_URL,
       })
+      // 主动查一次更新：装了 PWA 的 iPad 可能几周不重启，靠浏览器自己的
+      // sw.js 检查节奏太慢，会让旧缓存（旧 voice/manifest.json）多活很久。
+      .then((reg) => reg.update().catch(() => {}))
       .catch(() => {});
   });
 }
