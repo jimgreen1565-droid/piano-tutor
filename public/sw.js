@@ -6,7 +6,7 @@
 // 缓存名要随版本改：activate 只删「名字不等于 CACHE」的缓存，
 // 名字不变的话老访客会永远吃旧缓存（v3.10 前踩过：旧 voice/manifest.json 一直生效，
 // 新的数字片段 key 全部缺失 → 语音整体退回系统朗读）。
-const CACHE = 'piano-tutor-v3.10';
+const CACHE = 'piano-tutor-v3.11';
 const PRECACHE = ['./', './manifest.json', './icon.svg'];
 
 // 清单类文件不走缓存：必须每次取网络上的最新版本

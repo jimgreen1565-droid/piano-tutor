@@ -99,6 +99,20 @@ try {
   console.log('语音标签:', await waitFor('(document.getElementById("coachVoice")||{}).textContent'));
   console.log('例句字幕:', await waitFor('(document.getElementById("coachLines")||{}).textContent'));
 
+  // 运行时不该再去拉 voice/manifest.json（清单已内联进 bundle）。
+  // 必须在下面探针自己 fetch 之前读，否则会把探针的请求也算进来。
+  // 只认片段库清单 voice/manifest.json —— 根目录那个 ./manifest.json 是 PWA 应用清单，不是一回事
+  const manifestReqs = await evaluate(
+    "performance.getEntriesByType('resource').filter(r=>/voice\\/manifest\\.json/.test(r.name)).map(r=>r.name.split('/').pop())",
+  );
+  console.log(
+    '运行时拉取清单:',
+    JSON.stringify(manifestReqs),
+    Array.isArray(manifestReqs) && manifestReqs.length === 0
+      ? '✅ 没有（清单已内联，不受旧 Service Worker 缓存影响）'
+      : '⚠️ 仍在拉取，需检查',
+  );
+
   // 逐个解码关键片段（这一步不依赖播放，直接证明文件本身是真音频）
   const decoded = await evaluate(`(async () => {
     const m = await (await fetch('voice/manifest.json', {cache:'reload'})).json();
@@ -123,7 +137,16 @@ try {
   );
   console.log('点击听点评:', clicked);
   await sleep(2500);
-  console.log('speech():', await evaluate('JSON.stringify(window.__pt.speech())'));
+  const st = await evaluate('JSON.stringify(window.__pt.speech())');
+  console.log('speech():', st);
+  const parsed = JSON.parse(st || '{}');
+  const ok = parsed.kind === 'clips' && parsed.clipsReady === 283 && (parsed.failures || []).length === 0;
+  console.log(
+    '结论:',
+    ok
+      ? `✅ 真人音色片段库正常（${parsed.clipsReady} 段就绪，本句 ${parsed.loaded} 段已解码，0 失败）`
+      : `❌ 期望 kind=clips / clipsReady=283 / failures=[]，实际 ${st}`,
+  );
   console.log('当前句高亮:', await evaluate('(() => { const el = document.querySelector("#coachLines .coach-line.on"); return el ? el.textContent.slice(0,18) : "(无)"; })()'));
 } catch (e) {
   console.error('探针出错:', e.message);

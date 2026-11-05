@@ -11,6 +11,11 @@
 // 兜底：任何片段缺失（清单没拉到 / 文件 404 / 解码失败）→ 调用方退回 speechSynthesis，
 // 不能出现"点了没声也没提示"。
 
+// 清单内联进 bundle（gen-voice-clips.mjs 生成时同步写出）。
+// 不在运行时上网拉 manifest.json：Service Worker 的缓存优先策略会拿旧清单顶回网络请求，
+// 新的 key（小节短语 / 整读数字）就会全部缺失 → 整体退回系统朗读（用户听到机器人腔）。
+import bundled from './voice-manifest.json';
+
 const BASE = 'voice/';
 const CONCURRENCY = 4;
 const GAP_IN_LINE = 0.045; // 片段之间：留一点点气口，数字和量词才不粘连
@@ -45,23 +50,24 @@ export class ClipVoice {
     return this.ctxRef;
   }
 
-  /** 拉清单（失败返回 null，调用方据此退回系统语音） */
+  /**
+   * 清单随包发布（构建时内联），不依赖网络，也不受旧 Service Worker 缓存影响。
+   * 音频文件是内容寻址的（文件名 = key 的 sha1 前 10 位），可以放心走缓存。
+   */
   async load() {
     if (this.manifest) return this.manifest;
-    try {
-      // 清单必须走网络：片段库改版后 key 会变（v3.10 起数字改整块），
-      // 用旧清单会导致新 key 全部缺失 → prepareClips 整体退回系统朗读（用户听到机器人腔）。
-      // 音频文件是内容寻址的（sha1 文件名），可以放心走缓存。
-      const r = await fetch(BASE + 'manifest.json', { cache: 'no-store' });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      const m = await r.json();
-      if (!m || !m.clips) throw new Error('清单格式不对');
-      this.manifest = m;
-      return m;
-    } catch (e) {
-      this.failures.push('manifest: ' + e.message);
+    const n = bundled && bundled.clips ? Object.keys(bundled.clips).length : 0;
+    if (!n) {
+      this.failures.push('manifest: 内置清单为空（忘了跑 gen-voice-clips.mjs？）');
       return null;
     }
+    this.manifest = bundled;
+    return this.manifest;
+  }
+
+  /** 清单版本号（界面/诊断用） */
+  get clipCount() {
+    return this.manifest && this.manifest.clips ? Object.keys(this.manifest.clips).length : 0;
   }
 
   /** 每句需要的片段（去重） */
@@ -81,8 +87,12 @@ export class ClipVoice {
     const info = this.manifest.clips[key];
     if (!info) throw new Error('no clip ' + key);
     if (this.buffers.has(key)) return this.buffers.get(key);
-    const r = await fetch(BASE + info.file, { cache: 'force-cache' });
-    if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + info.file);
+    let r = await fetch(BASE + info.file, { cache: 'force-cache' });
+    if (!r.ok) {
+      // 老缓存里可能有这条的错误响应，绕开缓存再试一次
+      r = await fetch(BASE + info.file, { cache: 'reload' });
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + info.file);
+    }
     const bytes = await r.arrayBuffer();
     const buf = await this.ctxRef.decodeAudioData(bytes);
     this.buffers.set(key, buf);

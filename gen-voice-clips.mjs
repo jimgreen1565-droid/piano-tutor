@@ -133,6 +133,17 @@ if (process.env.PRUNE !== '0') {
   if (pruned) fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 1), 'utf8');
 }
 
+// ---------- 4. 清单同时打进源码（运行时不再上网拉） ----------
+// 为什么必须内联：老访客的 Service Worker 能拿旧 voice/manifest.json 把网络请求顶回去
+// （缓存优先不看请求的 cache 模式），于是新 key（v3.10 的 q:mof:N / 整读数字）全部缺失
+// → prepareClips 整体退回系统朗读 → 用户听到机器人腔。清单本来就是构建产物，
+// 和片段文件同一次生成，直接 import 进 bundle 最稳：无网络、无缓存、可离线。
+fs.writeFileSync(
+  'src/voice-manifest.json',
+  JSON.stringify({ voice: manifest.voice, clips: manifest.clips }),
+  'utf8',
+);
+
 const totalDur = Object.values(manifest.clips).reduce((n, x) => n + (x.dur || 0), 0);
 const bytes = Object.values(manifest.clips).reduce((n, x) => {
   const p = path.join('public/voice', x.file);

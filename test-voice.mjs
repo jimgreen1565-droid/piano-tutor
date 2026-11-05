@@ -27,6 +27,20 @@ ok(stale.length === 0, `清单里有 ${stale.length} 个模板表已不用的旧
 const textMismatch = inv.filter((c) => manifest.clips[c.key] && manifest.clips[c.key].text !== c.text);
 ok(textMismatch.length === 0, `${textMismatch.length} 个片段音频文本与模板表不一致（需重生成）`);
 
+// 内联进 bundle 的那份清单必须与发布的那份完全一致。
+// 运行时用的是 src/voice-manifest.json（不联网、不受旧 Service Worker 缓存影响），
+// 两份一旦不同步，就会出现"本地测着好、用户那儿缺片段"的幽灵 bug。
+const bundled = JSON.parse(readFileSync(`${DIR}/../../src/voice-manifest.json`, 'utf8'));
+const bKeys = Object.keys(bundled.clips);
+const mKeys = Object.keys(manifest.clips);
+const diffKeys = bKeys.filter((k) => !manifest.clips[k]).concat(mKeys.filter((k) => !bundled.clips[k]));
+ok(
+  diffKeys.length === 0 && bundled.voice === manifest.voice,
+  `src/voice-manifest.json 与 public/voice/manifest.json 不一致（差 ${diffKeys.length} 条，音色 ${bundled.voice} vs ${manifest.voice}）；跑一次 gen-voice-clips.mjs 同步`,
+);
+const bundledDiff = bKeys.filter((k) => bundled.clips[k].file !== manifest.clips[k]?.file);
+ok(bundledDiff.length === 0, `${bundledDiff.length} 个片段的文件名两份清单不一致`);
+
 // ---------- 2. 文件是否都在 ----------
 let bytes = 0;
 for (const [key, info] of Object.entries(manifest.clips)) {
