@@ -24,36 +24,6 @@
    "text": "个八度，这是麦克风识别的问题，不是你弹错。下面按位置说。",
    "dur": 5.472
   },
-  "f:shift_head": {
-   "id": "d6ee2248ef",
-   "file": "clips/d6ee2248ef.mp3",
-   "text": "另外整体节奏偏",
-   "dur": 1.416
-  },
-  "f:faster": {
-   "id": "da030b8c37",
-   "file": "clips/da030b8c37.mp3",
-   "text": "快了",
-   "dur": 0.432
-  },
-  "f:slower": {
-   "id": "e59a957547",
-   "file": "clips/e59a957547.mp3",
-   "text": "慢了",
-   "dur": 0.336
-  },
-  "f:shift_mid": {
-   "id": "96e1eaef65",
-   "file": "clips/96e1eaef65.mp3",
-   "text": "毫秒，但每次都偏得很一致。",
-   "dur": 2.568
-  },
-  "f:shift_tail": {
-   "id": "322223f058",
-   "file": "clips/322223f058.mp3",
-   "text": "这里面有一部分是录音启动的延迟，不全怪你。",
-   "dur": 3.336
-  },
   "f:praise_progress_head": {
    "id": "b399328af6",
    "file": "clips/b399328af6.mp3",
@@ -77,18 +47,6 @@
    "file": "clips/a08427002e.mp3",
    "text": "个，音准基本没问题。",
    "dur": 1.848
-  },
-  "f:praise_rhythm_head": {
-   "id": "7aab7942e5",
-   "file": "clips/7aab7942e5.mp3",
-   "text": "节奏很稳，跟节拍器的偏差只有正负",
-   "dur": 3.096
-  },
-  "f:ms_unit": {
-   "id": "48f95dc91d",
-   "file": "clips/48f95dc91d.mp3",
-   "text": "毫秒。",
-   "dur": 0.456
   },
   "f:praise_flow": {
    "id": "819a84dead",
@@ -221,18 +179,6 @@
    "file": "clips/1daab3b2fe.mp3",
    "text": "弹成了",
    "dur": 0.936
-  },
-  "f:rhythm_unstable_head": {
-   "id": "558d424542",
-   "file": "clips/558d424542.mp3",
-   "text": "节奏忽快忽慢，偏差到正负",
-   "dur": 2.928
-  },
-  "f:rhythm_unstable_tail": {
-   "id": "e1d6bc69f1",
-   "file": "clips/e1d6bc69f1.mp3",
-   "text": "毫秒，说明拍子还没吃到心里。",
-   "dur": 2.448
   },
   "f:drift_faster": {
    "id": "50dc766313",
@@ -396,12 +342,6 @@
    "text": "正负",
    "dur": 0.72
   },
-  "n:零": {
-   "id": "ca036d5b75",
-   "file": "clips/ca036d5b75.mp3",
-   "text": "零",
-   "dur": 0.216
-  },
   "n:一": {
    "id": "fa04db5edf",
    "file": "clips/fa04db5edf.mp3",
@@ -516,12 +456,6 @@
    "text": "一百",
    "dur": 0.456
   },
-  "n:二百": {
-   "id": "0eccaab564",
-   "file": "clips/0eccaab564.mp3",
-   "text": "二百",
-   "dur": 0.384
-  },
   "k:C": {
    "id": "32be2d95a4",
    "file": "clips/32be2d95a4.mp3",
@@ -575,6 +509,1194 @@
    "file": "clips/744d184e37.mp3",
    "text": "降",
    "dur": 0.336
+  },
+  "f:shift_faster": {
+   "id": "1721f144c7",
+   "file": "clips/1721f144c7.mp3",
+   "text": "另外整体速度偏快，而且每次都偏得差不多，这里面有一部分是录音启动的延迟，不全怪你。",
+   "dur": 7.728
+  },
+  "f:shift_slower": {
+   "id": "47e173a4dc",
+   "file": "clips/47e173a4dc.mp3",
+   "text": "另外整体速度偏慢，而且每次都偏得差不多，这也可能是录音启动带来的延迟。",
+   "dur": 6.816
+  },
+  "f:praise_all_ok": {
+   "id": "8934a90a15",
+   "file": "clips/8934a90a15.mp3",
+   "text": "整首都弹下来了，音准基本没问题。",
+   "dur": 2.856
+  },
+  "f:praise_rhythm_ok": {
+   "id": "6fbddd193a",
+   "file": "clips/6fbddd193a.mp3",
+   "text": "节奏挺稳的，拍子基本都落在该落的地方。",
+   "dur": 3.288
+  },
+  "f:miss_count_many": {
+   "id": "47d6b902a0",
+   "file": "clips/47d6b902a0.mp3",
+   "text": "漏的地方不少，通常是手位没提前找好，到那儿就顿了一下。",
+   "dur": 4.776
+  },
+  "f:miss_solo_big": {
+   "id": "500e9a0147",
+   "file": "clips/500e9a0147.mp3",
+   "text": "最明显，漏的地方不少，通常是手位没提前找好，到那儿就顿了一下。",
+   "dur": 6.288
+  },
+  "f:miss_one_big_mid": {
+   "id": "825f985631",
+   "file": "clips/825f985631.mp3",
+   "text": "也有，同样漏得不少，多半也是手位没提前找好。",
+   "dur": 4.68
+  },
+  "f:miss_many_big_unit": {
+   "id": "49fb238c45",
+   "file": "clips/49fb238c45.mp3",
+   "text": "个小节也有，漏得不少，通常都是手位没提前找好。",
+   "dur": 4.728
+  },
+  "f:wrong_mid_many": {
+   "id": "4e1ed5cc1c",
+   "file": "clips/4e1ed5cc1c.mp3",
+   "text": "错得比较多，",
+   "dur": 0.888
+  },
+  "f:rhythm_unstable": {
+   "id": "48d4d46f2b",
+   "file": "clips/48d4d46f2b.mp3",
+   "text": "节奏忽快忽慢，说明拍子还没吃到心里。",
+   "dur": 3.672
+  },
+  "f:extras_many": {
+   "id": "6448234f53",
+   "file": "clips/6448234f53.mp3",
+   "text": "另外还混进来不少多余的声音，踩踏板让弦共振是正常的，不用管。",
+   "dur": 5.808
+  },
+  "n:十一": {
+   "id": "631a17b8a8",
+   "file": "clips/631a17b8a8.mp3",
+   "text": "十一",
+   "dur": 0.576
+  },
+  "n:十二": {
+   "id": "b3fdaf4d9d",
+   "file": "clips/b3fdaf4d9d.mp3",
+   "text": "十二",
+   "dur": 0.48
+  },
+  "n:十三": {
+   "id": "ba363c807c",
+   "file": "clips/ba363c807c.mp3",
+   "text": "十三",
+   "dur": 1.32
+  },
+  "n:十四": {
+   "id": "792e261f19",
+   "file": "clips/792e261f19.mp3",
+   "text": "十四",
+   "dur": 0.744
+  },
+  "n:十五": {
+   "id": "19657e76eb",
+   "file": "clips/19657e76eb.mp3",
+   "text": "十五",
+   "dur": 0.504
+  },
+  "n:十六": {
+   "id": "c8f0449525",
+   "file": "clips/c8f0449525.mp3",
+   "text": "十六",
+   "dur": 0.792
+  },
+  "n:十七": {
+   "id": "fe7f136f50",
+   "file": "clips/fe7f136f50.mp3",
+   "text": "十七",
+   "dur": 1.296
+  },
+  "n:十八": {
+   "id": "8ab58a024a",
+   "file": "clips/8ab58a024a.mp3",
+   "text": "十八",
+   "dur": 0.648
+  },
+  "n:十九": {
+   "id": "7d1ed3e019",
+   "file": "clips/7d1ed3e019.mp3",
+   "text": "十九",
+   "dur": 0.624
+  },
+  "n:二十一": {
+   "id": "47c06bafda",
+   "file": "clips/47c06bafda.mp3",
+   "text": "二十一",
+   "dur": 1.2
+  },
+  "n:二十二": {
+   "id": "d58b5e4fa7",
+   "file": "clips/d58b5e4fa7.mp3",
+   "text": "二十二",
+   "dur": 0.504
+  },
+  "n:二十三": {
+   "id": "89d2f3bfdb",
+   "file": "clips/89d2f3bfdb.mp3",
+   "text": "二十三",
+   "dur": 0.648
+  },
+  "n:二十四": {
+   "id": "470751e7ba",
+   "file": "clips/470751e7ba.mp3",
+   "text": "二十四",
+   "dur": 0.648
+  },
+  "n:二十五": {
+   "id": "efc3028275",
+   "file": "clips/efc3028275.mp3",
+   "text": "二十五",
+   "dur": 0.72
+  },
+  "n:二十六": {
+   "id": "5e0be909f0",
+   "file": "clips/5e0be909f0.mp3",
+   "text": "二十六",
+   "dur": 0.72
+  },
+  "n:二十七": {
+   "id": "ab38aa9b34",
+   "file": "clips/ab38aa9b34.mp3",
+   "text": "二十七",
+   "dur": 0.816
+  },
+  "n:二十八": {
+   "id": "887e268b33",
+   "file": "clips/887e268b33.mp3",
+   "text": "二十八",
+   "dur": 1.248
+  },
+  "n:二十九": {
+   "id": "c5fb2ff5ce",
+   "file": "clips/c5fb2ff5ce.mp3",
+   "text": "二十九",
+   "dur": 0.888
+  },
+  "n:三十一": {
+   "id": "e2c8537032",
+   "file": "clips/e2c8537032.mp3",
+   "text": "三十一",
+   "dur": 1.416
+  },
+  "n:三十二": {
+   "id": "aa9a45e024",
+   "file": "clips/aa9a45e024.mp3",
+   "text": "三十二",
+   "dur": 0.744
+  },
+  "n:三十三": {
+   "id": "244b0989bf",
+   "file": "clips/244b0989bf.mp3",
+   "text": "三十三",
+   "dur": 0.624
+  },
+  "n:三十四": {
+   "id": "9334dd4f96",
+   "file": "clips/9334dd4f96.mp3",
+   "text": "三十四",
+   "dur": 0.672
+  },
+  "n:三十五": {
+   "id": "0648bd5621",
+   "file": "clips/0648bd5621.mp3",
+   "text": "三十五",
+   "dur": 0.864
+  },
+  "n:三十六": {
+   "id": "37b3fc09e8",
+   "file": "clips/37b3fc09e8.mp3",
+   "text": "三十六",
+   "dur": 0.984
+  },
+  "n:三十七": {
+   "id": "33a36d0631",
+   "file": "clips/33a36d0631.mp3",
+   "text": "三十七",
+   "dur": 1.008
+  },
+  "n:三十八": {
+   "id": "ac1bb48841",
+   "file": "clips/ac1bb48841.mp3",
+   "text": "三十八",
+   "dur": 0.768
+  },
+  "n:三十九": {
+   "id": "08f80acc6e",
+   "file": "clips/08f80acc6e.mp3",
+   "text": "三十九",
+   "dur": 0.6
+  },
+  "n:四十一": {
+   "id": "d10f4ae2ee",
+   "file": "clips/d10f4ae2ee.mp3",
+   "text": "四十一",
+   "dur": 1.248
+  },
+  "n:四十二": {
+   "id": "9254fecc5c",
+   "file": "clips/9254fecc5c.mp3",
+   "text": "四十二",
+   "dur": 1.68
+  },
+  "n:四十三": {
+   "id": "e480ce7f09",
+   "file": "clips/e480ce7f09.mp3",
+   "text": "四十三",
+   "dur": 1.224
+  },
+  "n:四十四": {
+   "id": "99c8f17837",
+   "file": "clips/99c8f17837.mp3",
+   "text": "四十四",
+   "dur": 2.592
+  },
+  "n:四十五": {
+   "id": "625b8d82cc",
+   "file": "clips/625b8d82cc.mp3",
+   "text": "四十五",
+   "dur": 1.896
+  },
+  "n:四十六": {
+   "id": "0b35411c94",
+   "file": "clips/0b35411c94.mp3",
+   "text": "四十六",
+   "dur": 0.576
+  },
+  "n:四十七": {
+   "id": "4cd7903ead",
+   "file": "clips/4cd7903ead.mp3",
+   "text": "四十七",
+   "dur": 0.768
+  },
+  "n:四十八": {
+   "id": "e8c4040651",
+   "file": "clips/e8c4040651.mp3",
+   "text": "四十八",
+   "dur": 0.96
+  },
+  "n:四十九": {
+   "id": "5f89bc7841",
+   "file": "clips/5f89bc7841.mp3",
+   "text": "四十九",
+   "dur": 1.104
+  },
+  "n:五十一": {
+   "id": "9c12add403",
+   "file": "clips/9c12add403.mp3",
+   "text": "五十一",
+   "dur": 0.696
+  },
+  "n:五十二": {
+   "id": "bf2c540acc",
+   "file": "clips/bf2c540acc.mp3",
+   "text": "五十二",
+   "dur": 0.696
+  },
+  "n:五十三": {
+   "id": "35a4875fb1",
+   "file": "clips/35a4875fb1.mp3",
+   "text": "五十三",
+   "dur": 1.536
+  },
+  "n:五十四": {
+   "id": "c7ae10b055",
+   "file": "clips/c7ae10b055.mp3",
+   "text": "五十四",
+   "dur": 0.744
+  },
+  "n:五十五": {
+   "id": "ccb831e6af",
+   "file": "clips/ccb831e6af.mp3",
+   "text": "五十五",
+   "dur": 1.608
+  },
+  "n:五十六": {
+   "id": "46e0783366",
+   "file": "clips/46e0783366.mp3",
+   "text": "五十六",
+   "dur": 1.392
+  },
+  "n:五十七": {
+   "id": "82890c2a50",
+   "file": "clips/82890c2a50.mp3",
+   "text": "五十七",
+   "dur": 1.512
+  },
+  "n:五十八": {
+   "id": "0b6ba4d55b",
+   "file": "clips/0b6ba4d55b.mp3",
+   "text": "五十八",
+   "dur": 0.576
+  },
+  "n:五十九": {
+   "id": "4c57363d83",
+   "file": "clips/4c57363d83.mp3",
+   "text": "五十九",
+   "dur": 0.6
+  },
+  "n:六十一": {
+   "id": "b16bdc960f",
+   "file": "clips/b16bdc960f.mp3",
+   "text": "六十一",
+   "dur": 0.696
+  },
+  "n:六十二": {
+   "id": "547bd0bc41",
+   "file": "clips/547bd0bc41.mp3",
+   "text": "六十二",
+   "dur": 1.44
+  },
+  "n:六十三": {
+   "id": "12222024c3",
+   "file": "clips/12222024c3.mp3",
+   "text": "六十三",
+   "dur": 1.344
+  },
+  "n:六十四": {
+   "id": "cb0f146fae",
+   "file": "clips/cb0f146fae.mp3",
+   "text": "六十四",
+   "dur": 1.488
+  },
+  "n:六十五": {
+   "id": "cebe74dd37",
+   "file": "clips/cebe74dd37.mp3",
+   "text": "六十五",
+   "dur": 0.696
+  },
+  "n:六十六": {
+   "id": "f634b14d15",
+   "file": "clips/f634b14d15.mp3",
+   "text": "六十六",
+   "dur": 1.56
+  },
+  "n:六十七": {
+   "id": "14537e17c2",
+   "file": "clips/14537e17c2.mp3",
+   "text": "六十七",
+   "dur": 0.816
+  },
+  "n:六十八": {
+   "id": "b2c5237492",
+   "file": "clips/b2c5237492.mp3",
+   "text": "六十八",
+   "dur": 1.248
+  },
+  "n:六十九": {
+   "id": "3b40860912",
+   "file": "clips/3b40860912.mp3",
+   "text": "六十九",
+   "dur": 1.08
+  },
+  "n:七十一": {
+   "id": "15d976a355",
+   "file": "clips/15d976a355.mp3",
+   "text": "七十一",
+   "dur": 1.224
+  },
+  "n:七十二": {
+   "id": "0b9e1204be",
+   "file": "clips/0b9e1204be.mp3",
+   "text": "七十二",
+   "dur": 0.96
+  },
+  "n:七十三": {
+   "id": "2451a4300c",
+   "file": "clips/2451a4300c.mp3",
+   "text": "七十三",
+   "dur": 0.84
+  },
+  "n:七十四": {
+   "id": "d3192844bc",
+   "file": "clips/d3192844bc.mp3",
+   "text": "七十四",
+   "dur": 0.84
+  },
+  "n:七十五": {
+   "id": "2042d7bea7",
+   "file": "clips/2042d7bea7.mp3",
+   "text": "七十五",
+   "dur": 0.768
+  },
+  "n:七十六": {
+   "id": "a36de7c487",
+   "file": "clips/a36de7c487.mp3",
+   "text": "七十六",
+   "dur": 0.576
+  },
+  "n:七十七": {
+   "id": "b300a0f8e6",
+   "file": "clips/b300a0f8e6.mp3",
+   "text": "七十七",
+   "dur": 0.696
+  },
+  "n:七十八": {
+   "id": "8736e23cfa",
+   "file": "clips/8736e23cfa.mp3",
+   "text": "七十八",
+   "dur": 0.744
+  },
+  "n:七十九": {
+   "id": "4b520a2356",
+   "file": "clips/4b520a2356.mp3",
+   "text": "七十九",
+   "dur": 0.84
+  },
+  "n:八十一": {
+   "id": "4915de207b",
+   "file": "clips/4915de207b.mp3",
+   "text": "八十一",
+   "dur": 0.528
+  },
+  "n:八十二": {
+   "id": "baa4773afd",
+   "file": "clips/baa4773afd.mp3",
+   "text": "八十二",
+   "dur": 0.888
+  },
+  "n:八十三": {
+   "id": "b2a6da63c9",
+   "file": "clips/b2a6da63c9.mp3",
+   "text": "八十三",
+   "dur": 1.272
+  },
+  "n:八十四": {
+   "id": "3485a18446",
+   "file": "clips/3485a18446.mp3",
+   "text": "八十四",
+   "dur": 0.768
+  },
+  "n:八十五": {
+   "id": "1e5e6ee8db",
+   "file": "clips/1e5e6ee8db.mp3",
+   "text": "八十五",
+   "dur": 0.672
+  },
+  "n:八十六": {
+   "id": "a2c3fd3bbf",
+   "file": "clips/a2c3fd3bbf.mp3",
+   "text": "八十六",
+   "dur": 0.936
+  },
+  "n:八十七": {
+   "id": "454fc566b9",
+   "file": "clips/454fc566b9.mp3",
+   "text": "八十七",
+   "dur": 0.672
+  },
+  "n:八十八": {
+   "id": "5804db00b5",
+   "file": "clips/5804db00b5.mp3",
+   "text": "八十八",
+   "dur": 1.368
+  },
+  "n:八十九": {
+   "id": "9b6f429990",
+   "file": "clips/9b6f429990.mp3",
+   "text": "八十九",
+   "dur": 0.792
+  },
+  "n:九十一": {
+   "id": "85200088a1",
+   "file": "clips/85200088a1.mp3",
+   "text": "九十一",
+   "dur": 1.464
+  },
+  "n:九十二": {
+   "id": "0130eb6a54",
+   "file": "clips/0130eb6a54.mp3",
+   "text": "九十二",
+   "dur": 1.512
+  },
+  "n:九十三": {
+   "id": "006c992c89",
+   "file": "clips/006c992c89.mp3",
+   "text": "九十三",
+   "dur": 0.768
+  },
+  "n:九十四": {
+   "id": "a3d9a5db36",
+   "file": "clips/a3d9a5db36.mp3",
+   "text": "九十四",
+   "dur": 1.272
+  },
+  "n:九十五": {
+   "id": "2172cd496a",
+   "file": "clips/2172cd496a.mp3",
+   "text": "九十五",
+   "dur": 0.72
+  },
+  "n:九十六": {
+   "id": "35e88b2ace",
+   "file": "clips/35e88b2ace.mp3",
+   "text": "九十六",
+   "dur": 0.696
+  },
+  "n:九十七": {
+   "id": "957b2b177e",
+   "file": "clips/957b2b177e.mp3",
+   "text": "九十七",
+   "dur": 1.272
+  },
+  "n:九十八": {
+   "id": "19cfbb4710",
+   "file": "clips/19cfbb4710.mp3",
+   "text": "九十八",
+   "dur": 0.72
+  },
+  "n:九十九": {
+   "id": "613b7fefed",
+   "file": "clips/613b7fefed.mp3",
+   "text": "九十九",
+   "dur": 0.888
+  },
+  "n:一百零五": {
+   "id": "9575f77a1f",
+   "file": "clips/9575f77a1f.mp3",
+   "text": "一百零五",
+   "dur": 1.224
+  },
+  "n:一百十": {
+   "id": "6dfd830388",
+   "file": "clips/6dfd830388.mp3",
+   "text": "一百十",
+   "dur": 0.912
+  },
+  "n:一百十五": {
+   "id": "476dc07d7b",
+   "file": "clips/476dc07d7b.mp3",
+   "text": "一百十五",
+   "dur": 1.152
+  },
+  "n:一百二十": {
+   "id": "a8680e3b00",
+   "file": "clips/a8680e3b00.mp3",
+   "text": "一百二十",
+   "dur": 1.224
+  },
+  "n:一百二十五": {
+   "id": "a615fa891f",
+   "file": "clips/a615fa891f.mp3",
+   "text": "一百二十五",
+   "dur": 1.152
+  },
+  "n:一百三十": {
+   "id": "145d525428",
+   "file": "clips/145d525428.mp3",
+   "text": "一百三十",
+   "dur": 1.032
+  },
+  "n:一百三十五": {
+   "id": "c7e6ffacf6",
+   "file": "clips/c7e6ffacf6.mp3",
+   "text": "一百三十五",
+   "dur": 1.008
+  },
+  "n:一百四十": {
+   "id": "1b9d58f59a",
+   "file": "clips/1b9d58f59a.mp3",
+   "text": "一百四十",
+   "dur": 1.2
+  },
+  "n:一百四十五": {
+   "id": "dac57e162a",
+   "file": "clips/dac57e162a.mp3",
+   "text": "一百四十五",
+   "dur": 1.152
+  },
+  "n:一百五十": {
+   "id": "1b714ea5ae",
+   "file": "clips/1b714ea5ae.mp3",
+   "text": "一百五十",
+   "dur": 0.984
+  },
+  "n:一百五十五": {
+   "id": "74a406b63a",
+   "file": "clips/74a406b63a.mp3",
+   "text": "一百五十五",
+   "dur": 0.912
+  },
+  "n:一百六十": {
+   "id": "6a7e6bd4cc",
+   "file": "clips/6a7e6bd4cc.mp3",
+   "text": "一百六十",
+   "dur": 1.416
+  },
+  "n:一百六十五": {
+   "id": "035e90575f",
+   "file": "clips/035e90575f.mp3",
+   "text": "一百六十五",
+   "dur": 1.2
+  },
+  "n:一百七十": {
+   "id": "587768c908",
+   "file": "clips/587768c908.mp3",
+   "text": "一百七十",
+   "dur": 1.104
+  },
+  "n:一百七十五": {
+   "id": "93b09b5d23",
+   "file": "clips/93b09b5d23.mp3",
+   "text": "一百七十五",
+   "dur": 1.392
+  },
+  "n:一百八十": {
+   "id": "a49ff5b71c",
+   "file": "clips/a49ff5b71c.mp3",
+   "text": "一百八十",
+   "dur": 1.128
+  },
+  "n:一百八十五": {
+   "id": "8c695d1e50",
+   "file": "clips/8c695d1e50.mp3",
+   "text": "一百八十五",
+   "dur": 1.296
+  },
+  "n:一百九十": {
+   "id": "49ca73a773",
+   "file": "clips/49ca73a773.mp3",
+   "text": "一百九十",
+   "dur": 1.272
+  },
+  "q:mof:1": {
+   "id": "5b1b1e8f7e",
+   "file": "clips/5b1b1e8f7e.mp3",
+   "text": "第一小节",
+   "dur": 0.816
+  },
+  "q:mof:2": {
+   "id": "63478d3967",
+   "file": "clips/63478d3967.mp3",
+   "text": "第二小节",
+   "dur": 0.792
+  },
+  "q:mof:3": {
+   "id": "7e84aa2c47",
+   "file": "clips/7e84aa2c47.mp3",
+   "text": "第三小节",
+   "dur": 0.888
+  },
+  "q:mof:4": {
+   "id": "8742bab158",
+   "file": "clips/8742bab158.mp3",
+   "text": "第四小节",
+   "dur": 0.768
+  },
+  "q:mof:5": {
+   "id": "b3d3aee034",
+   "file": "clips/b3d3aee034.mp3",
+   "text": "第五小节",
+   "dur": 0.96
+  },
+  "q:mof:6": {
+   "id": "c33472a9c5",
+   "file": "clips/c33472a9c5.mp3",
+   "text": "第六小节",
+   "dur": 1.056
+  },
+  "q:mof:7": {
+   "id": "79f79cb623",
+   "file": "clips/79f79cb623.mp3",
+   "text": "第七小节",
+   "dur": 0.792
+  },
+  "q:mof:8": {
+   "id": "ae2e1312f3",
+   "file": "clips/ae2e1312f3.mp3",
+   "text": "第八小节",
+   "dur": 0.912
+  },
+  "q:mof:9": {
+   "id": "7d094d84d3",
+   "file": "clips/7d094d84d3.mp3",
+   "text": "第九小节",
+   "dur": 0.984
+  },
+  "q:mof:10": {
+   "id": "d324857be2",
+   "file": "clips/d324857be2.mp3",
+   "text": "第十小节",
+   "dur": 0.936
+  },
+  "q:mof:11": {
+   "id": "fb649ccd43",
+   "file": "clips/fb649ccd43.mp3",
+   "text": "第十一小节",
+   "dur": 1.152
+  },
+  "q:mof:12": {
+   "id": "666571966d",
+   "file": "clips/666571966d.mp3",
+   "text": "第十二小节",
+   "dur": 0.864
+  },
+  "q:mof:13": {
+   "id": "0dd96847a8",
+   "file": "clips/0dd96847a8.mp3",
+   "text": "第十三小节",
+   "dur": 1.32
+  },
+  "q:mof:14": {
+   "id": "d16bda1ae0",
+   "file": "clips/d16bda1ae0.mp3",
+   "text": "第十四小节",
+   "dur": 1.128
+  },
+  "q:mof:15": {
+   "id": "a3a79451b6",
+   "file": "clips/a3a79451b6.mp3",
+   "text": "第十五小节",
+   "dur": 0.984
+  },
+  "q:mof:16": {
+   "id": "4138d7d90e",
+   "file": "clips/4138d7d90e.mp3",
+   "text": "第十六小节",
+   "dur": 1.056
+  },
+  "q:mof:17": {
+   "id": "6f1fd98680",
+   "file": "clips/6f1fd98680.mp3",
+   "text": "第十七小节",
+   "dur": 1.176
+  },
+  "q:mof:18": {
+   "id": "550bf82376",
+   "file": "clips/550bf82376.mp3",
+   "text": "第十八小节",
+   "dur": 1.248
+  },
+  "q:mof:19": {
+   "id": "ca3c2c9bd6",
+   "file": "clips/ca3c2c9bd6.mp3",
+   "text": "第十九小节",
+   "dur": 1.272
+  },
+  "q:mof:20": {
+   "id": "f803820de3",
+   "file": "clips/f803820de3.mp3",
+   "text": "第二十小节",
+   "dur": 1.032
+  },
+  "q:mof:21": {
+   "id": "e72e9aacba",
+   "file": "clips/e72e9aacba.mp3",
+   "text": "第二十一小节",
+   "dur": 1.392
+  },
+  "q:mof:22": {
+   "id": "7c4bea0c17",
+   "file": "clips/7c4bea0c17.mp3",
+   "text": "第二十二小节",
+   "dur": 1.272
+  },
+  "q:mof:23": {
+   "id": "315734211d",
+   "file": "clips/315734211d.mp3",
+   "text": "第二十三小节",
+   "dur": 1.32
+  },
+  "q:mof:24": {
+   "id": "70e3f73940",
+   "file": "clips/70e3f73940.mp3",
+   "text": "第二十四小节",
+   "dur": 1.128
+  },
+  "q:mof:25": {
+   "id": "c3ec693090",
+   "file": "clips/c3ec693090.mp3",
+   "text": "第二十五小节",
+   "dur": 1.272
+  },
+  "q:mof:26": {
+   "id": "9f55551e1c",
+   "file": "clips/9f55551e1c.mp3",
+   "text": "第二十六小节",
+   "dur": 1.248
+  },
+  "q:mof:27": {
+   "id": "50096d6627",
+   "file": "clips/50096d6627.mp3",
+   "text": "第二十七小节",
+   "dur": 1.224
+  },
+  "q:mof:28": {
+   "id": "336a4c4e5a",
+   "file": "clips/336a4c4e5a.mp3",
+   "text": "第二十八小节",
+   "dur": 1.224
+  },
+  "q:mof:29": {
+   "id": "3606fdf1b6",
+   "file": "clips/3606fdf1b6.mp3",
+   "text": "第二十九小节",
+   "dur": 1.368
+  },
+  "q:mof:30": {
+   "id": "50583d85b3",
+   "file": "clips/50583d85b3.mp3",
+   "text": "第三十小节",
+   "dur": 1.032
+  },
+  "q:mof:31": {
+   "id": "79c5a4a133",
+   "file": "clips/79c5a4a133.mp3",
+   "text": "第三十一小节",
+   "dur": 1.224
+  },
+  "q:mof:32": {
+   "id": "ae8cff77e2",
+   "file": "clips/ae8cff77e2.mp3",
+   "text": "第三十二小节",
+   "dur": 1.488
+  },
+  "q:mof:33": {
+   "id": "bf3d061fc2",
+   "file": "clips/bf3d061fc2.mp3",
+   "text": "第三十三小节",
+   "dur": 1.296
+  },
+  "q:mof:34": {
+   "id": "3337d915ea",
+   "file": "clips/3337d915ea.mp3",
+   "text": "第三十四小节",
+   "dur": 1.056
+  },
+  "q:mof:35": {
+   "id": "3101575ee9",
+   "file": "clips/3101575ee9.mp3",
+   "text": "第三十五小节",
+   "dur": 1.224
+  },
+  "q:mof:36": {
+   "id": "4823470350",
+   "file": "clips/4823470350.mp3",
+   "text": "第三十六小节",
+   "dur": 1.344
+  },
+  "q:mof:37": {
+   "id": "3be9bc2c1b",
+   "file": "clips/3be9bc2c1b.mp3",
+   "text": "第三十七小节",
+   "dur": 1.584
+  },
+  "q:mof:38": {
+   "id": "0becfe3981",
+   "file": "clips/0becfe3981.mp3",
+   "text": "第三十八小节",
+   "dur": 1.296
+  },
+  "q:mof:39": {
+   "id": "ac200d4793",
+   "file": "clips/ac200d4793.mp3",
+   "text": "第三十九小节",
+   "dur": 1.392
+  },
+  "q:mof:40": {
+   "id": "28fad59e9d",
+   "file": "clips/28fad59e9d.mp3",
+   "text": "第四十小节",
+   "dur": 1.008
+  },
+  "q:mof:41": {
+   "id": "026c748584",
+   "file": "clips/026c748584.mp3",
+   "text": "第四十一小节",
+   "dur": 1.32
+  },
+  "q:mof:42": {
+   "id": "9d23483082",
+   "file": "clips/9d23483082.mp3",
+   "text": "第四十二小节",
+   "dur": 1.296
+  },
+  "q:mof:43": {
+   "id": "9c5e6d7367",
+   "file": "clips/9c5e6d7367.mp3",
+   "text": "第四十三小节",
+   "dur": 1.272
+  },
+  "q:mof:44": {
+   "id": "c6a768e7f1",
+   "file": "clips/c6a768e7f1.mp3",
+   "text": "第四十四小节",
+   "dur": 1.344
+  },
+  "q:mt:1": {
+   "id": "604dfd1f04",
+   "file": "clips/604dfd1f04.mp3",
+   "text": "第一到",
+   "dur": 0.72
+  },
+  "q:mt:2": {
+   "id": "f1285f78b9",
+   "file": "clips/f1285f78b9.mp3",
+   "text": "第二到",
+   "dur": 0.96
+  },
+  "q:mt:3": {
+   "id": "a8bbcf7f15",
+   "file": "clips/a8bbcf7f15.mp3",
+   "text": "第三到",
+   "dur": 0.984
+  },
+  "q:mt:4": {
+   "id": "a796e0fc02",
+   "file": "clips/a796e0fc02.mp3",
+   "text": "第四到",
+   "dur": 1.008
+  },
+  "q:mt:5": {
+   "id": "9b06af386e",
+   "file": "clips/9b06af386e.mp3",
+   "text": "第五到",
+   "dur": 0.888
+  },
+  "q:mt:6": {
+   "id": "de4dd013f9",
+   "file": "clips/de4dd013f9.mp3",
+   "text": "第六到",
+   "dur": 1.128
+  },
+  "q:mt:7": {
+   "id": "0f4a8ffa92",
+   "file": "clips/0f4a8ffa92.mp3",
+   "text": "第七到",
+   "dur": 0.696
+  },
+  "q:mt:8": {
+   "id": "90c1d8b024",
+   "file": "clips/90c1d8b024.mp3",
+   "text": "第八到",
+   "dur": 1.008
+  },
+  "q:mt:9": {
+   "id": "c2fb7bc281",
+   "file": "clips/c2fb7bc281.mp3",
+   "text": "第九到",
+   "dur": 1.008
+  },
+  "q:mt:10": {
+   "id": "05113e9eb4",
+   "file": "clips/05113e9eb4.mp3",
+   "text": "第十到",
+   "dur": 1.152
+  },
+  "q:mt:11": {
+   "id": "ff5905c5de",
+   "file": "clips/ff5905c5de.mp3",
+   "text": "第十一到",
+   "dur": 1.416
+  },
+  "q:mt:12": {
+   "id": "b02a205430",
+   "file": "clips/b02a205430.mp3",
+   "text": "第十二到",
+   "dur": 1.344
+  },
+  "q:mt:13": {
+   "id": "869c3daec3",
+   "file": "clips/869c3daec3.mp3",
+   "text": "第十三到",
+   "dur": 1.296
+  },
+  "q:mt:14": {
+   "id": "40f260725a",
+   "file": "clips/40f260725a.mp3",
+   "text": "第十四到",
+   "dur": 1.128
+  },
+  "q:mt:15": {
+   "id": "fa9bacf2a6",
+   "file": "clips/fa9bacf2a6.mp3",
+   "text": "第十五到",
+   "dur": 1.128
+  },
+  "q:mt:16": {
+   "id": "efce962588",
+   "file": "clips/efce962588.mp3",
+   "text": "第十六到",
+   "dur": 1.68
+  },
+  "q:mt:17": {
+   "id": "0ff59d6808",
+   "file": "clips/0ff59d6808.mp3",
+   "text": "第十七到",
+   "dur": 1.608
+  },
+  "q:mt:18": {
+   "id": "830564d533",
+   "file": "clips/830564d533.mp3",
+   "text": "第十八到",
+   "dur": 1.32
+  },
+  "q:mt:19": {
+   "id": "7aeab4ca84",
+   "file": "clips/7aeab4ca84.mp3",
+   "text": "第十九到",
+   "dur": 0.984
+  },
+  "q:mt:20": {
+   "id": "57ec9600d9",
+   "file": "clips/57ec9600d9.mp3",
+   "text": "第二十到",
+   "dur": 1.08
+  },
+  "q:mt:21": {
+   "id": "b1fbf547ca",
+   "file": "clips/b1fbf547ca.mp3",
+   "text": "第二十一到",
+   "dur": 1.08
+  },
+  "q:mt:22": {
+   "id": "248e6dad74",
+   "file": "clips/248e6dad74.mp3",
+   "text": "第二十二到",
+   "dur": 1.584
+  },
+  "q:mt:23": {
+   "id": "300dd52dee",
+   "file": "clips/300dd52dee.mp3",
+   "text": "第二十三到",
+   "dur": 1.2
+  },
+  "q:mt:24": {
+   "id": "693634792f",
+   "file": "clips/693634792f.mp3",
+   "text": "第二十四到",
+   "dur": 1.296
+  },
+  "q:mt:25": {
+   "id": "d47bbe80bb",
+   "file": "clips/d47bbe80bb.mp3",
+   "text": "第二十五到",
+   "dur": 1.488
+  },
+  "q:mt:26": {
+   "id": "9fbcc1b264",
+   "file": "clips/9fbcc1b264.mp3",
+   "text": "第二十六到",
+   "dur": 1.368
+  },
+  "q:mt:27": {
+   "id": "586116d132",
+   "file": "clips/586116d132.mp3",
+   "text": "第二十七到",
+   "dur": 1.176
+  },
+  "q:mt:28": {
+   "id": "3871f10bcb",
+   "file": "clips/3871f10bcb.mp3",
+   "text": "第二十八到",
+   "dur": 1.08
+  },
+  "q:mt:29": {
+   "id": "3ebf5ea42c",
+   "file": "clips/3ebf5ea42c.mp3",
+   "text": "第二十九到",
+   "dur": 1.416
+  },
+  "q:mt:30": {
+   "id": "597569884b",
+   "file": "clips/597569884b.mp3",
+   "text": "第三十到",
+   "dur": 1.152
+  },
+  "q:mt:31": {
+   "id": "9930a6339a",
+   "file": "clips/9930a6339a.mp3",
+   "text": "第三十一到",
+   "dur": 1.344
+  },
+  "q:mt:32": {
+   "id": "a289a287f9",
+   "file": "clips/a289a287f9.mp3",
+   "text": "第三十二到",
+   "dur": 1.32
+  },
+  "q:mt:33": {
+   "id": "b286f58092",
+   "file": "clips/b286f58092.mp3",
+   "text": "第三十三到",
+   "dur": 1.248
+  },
+  "q:mt:34": {
+   "id": "834eb2e76c",
+   "file": "clips/834eb2e76c.mp3",
+   "text": "第三十四到",
+   "dur": 1.392
+  },
+  "q:mt:35": {
+   "id": "d812e9fa92",
+   "file": "clips/d812e9fa92.mp3",
+   "text": "第三十五到",
+   "dur": 1.488
+  },
+  "q:mt:36": {
+   "id": "4844255542",
+   "file": "clips/4844255542.mp3",
+   "text": "第三十六到",
+   "dur": 1.224
+  },
+  "q:mt:37": {
+   "id": "c243fed406",
+   "file": "clips/c243fed406.mp3",
+   "text": "第三十七到",
+   "dur": 1.368
+  },
+  "q:mt:38": {
+   "id": "6112e79348",
+   "file": "clips/6112e79348.mp3",
+   "text": "第三十八到",
+   "dur": 1.344
+  },
+  "q:mt:39": {
+   "id": "86d359f617",
+   "file": "clips/86d359f617.mp3",
+   "text": "第三十九到",
+   "dur": 1.152
+  },
+  "q:mt:40": {
+   "id": "82245c0c8b",
+   "file": "clips/82245c0c8b.mp3",
+   "text": "第四十到",
+   "dur": 1.248
+  },
+  "q:mt:41": {
+   "id": "841a34fb2c",
+   "file": "clips/841a34fb2c.mp3",
+   "text": "第四十一到",
+   "dur": 1.224
+  },
+  "q:mt:42": {
+   "id": "ec9776e49a",
+   "file": "clips/ec9776e49a.mp3",
+   "text": "第四十二到",
+   "dur": 1.296
+  },
+  "q:mt:43": {
+   "id": "8c58c79435",
+   "file": "clips/8c58c79435.mp3",
+   "text": "第四十三到",
+   "dur": 1.224
+  },
+  "q:mt:44": {
+   "id": "7324679e8f",
+   "file": "clips/7324679e8f.mp3",
+   "text": "第四十四到",
+   "dur": 1.152
   }
  },
  "version": 1,

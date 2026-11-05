@@ -3,7 +3,7 @@
 //   2. manifest 里每个文件是否真的在磁盘上、且不是错误页/空文件
 //   3. 真实话术（几种典型演奏）里用到的片段是否全部就绪（否则播放会断句）
 import { readFileSync, existsSync, statSync, readdirSync } from 'node:fs';
-import { F, U, NOTE_KEYS, numClips, coachScript } from './src/coach.js';
+import { clipInventory, coachScript } from './src/coach.js';
 import { evaluate } from './src/score.js';
 
 const DIR = 'public/voice';
@@ -13,16 +13,19 @@ let pass = 0;
 let fail = 0;
 const ok = (c, m) => (c ? pass++ : (fail++, console.log('  ✗', m)));
 
-// ---------- 1. 期望的片段集合 ----------
-const expect = new Set();
-for (const k of Object.keys(F)) if (F[k]) expect.add('f:' + k);
-for (const k of Object.keys(U)) if (U[k]) expect.add('u:' + k);
-for (let n = 0; n <= 200; n++) for (const t of numClips(n)) expect.add('n:' + t);
-for (const k of NOTE_KEYS) expect.add('k:' + k);
+// ---------- 1. 期望的片段集合（和生成器读同一份清单）----------
+const inv = clipInventory();
+const expect = new Set(inv.map((c) => c.key));
 
 console.log(`期望片段 ${expect.size} 个，清单 ${Object.keys(manifest.clips).length} 条，音色 ${manifest.voice}`);
 const missing = [...expect].filter((k) => !manifest.clips[k]);
 ok(missing.length === 0, `缺片段 ${missing.length} 个: ${missing.slice(0, 8).join(', ')}`);
+// 反向：清单里不该有模板表已经不用的碎片（改了模板却忘了重生成）
+const stale = Object.keys(manifest.clips).filter((k) => !expect.has(k));
+ok(stale.length === 0, `清单里有 ${stale.length} 个模板表已不用的旧片段: ${stale.slice(0, 8).join(', ')}`);
+// 片段文本必须和模板表一致（防止改文案只改了字幕没改音频）
+const textMismatch = inv.filter((c) => manifest.clips[c.key] && manifest.clips[c.key].text !== c.text);
+ok(textMismatch.length === 0, `${textMismatch.length} 个片段音频文本与模板表不一致（需重生成）`);
 
 // ---------- 2. 文件是否都在 ----------
 let bytes = 0;

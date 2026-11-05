@@ -11,7 +11,9 @@
 //   朗读不是系统合成音，而是本机 Breeze-TTS 预渲染的真人音色片段库
 //   （见 gen-voice-clips.mjs）。显示字幕和朗读音频必须来自同一份模板，
 //   否则改一句话就会出现"字幕说 5、语音说 4"这种错位。
-//   part 类型：{t:'f'}固定片段 / {t:'n'}数字 / {t:'u'}量词 / {t:'note'}音名
+//   part 类型：{t:'f'}固定片段 / {t:'n'}数字 / {t:'q'}小节短语 / {t:'u'}量词 / {t:'note'}音名
+//   数字与小节短语都整块预渲染（不把「四十」「五」或「第」「到」拆开念），
+//   否则听感是「四 十 五」一顿一顿的（用户 m04572）。
 
 const MAX_ISSUES = 2; // 最多说几个问题
 const SPOKEN_BUDGET = 240; // 口播总字数上限（约 35 秒）
@@ -24,19 +26,18 @@ export const F = {
   higher: '高了',
   lower: '低了',
   octave_tail: '个八度，这是麦克风识别的问题，不是你弹错。下面按位置说。',
-  shift_head: '另外整体节奏偏',
-  faster: '快了',
-  slower: '慢了',
-  shift_mid: '毫秒，但每次都偏得很一致。',
-  shift_tail: '这里面有一部分是录音启动的延迟，不全怪你。',
+  // 这两个是整句，不再拆成「偏」+「快了」+「毫秒」——
+  // 拆碎拼起来会变成播报腔，而且"正负 38 毫秒"这种说法对学琴的人也没意义。
+  shift_faster: '另外整体速度偏快，而且每次都偏得差不多，这里面有一部分是录音启动的延迟，不全怪你。',
+  shift_slower: '另外整体速度偏慢，而且每次都偏得差不多，这也可能是录音启动带来的延迟。',
 
   // 肯定
   praise_progress_head: '比上次进步了',
   score_unit: '分。',
   praise_pitch_mid: '个音弹对了',
   praise_pitch_tail: '个，音准基本没问题。',
-  praise_rhythm_head: '节奏很稳，跟节拍器的偏差只有正负',
-  ms_unit: '毫秒。',
+  praise_all_ok: '整首都弹下来了，音准基本没问题。',
+  praise_rhythm_ok: '节奏挺稳的，拍子基本都落在该落的地方。',
   praise_flow: '整首一次顺下来了，中间没有卡壳。',
   praise_head_ok: '开头到',
   praise_head_ok_tail: '是顺的。',
@@ -50,10 +51,15 @@ export const F = {
   miss_many_head: '最明显，另外',
   miss_many_unit: '个小节也有，一共',
   note_count_unit: '个音',
+  miss_count_many: '漏的地方不少，通常是手位没提前找好，到那儿就顿了一下。',
+  miss_solo_big: '最明显，漏的地方不少，通常是手位没提前找好，到那儿就顿了一下。',
+  miss_one_big_mid: '也有，同样漏得不少，多半也是手位没提前找好。',
+  miss_many_big_unit: '个小节也有，漏得不少，通常都是手位没提前找好。',
   miss_tail: '没弹出来。通常是手位没提前找好，到那儿就顿了一下。',
 
   // 问题：错音（按成因说，学生才知道怎么改）
   wrong_mid: '错了',
+  wrong_mid_many: '错得比较多，',
   wrong_tail: '个音，是',
   why_big_leap: '跨八度的大跳，手位移动没到位。',
   why_leap: '五度以上的跳进，跨度还没形成肌肉记忆。',
@@ -67,8 +73,7 @@ export const F = {
   note_mid: '弹成了',
 
   // 问题：节奏
-  rhythm_unstable_head: '节奏忽快忽慢，偏差到正负',
-  rhythm_unstable_tail: '毫秒，说明拍子还没吃到心里。',
+  rhythm_unstable: '节奏忽快忽慢，说明拍子还没吃到心里。',
   drift_faster: '后半段明显赶起来了，越弹越快。',
   drift_faster_tail: '这是最容易听出来的问题。',
   drift_slower: '后半段慢下来了，越弹越拖。',
@@ -78,6 +83,7 @@ export const F = {
   dyn_uneven: '力度忽大忽小，句子的起伏还没控制住。',
   extras_head: '另外还多出',
   extras_unit: '个',
+  extras_many: '另外还混进来不少多余的声音，踩踏板让弦共振是正常的，不用管。',
   extras_tail: '音，如果是踩了踏板让弦继续共振，那是正常的，不用管。',
 
   // 练法
@@ -149,20 +155,45 @@ export function numToCn(n) {
   return d[h] + '百' + numToCn(r);
 }
 
-/** 中文数字 → 可复用的最小音频片段（[一百][二十][三]） */
+// 数字整读成一个片段，而不是拆成[四十][五]再拼。
+// 拆块拼接的问题（用户 m04572「每次到数字的时候很怪异」）：
+//   ① 每个块是独立合成的，语调各自「落地」，拼起来像念清单；
+//   ② 块之间要插 45ms 静音，听感是「四 十 五」一顿一顿；
+//   ③ 四十/五十 这类块的音高走向在别的数字里根本不合适。
+// 代价是片段数量变多（见 NUM_DOMAIN），换来的是像真人一口气说出来的。
 export function numClips(n) {
-  const cn = numToCn(n);
+  return [numToCn(n)];
+}
+
+// ---------- 常用数值 / 小节短语：整块预渲染（数量与音质之间取的折中）----------
+
+/** 出现概率高的数值：1–100 全覆盖，速度类（5 的倍数）补到 190 */
+export const NUM_DOMAIN = [
+  ...Array.from({ length: 100 }, (_, i) => i + 1),
+  ...Array.from({ length: 18 }, (_, i) => 105 + i * 5),
+];
+
+/** 小节短语最多覆盖到第几小节（更长的曲子退回「第」+数字+「小节」拼接） */
+export const Q_MEASURE_MAX = 44;
+
+/** 小节短语槽位：整块合成，避免把「第」「到」当成孤立字念 */
+export const Q_SLOTS = {
+  mof: { pre: '第', post: '小节' }, // 第 7 小节
+  mt: { pre: '第', post: '到' }, // 第 4 到…
+};
+
+/** 片段清单（coach.js 是唯一事实源：生成音频、自检、运行时都读它） */
+export function clipInventory() {
   const out = [];
-  let i = 0;
-  while (i < cn.length) {
-    const two = cn.slice(i, i + 2);
-    if (two.length === 2 && (two[1] === '百' || two[1] === '十') && /[一二三四五六七八九]/.test(two[0])) {
-      out.push(two);
-      i += 2;
-      continue;
+  for (const k of Object.keys(F)) if (F[k]) out.push({ key: 'f:' + k, text: F[k] });
+  for (const k of Object.keys(U)) if (U[k]) out.push({ key: 'u:' + k, text: U[k] });
+  for (const n of NUM_DOMAIN) out.push({ key: 'n:' + numToCn(n), text: numToCn(n) });
+  for (const k of NOTE_KEYS) out.push({ key: 'k:' + k, text: k });
+  for (const slot of Object.keys(Q_SLOTS)) {
+    const s = Q_SLOTS[slot];
+    for (let v = 1; v <= Q_MEASURE_MAX; v++) {
+      out.push({ key: `q:${slot}:${v}`, text: s.pre + numToCn(v) + s.post });
     }
-    out.push(cn[i]);
-    i += 1;
   }
   return out;
 }
@@ -172,8 +203,23 @@ export function numClips(n) {
 const frag = (k) => ({ t: 'f', k });
 const unit = (k) => ({ t: 'u', k });
 const num = (v) => ({ t: 'n', v: Math.round(v) });
+// 小节短语：整块片段（q 槽位），字幕显示成「第 5 小节」
+const mof = (v) => ({ t: 'q', slot: 'mof', v });
+const mt = (v) => ({ t: 'q', slot: 'mt', v });
 // 纯标点：只出现在字幕里，不占音频片段（"。" 单独合成出来是空的）
 const punct = (s = '。') => ({ t: 'p', s });
+
+const inQRange = (v) => Number.isFinite(v) && v >= 1 && v <= Q_MEASURE_MAX;
+
+/** 「第 5 小节」；超出预渲染范围时退回 第+5+小节 拼接（老曲子也不至于哑掉） */
+const measureParts = (v) => (inQRange(v) ? [mof(v)] : [unit('ordinal'), num(v), unit('measure')]);
+
+/** 小节区间 → 片段（第 5 小节 / 第 5 到 6 小节） */
+function rangeParts(r) {
+  if (r.from === r.to) return measureParts(r.from);
+  if (inQRange(r.from) && inQRange(r.to)) return [mt(r.from), mof(r.to)];
+  return [unit('ordinal'), num(r.from), unit('to'), num(r.to), unit('measure')];
+}
 
 /** 显示字幕（数字与汉字之间留半个空格，读起来不挤） */
 export function partsToText(parts) {
@@ -182,6 +228,10 @@ export function partsToText(parts) {
       if (p.t === 'f') return F[p.k] ?? '';
       if (p.t === 'u') return U[p.k] ?? '';
       if (p.t === 'n') return String(p.v);
+      if (p.t === 'q') {
+        const s = Q_SLOTS[p.slot];
+        return s.pre + p.v + s.post;
+      }
       if (p.t === 'note') return p.k;
       if (p.t === 'p') return p.s;
       return '';
@@ -189,7 +239,8 @@ export function partsToText(parts) {
     .join('');
   return raw
     .replace(/(\d)([\u4e00-\u9fa5])/g, '$1 $2')
-    .replace(/([\u4e00-\u9fa5])(\d)/g, '$1 $2');
+    .replace(/([\u4e00-\u9fa5])(\d)/g, '$1 $2')
+    .replace(/([\u4e00-\u9fa5])([A-G])/g, '$1 $2'); // 音名（拉丁字母）也隔开
 }
 
 /** 朗读片段 key 序列（交给 voice-clips.js 取音频） */
@@ -199,16 +250,11 @@ export function partsToSay(parts) {
     if (p.t === 'f') out.push('f:' + p.k);
     else if (p.t === 'u') out.push('u:' + p.k);
     else if (p.t === 'n') for (const tok of numClips(p.v)) out.push('n:' + tok);
+    else if (p.t === 'q') out.push(`q:${p.slot}:${p.v}`);
     else if (p.t === 'note') out.push('k:' + p.k);
   }
   return out;
 }
-
-/** 小节区间 → 片段（第 5 到 6 小节 / 第 5 小节） */
-const rangeParts = (r) =>
-  r.from === r.to
-    ? [unit('ordinal'), num(r.from), unit('measure')]
-    : [unit('ordinal'), num(r.from), unit('to'), num(r.to), unit('measure')];
 
 const rangeText = (r) => (r.from === r.to ? `第 ${r.from} 小节` : `第 ${r.from} 到 ${r.to} 小节`);
 
@@ -305,14 +351,23 @@ export function coachScript(report, scoreJson, played, opts = {}) {
   if (typeof prev.last === 'number' && report.overall > prev.last + 2) {
     praise.push(makeLine('praise', [frag('praise_progress_head'), num(report.overall - prev.last), frag('score_unit')]));
   } else if (total && hitRate >= 0.9) {
-    praise.push(makeLine('praise', [num(total), frag('praise_pitch_mid'), num(report.hitCount), frag('praise_pitch_tail')]));
+    // 音符总数可能是几百（长曲子），数值片段只预渲染到 100 以内 → 大曲子改说整句
+    praise.push(
+      makeLine(
+        'praise',
+        total <= 100
+          ? [num(total), frag('praise_pitch_mid'), num(report.hitCount), frag('praise_pitch_tail')]
+          : [frag('praise_all_ok')],
+      ),
+    );
   } else if (stdMs !== null && stdMs < 120 && stdMs >= 5) {
-    praise.push(makeLine('praise', [frag('praise_rhythm_head'), num(stdMs), frag('ms_unit')]));
+    // 不报毫秒：对学琴的人没意义，而且「正负 38 毫秒」是最像播报的一句
+    praise.push(makeLine('praise', [frag('praise_rhythm_ok')]));
   } else if (total && report.missCount === 0) {
     praise.push(makeLine('praise', [frag('praise_flow')]));
   } else if (report.hitCount >= 8 && totalMeasures) {
     const m = Math.max(1, Math.floor(totalMeasures / 3));
-    praise.push(makeLine('praise', [frag('praise_head_ok'), num(m), unit('measure'), frag('praise_head_ok_tail')]));
+    praise.push(makeLine('praise', [frag('praise_head_ok'), ...measureParts(m), frag('praise_head_ok_tail')]));
   }
 
   // ---------- 2. 问题候选（按影响排序，最多说两条）----------
@@ -325,23 +380,26 @@ export function coachScript(report, scoreJson, played, opts = {}) {
     const uniq = [...new Set(ms)].sort((a, b) => a - b);
     const lead = uniq[0];
     const rest = uniq.slice(1);
+    // 漏音数可能是几百（长曲），数值片段只到 100 → 超过就改说「漏的地方不少」
+    const cnt = report.missCount <= 100 ? [num(report.missCount), frag('note_count_unit'), frag('miss_tail')] : [];
     let parts;
     let body;
     if (!rest.length) {
-      parts = [unit('ordinal'), num(lead), unit('measure'), frag('miss_solo_head'), num(report.missCount), frag('note_count_unit'), frag('miss_tail')];
+      parts = [...measureParts(lead), frag('miss_solo_head'), ...cnt];
+      if (!cnt.length) parts = [...measureParts(lead), frag('miss_solo_big')];
       body = `第 ${lead} 小节最明显，一共 ${report.missCount} 个音没弹出来。`;
     } else if (rest.length === 1) {
-      parts = [
-        unit('ordinal'), num(lead), unit('measure'), frag('miss_one_head'),
-        unit('ordinal'), num(rest[0]), unit('measure'), frag('miss_one_mid'),
-        num(report.missCount), frag('note_count_unit'), frag('miss_tail'),
-      ];
+      parts = cnt.length
+        ? [...measureParts(lead), frag('miss_one_head'), ...measureParts(rest[0]), frag('miss_one_mid'), ...cnt]
+        : [...measureParts(lead), frag('miss_one_head'), ...measureParts(rest[0]), frag('miss_one_big_mid')];
       body = `第 ${lead} 小节最明显，另外第 ${rest[0]} 小节也有，一共 ${report.missCount} 个音没弹出来。`;
     } else {
       parts = [
-        unit('ordinal'), num(lead), unit('measure'), frag('miss_many_head'),
-        num(rest.length), frag('miss_many_unit'),
-        num(report.missCount), frag('note_count_unit'), frag('miss_tail'),
+        ...measureParts(lead),
+        frag('miss_many_head'),
+        num(rest.length),
+        frag(cnt.length ? 'miss_many_unit' : 'miss_many_big_unit'),
+        ...cnt,
       ];
       body = `第 ${lead} 小节最明显，另外 ${rest.length} 个小节也有，一共 ${report.missCount} 个音没弹出来。`;
     }
@@ -363,7 +421,11 @@ export function coachScript(report, scoreJson, played, opts = {}) {
       arr.length,
       total,
       w,
-      [...rangeParts(win), frag('wrong_mid'), num(arr.length), frag('wrong_tail'), frag(whyKey)],
+      [
+        ...rangeParts(win),
+        ...(arr.length <= 100 ? [frag('wrong_mid'), num(arr.length), frag('wrong_tail')] : [frag('wrong_mid_many')]),
+        frag(whyKey),
+      ],
       arr,
       `${rangeText(win)}错了 ${arr.length} 个音，是${whyText}。`,
     );
@@ -375,23 +437,13 @@ export function coachScript(report, scoreJson, played, opts = {}) {
       stdMs,
       1000,
       1.1,
-      [frag('rhythm_unstable_head'), num(stdMs), frag('rhythm_unstable_tail')],
+      [frag('rhythm_unstable')],
       report.problemMeasures.map((m) => m.measure),
       `节奏忽快忽慢，偏差到正负 ${stdMs} 毫秒，拍子还没吃到心里。`,
     );
   } else if (meanMs !== null && Math.abs(meanMs) > 120 && (stdMs === null || stdMs < 160)) {
     cautions.push(
-      makeLine(
-        'caution',
-        [
-          frag('shift_head'),
-          frag(meanMs > 0 ? 'slower' : 'faster'),
-          num(Math.abs(meanMs)),
-          frag('shift_mid'),
-          frag('shift_tail'),
-        ],
-        { subtype: 'timing-shift' },
-      ),
+      makeLine('caution', [frag(meanMs > 0 ? 'shift_slower' : 'shift_faster')], { subtype: 'timing-shift' }),
     );
   }
 
@@ -418,7 +470,9 @@ export function coachScript(report, scoreJson, played, opts = {}) {
       report.extraCount,
       total,
       0.7,
-      [frag('extras_head'), num(report.extraCount), frag('extras_unit'), frag('extras_tail')],
+      report.extraCount <= 100
+        ? [frag('extras_head'), num(report.extraCount), frag('extras_unit'), frag('extras_tail')]
+        : [frag('extras_many')],
       [],
       `另外还多出 ${report.extraCount} 个音，可能是踏板共振。`,
     );
@@ -450,9 +504,7 @@ export function coachScript(report, scoreJson, played, opts = {}) {
     if (w) {
       const extra = [
         frag('note_tail_head'),
-        unit('ordinal'),
-        num(w.measure),
-        unit('measure'),
+        ...measureParts(w.measure),
         frag('note_head'),
         ...noteParts(w.pitchMidi),
         frag('note_mid'),
@@ -493,7 +545,7 @@ export function coachScript(report, scoreJson, played, opts = {}) {
   } else if (/extras/.test(topKind)) {
     drill = makeLine('drill', [frag('drill_extras')]);
   } else if (report.overall >= 95) {
-    drill = makeLine('drill', [frag('drill_fast_head'), num(bpm * 1.15), frag('drill_fast_tail')]);
+    drill = makeLine('drill', [frag('drill_fast_head'), num(Math.round((bpm * 1.15) / 5) * 5), frag('drill_fast_tail')]);
   } else {
     drill = makeLine('drill', [frag('drill_slow_head'), num(drillBpm), frag('drill_slow_tail')]);
   }
