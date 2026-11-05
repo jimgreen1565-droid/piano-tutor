@@ -28,20 +28,26 @@ export function addRecord(rec) {
   write(list);
 }
 
-export function recordsFor(pieceId) {
+// 练习有两类：整首（scope=null）和"只练某一段"（scope='4-6'）。
+// 两类难度天差地别，混在一起算"进步/退步"会得出错误结论，所以分开取。
+function scopeKey(rec) {
+  return rec.scope || null;
+}
+
+export function recordsFor(pieceId, { scope = null } = {}) {
   return read()
-    .filter((r) => r.pieceId === pieceId)
+    .filter((r) => r.pieceId === pieceId && scopeKey(r) === (scope || null))
     .sort((a, b) => a.ts - b.ts);
 }
 
-export function bestFor(pieceId) {
-  const list = recordsFor(pieceId);
+export function bestFor(pieceId, opts) {
+  const list = recordsFor(pieceId, opts);
   if (!list.length) return null;
   return list.reduce((a, b) => (b.overall > a.overall ? b : a));
 }
 
-export function summaryFor(pieceId) {
-  const list = recordsFor(pieceId);
+export function summaryFor(pieceId, opts) {
+  const list = recordsFor(pieceId, opts);
   if (!list.length) return null;
   const best = list.reduce((a, b) => (b.overall > a.overall ? b : a));
   return {
@@ -60,8 +66,8 @@ export function clearPiece(pieceId) {
  * 找出"反复出错"的小节：最近 N 次练习里至少 2 次出问题。
  * 单次出错可能是偶然，连续错才是指法/手位的固定瓶颈。
  */
-export function persistentProblems(pieceId, { lastN = 5, minRuns = 2 } = {}) {
-  const list = recordsFor(pieceId).slice(-lastN);
+export function persistentProblems(pieceId, { lastN = 5, minRuns = 2, scope = null } = {}) {
+  const list = recordsFor(pieceId, { scope }).slice(-lastN);
   if (list.length < minRuns) return [];
 
   const counter = new Map();

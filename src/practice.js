@@ -1,5 +1,5 @@
 import { Metronome } from './metronome.js';
-import { evaluate, midiToName } from './score.js';
+import { evaluate, midiToName, scopeScore } from './score.js';
 import { ensureModel, prepareMic, transcribeBlob, getBackend } from './transcribe.js';
 import { playDemo } from './demo.js';
 import { addRecord, summaryFor, persistentProblems } from './history.js';
@@ -51,6 +51,7 @@ const state = {
   speech: null, // 正在朗读的句柄（ClipVoice 或系统语音）
   speechToken: 0, // 递增令牌：停止/重开时作废进行中的异步准备
   clipVoice: null, // 真人音色片段播放器
+  scope: null, // 只练某一段：{from,to}（null = 整首）
   ui: {},
 };
 
@@ -117,6 +118,8 @@ export function mountPractice(root) {
       <div class="hint">音色为真实三角钢琴录音（Salamander Grand Piano，CC-BY 3.0）</div>
     </div>
 
+    <div id="scopeBar" class="scope-bar" hidden></div>
+
     <button class="btn btn-primary btn-lg" id="btnPractice">
       <span class="ic">${icons.play()}</span>开始练习
     </button>
@@ -143,6 +146,7 @@ export function mountPractice(root) {
     'btnDemo',
     'btnPractice',
     'btnSwitch',
+    'scopeBar',
     'pStatus',
     'pMeter',
     'pMeterBar',
@@ -185,9 +189,13 @@ export function mountPractice(root) {
     ui.bpmLabel.textContent = `${state.bpm} BPM`;
   });
 
-  ui.btnDemo.addEventListener('click', () => toggleDemo());
+  ui.btnDemo.addEventListener('click', () => {
+    unlock(); // 真实手势里解锁系统朗读（真人音色包没加载成功时的兜底路径要用）
+    toggleDemo();
+  });
 
   ui.btnPractice.addEventListener('click', () => {
+    unlock(); // 同上：iOS 只认手势，这里是最常被点的按钮
     if (state.phase === 'idle' || state.phase === 'report') startPractice();
     else if (state.phase === 'counting' || state.phase === 'recording') stopPractice();
   });
@@ -226,6 +234,8 @@ if (typeof window !== 'undefined') {
       failures: state.clipVoice ? state.clipVoice.failures.slice(0, 3) : [],
     }),
     coachKinds: () => (state.coach ? state.coach.lines.map((l) => l.kind + ':' + l.say.length) : []),
+    scope: () => state.scope,
+    activeNotes: () => (activeScore()?.notes || []).length,
   };
 }
 
@@ -346,6 +356,7 @@ async function openPiece(id, root) {
   clearReport();
   clearMarks();
   clearHighlight();
+  clearScope(); // 换曲子后不再只练上一首的那一段
 
   // 先把"加载中"放出来，避免点完没反应
   state.ui.scoreCard.hidden = false;
@@ -481,6 +492,60 @@ function updateTransposeLabel() {
     t === 0 ? '原调' : t % 12 === 0 ? `±${Math.abs(t / 12)} 八度` : `${t > 0 ? '+' : ''}${t}`;
 }
 
+// ---------- 「只练这一段」 ----------
+//
+// 为什么要有它：老师听完不会只说"第 5 小节有问题"，而是直接让你把那一处慢练三遍。
+// 之前点评里的练法只是文字，用户还得自己数小节、自己改速度 —— 这一步现在由按钮完成。
+
+/** 把整首谱面裁成某几小节：节拍重定基准到 0，小节号保持原样（点评才说得准） */
+const scopeScoreToRange = scopeScore;
+
+/** 本次练习实际要比对的谱面（整首或某一段） */
+function activeScore() {
+  if (!state.scope) return state.scoreJson;
+  return scopeScore(state.scoreJson, state.scope.from, state.scope.to) || state.scoreJson;
+}
+
+function scopeKey(scope) {
+  return scope ? `${scope.from}-${scope.to}` : null;
+}
+
+function scopeLabel(scope) {
+  if (!scope) return '';
+  return scope.from === scope.to ? `第 ${scope.from} 小节` : `第 ${scope.from}–${scope.to} 小节`;
+}
+
+function setScope(scope) {
+  state.scope = scope && scope.from ? { from: scope.from, to: scope.to } : null;
+  renderScopeBar();
+}
+
+function clearScope() {
+  setScope(null);
+}
+
+function renderScopeBar() {
+  const bar = state.ui.scopeBar;
+  if (!bar) return;
+  const s = state.scope;
+  if (!s) {
+    bar.hidden = true;
+    bar.innerHTML = '';
+    return;
+  }
+  bar.hidden = false;
+  bar.innerHTML = `
+    <div class="scope-inner">
+      <span class="scope-tag">只练 ${scopeLabel(s)}</span>
+      <span class="scope-hint">其他小节不计分</span>
+      <button class="btn btn-ghost btn-xs" id="btnScopeClear">练整首</button>
+    </div>`;
+  bar.querySelector('#btnScopeClear')?.addEventListener('click', () => {
+    clearScope();
+    status('已切回整首练习。');
+  });
+}
+
 async function startPractice() {
   if (!state.scoreJson) {
     status('<span class="err">先选一首曲子。</span>');
@@ -500,7 +565,7 @@ async function startPractice() {
   state.ui.btnPractice.classList.remove('btn-primary');
   state.ui.btnPractice.classList.add('btn-stop');
   state.ui.pMeter.classList.remove('active');
-  status('准备麦克风…');
+  status(state.scope ? `准备麦克风… · 本遍只练 ${scopeLabel(state.scope)}` : '准备麦克风…');
   showCue('准备');
 
   // 先拿到麦克风（授权弹窗如果出现在预备拍中途，会打乱起始时间）
@@ -551,8 +616,8 @@ async function startPractice() {
 
   await state.metronome.start();
 
-  // 到曲子结束自动收
-  const totalBeats = state.scoreJson.totalBeats;
+  // 到曲子结束自动收（只练一段时按这一段的长度收）
+  const totalBeats = activeScore()?.totalBeats || state.scoreJson.totalBeats;
   state.autoStopTimer = setInterval(() => {
     if (!state.metronome || state.phase !== 'recording') return;
     if (state.metronome.elapsedBeats() > totalBeats + 1.5) {
@@ -640,12 +705,16 @@ function startFollow() {
   stopFollow();
   const beatsPerBar = state.scoreJson.timeSignature?.beats || 4;
   const totalMeasures = state.scoreJson.totalMeasures;
+  // 只练一段时，节拍从这一段的第 0 拍算起，要高亮的是真实小节号
+  const scope = state.scope;
 
   const loop = () => {
     if (!state.metronome || state.phase !== 'recording') return;
     const b = state.metronome.elapsedBeats();
     if (b >= 0) {
-      const m = Math.min(totalMeasures, Math.floor(b / beatsPerBar) + 1);
+      const base = scope ? scope.from : 1;
+      const cap = scope ? scope.to : totalMeasures;
+      const m = Math.min(cap, Math.floor(b / beatsPerBar) + base);
       if (m !== state.currentMeasure) {
         state.currentMeasure = m;
         highlightMeasure(m);
@@ -840,16 +909,18 @@ async function stopPractice(silent = false) {
       }));
     }
 
-    const persistentMeasures = persistentProblems(state.piece.id, { lastN: 5 });
-    const report = evaluate(state.scoreJson, notes, {
+    const skey = scopeKey(state.scope);
+    const persistentMeasures = persistentProblems(state.piece.id, { lastN: 5, scope: skey });
+    const report = evaluate(activeScore(), notes, {
       bpm: state.bpm,
       persistentMeasures,
     });
-    const prev = summaryFor(state.piece.id);
+    const prev = summaryFor(state.piece.id, { scope: skey });
     addRecord({
       pieceId: state.piece.id,
       title: state.piece.title,
       bpm: state.bpm,
+      scope: skey,
       overall: report.overall,
       hitCount: report.hitCount,
       total: report.total,
@@ -890,6 +961,11 @@ function renderReport(r, notes, prev) {
     prev && typeof prev.last === 'number'
       ? `　本次 ${r.overall >= prev.last ? '+' : ''}${r.overall - prev.last}（上次 ${prev.last}）`
       : '';
+
+  // 只练一段时把范围写清楚：否则"共 12 个音"会被误读成整首只有 12 个音
+  const scopeNote = state.scope
+    ? `<div class="report-scope">本遍只评 ${scopeLabel(state.scope)}（其他小节不计分）</div>`
+    : '';
 
   const stat = (label, value, sub) => `
     <div class="stat">
@@ -950,6 +1026,7 @@ function renderReport(r, notes, prev) {
         ${stat('漏音', r.missCount)}
         ${stat('多弹', r.extraCount)}
       </div>
+      ${scopeNote}
 
       <div class="stat-wide">
         <div class="stat-label">节奏偏差（相对节拍器）</div>
@@ -1037,6 +1114,8 @@ function coachBlock(r, notes, prev) {
   // 语音来自随包发布的真人音色片段库，不依赖浏览器 TTS；系统语音只作兜底
   const support = true;
   const focus = coach.focus;
+  // 已经在"只练这一段"里了，就不用再给一个"就练这一段"入口（避免套娃）
+  const drillable = focus && !state.scope;
 
   return `
     <div class="block coach" id="coachCard">
@@ -1050,7 +1129,12 @@ function coachBlock(r, notes, prev) {
         }
         ${
           focus
-            ? `<button class="btn btn-sm" id="btnCoachRange">${icons.headphones()}<span>试听第 ${focus.from}–${focus.to} 小节</span></button>`
+            ? `${
+                drillable
+                  ? `<button class="btn btn-sm btn-primary" id="btnCoachDrill" data-from="${focus.from}" data-to="${focus.to}" data-bpm="${focus.bpm || ''}">${icons.play()}<span>就练 ${focus.from === focus.to ? `第 ${focus.from} 小节` : `第 ${focus.from}–${focus.to} 小节`}${focus.bpm ? ` · ${focus.bpm}` : ''}</span></button>`
+                  : ''
+              }
+               <button class="btn btn-sm" id="btnCoachRange">${icons.headphones()}<span>先听这一段</span></button>`
             : ''
         }
       </div>
@@ -1173,6 +1257,7 @@ function wireCoach(r, notes, prev) {
   const btn = card.querySelector('#btnCoach');
   const stopBtn = card.querySelector('#btnCoachStop');
   const rangeBtn = card.querySelector('#btnCoachRange');
+  const drillBtn = card.querySelector('#btnCoachDrill');
   const chk = card.querySelector('#chkAuto');
 
   if (btn) {
@@ -1214,6 +1299,28 @@ function wireCoach(r, notes, prev) {
           status('<span class="ok">这一段听完了，照着慢练三遍。</span>');
         },
       });
+    });
+  }
+
+  // 「就练这一段」：把点评里的练法变成真的练习 —— 设定范围与速度，直接开录
+  if (drillBtn) {
+    drillBtn.addEventListener('click', () => {
+      const f = state.coach?.focus;
+      if (!f) return;
+      stopCoachSpeech();
+      if (state.demo) {
+        state.demo.stop();
+        state.demo = null;
+      }
+      // 老师建议的速度要真的落到速度条上，否则用户还得自己改
+      if (f.bpm) {
+        state.bpm = f.bpm;
+        state.ui.bpm.value = String(f.bpm);
+        state.ui.bpmLabel.textContent = `${f.bpm} BPM`;
+      }
+      setScope({ from: f.from, to: f.to });
+      status(`进入片段练习：${scopeLabel(state.scope)} · ${state.bpm} BPM（其他小节不计分）`);
+      startPractice();
     });
   }
 

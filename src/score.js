@@ -11,6 +11,27 @@ import { analyzeScore, categorizeErrors } from './analysis.js';
 const DEFAULT_TOLERANCE_BEATS = 0.6; // 允许的时间偏差（拍）
 const EXTRA_PAD_SECONDS = 2; // 谱面结束后的余量（之后多弹的算"多弹"）
 
+/**
+ * 把整首谱裁成某几小节，供"只练这一段"使用。
+ * 关键约定：音符节拍重定基准到 0（评分按 beat×60/bpm 算应当时刻），
+ * 但 **小节号保持原样** —— 否则点评会说"第 1 小节有问题"，而用户谱上是第 5 小节。
+ * 裁剪边界取整小节，所以 beatInMeasure（beat % beatsPerBar）依然正确。
+ */
+export function scopeScore(scoreJson, from, to) {
+  if (!scoreJson) return null;
+  const notes = (scoreJson.notes || []).filter(
+    (n) => n.measure >= from && n.measure <= to,
+  );
+  if (!notes.length) return null;
+  const minBeat = Math.min(...notes.map((n) => n.beat));
+  const maxEnd = Math.max(...notes.map((n) => n.beat + (n.durationBeats || 1)));
+  return {
+    ...scoreJson,
+    notes: notes.map((n) => ({ ...n, beat: n.beat - minBeat })),
+    totalBeats: maxEnd - minBeat,
+  };
+}
+
 export function evaluate(score, played, options = {}) {
   const bpm = options.bpm || score.bpm || 60;
   const toleranceBeats =

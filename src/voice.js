@@ -120,6 +120,7 @@ export function speakLines(lines, opts = {}) {
   const pitch = opts.pitch ?? 1;
   let cancelled = false;
   let started = 0;
+  let warned = false;
   let watchdog = null;
 
   const clearWatchdog = () => {
@@ -127,11 +128,18 @@ export function speakLines(lines, opts = {}) {
     watchdog = null;
   };
 
+  // 只报一次：一句话失败会连续触发多条 error，全弹到界面上就成了刷屏
+  const warn = (msg) => {
+    if (warned) return;
+    warned = true;
+    opts.onError?.(msg);
+  };
+
   // iOS 上如果发声被静音开关/策略拦住，speak 会静默失败：
   // 起播 1.2 秒还没进入第一条就报错，让界面给出可操作提示，而不是假装在读。
   watchdog = setTimeout(() => {
     if (!cancelled && started === 0) {
-      opts.onError?.('语音没能发出声（iOS 需要先点一次屏幕，或检查侧边静音开关）');
+      warn('语音没能发出声（iOS 需要先点一次屏幕，或检查侧边静音开关）');
     }
   }, 1200);
 
@@ -153,9 +161,15 @@ export function speakLines(lines, opts = {}) {
         opts.onEnd?.();
       }
     };
-    u.onerror = () => {
+    u.onerror = (ev) => {
       // 用户主动打断不算错误
       if (cancelled) return;
+      // 真出错时要说出来：以前这里只调 onEnd，用户会以为"念完了"，
+      // 实际一句都没出声 —— 静默失败比报错更难查。
+      if (started === 0) {
+        const reason = ev && ev.error ? ev.error : 'unknown';
+        warn(`系统朗读失败（${reason}），下面文字同样可以看`);
+      }
       if (i === items.length - 1) opts.onEnd?.();
     };
     try {

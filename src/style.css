@@ -1106,3 +1106,43 @@ details[open] > .level-head .level-chevron {
     max-height: 200px;
   }
 }
+
+/* ---------- 只练这一段（片段练习） ---------- */
+
+.scope-bar {
+  margin: 10px 0 0;
+}
+
+.scope-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--r-md);
+  background: var(--card-solid);
+}
+
+.scope-tag {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.scope-hint {
+  font-size: 12px;
+  color: var(--text-2);
+  flex: 1 1 auto;
+}
+
+.report-scope {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--primary);
+  border-radius: var(--r-sm);
+  background: var(--card-solid);
+  font-size: 13px;
+  color: var(--text-2);
+}
