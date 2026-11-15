@@ -9,7 +9,6 @@ export class Metronome {
     // 正式演奏段是否静音节拍器：预备拍照常响，进入演奏后不再从扬声器出声。
     // 原因：iPad 没有耳机时，扬声器节拍声会被麦克风录进去混进转录 → 假音符/错评分。
     this.muteAfterCountIn = muteAfterCountIn;
-
     this.ctx = null;
     this.timer = null;
     this.nextBeat = 0; // 0 = 第一个预备拍
@@ -106,14 +105,26 @@ export class Metronome {
     // 避免被麦克风录进去污染转录。onBeat/onStart 仍照常触发，节奏与录音不受影响。
     if (this.muteAfterCountIn && !isCountIn) return;
 
+    if (isCountIn) {
+      // 预备拍：保留原来的「哔」音（音高明显，容易听清倒数）
+      this._beep(time, {
+        freq: isLastCountIn ? 1760 : 880,
+        peak: isLastCountIn ? 0.4 : 0.22,
+      });
+    } else {
+      // 演奏段：木鱼式「嗒」——宽带噪声瞬态，没有固定音高，
+      // Basic Pitch 不会把它转录成音符，麦克风录进去也不影响评分。
+      this._tick2(time, { strong });
+    }
+  }
+
+  /** 短促「哔」声（正弦+方波混合，带音高） */
+  _beep(time, { freq, peak }) {
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     osc.type = 'square';
+    osc.frequency.value = freq;
 
-    // 最后一拍预备用更高更亮的音，明确"立刻开始"
-    osc.frequency.value = isLastCountIn ? 1760 : isCountIn ? 880 : strong ? 1320 : 990;
-
-    const peak = isLastCountIn ? 0.4 : isCountIn ? 0.22 : strong ? 0.4 : 0.24;
     gain.gain.setValueAtTime(0, time);
     gain.gain.linearRampToValueAtTime(peak, time + 0.002);
     gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.06);
@@ -122,5 +133,34 @@ export class Metronome {
     gain.connect(this.ctx.destination);
     osc.start(time);
     osc.stop(time + 0.07);
+  }
+
+  /** 木鱼式「嗒」声：白噪声 burst 过带通滤波（中心~2000Hz），无固定音高 */
+  _tick2(time, { strong }) {
+    const dur = 0.03;
+    const buf = this.ctx.createBuffer(1, Math.ceil(dur * this.ctx.sampleRate), this.ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      // 指数衰减的白噪声
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-30 * (i / data.length));
+    }
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 2000;
+    filter.Q.value = 1.5;
+
+    const gain = this.ctx.createGain();
+    const peak = strong ? 0.5 : 0.3;
+    gain.gain.setValueAtTime(peak, time);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
+
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.ctx.destination);
+    src.start(time);
+    src.stop(time + dur + 0.01);
   }
 }

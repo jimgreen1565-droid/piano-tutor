@@ -122,12 +122,12 @@ export function mountPractice(root) {
       <div class="prow" style="margin-top:8px">
         <div class="plabel">节拍器</div>
         <label class="switch-row">
-          <input type="checkbox" id="beatMute" checked />
+          <input type="checkbox" id="beatMute" />
           <span class="switch-ui"></span>
-          <span class="switch-label">演奏时静音（推荐）</span>
+          <span class="switch-label">演奏时静音</span>
         </label>
       </div>
-      <div class="hint">默认静音：跟谱靠上方蓝色高亮的小节，弹琴声不会被节拍声干扰。要保留节拍声就关掉这个开关。</div>
+      <div class="hint">默认保留节拍声（改成了不带音高的木鱼声，弹琴评分不受它影响）。嫌吵就打开这个开关，演奏时完全静音、靠谱面高亮跟拍。</div>
 
       <button class="btn btn-ghost" id="btnDemo" style="margin-top:14px">
         <span class="ic">${icons.headphones()}</span>先听一遍示范
@@ -631,7 +631,7 @@ async function startPractice() {
     bpm: state.bpm,
     beatsPerBar,
     countInBeats: countIn,
-    muteAfterCountIn: state.beatMute !== false, // 默认演奏段静音，防节拍声进麦克风
+    muteAfterCountIn: state.beatMute === true, // 默认不静音；演奏段改用无音高的木鱼声防转录污染
   });
   state.metronome.onBeat = ({ countIn: isCountIn, countdown, beatInBar }) => {
     if (isCountIn) {
