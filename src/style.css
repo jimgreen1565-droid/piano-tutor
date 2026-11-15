@@ -1146,3 +1146,156 @@ details[open] > .level-head .level-chevron {
   font-size: 13px;
   color: var(--text-2);
 }
+
+/* ============================================================
+   沉浸式演奏视觉（方案1+2 升级：实时逐音反应）
+   全屏 stage，金色系，弹每个音对应琴键立刻发光 + 涟漪
+   ============================================================ */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #1c2233 0%, #0c0e16 55%, #05060a 100%);
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  animation: stageIn 0.45s ease;
+}
+
+@keyframes stageIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.stage-glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  width: 120vw;
+  height: 60vh;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(245, 196, 92, 0.22), transparent 70%);
+  pointer-events: none;
+  filter: blur(8px);
+}
+
+.stage-spectrum {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 900px;
+  height: 16vh;
+  display: block;
+}
+
+.stage-note {
+  position: absolute;
+  top: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  text-shadow: 0 2px 18px rgba(245, 196, 92, 0.5);
+}
+
+.stage-note .sn-name {
+  font-size: clamp(40px, 12vw, 92px);
+  font-weight: 700;
+  color: #f7d588;
+  letter-spacing: 1px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stage-note .sn-label {
+  font-size: 14px;
+  color: rgba(247, 213, 136, 0.7);
+}
+
+.stage-kb {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 30vh;
+  min-height: 160px;
+  margin: 0 auto;
+}
+
+.stage-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(247, 213, 136, 0.55);
+  pointer-events: none;
+}
+
+/* 白键 */
+.kb-white {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(180deg, #fdfdfb 0%, #e9ebef 100%);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 0 0 6px 6px;
+  box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.12);
+  transition: background 0.02s linear, box-shadow 0.04s linear;
+}
+
+/* 黑键 */
+.kb-black {
+  position: absolute;
+  top: 0;
+  height: 62%;
+  background: linear-gradient(180deg, #2a2d35 0%, #060709 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.55);
+  z-index: 3;
+  transition: background 0.02s linear, box-shadow 0.04s linear;
+}
+
+/* 点亮：金光发光 + 涟漪 */
+.kb-white.on,
+.kb-black.on {
+  background: linear-gradient(180deg, #ffe7a8 0%, #f3b73c 100%);
+  box-shadow:
+    0 0 0 2px rgba(255, 224, 130, 0.9),
+    0 0 22px 6px rgba(245, 196, 92, 0.85),
+    0 0 48px 14px rgba(245, 196, 92, 0.5);
+}
+
+.kb-black.on {
+  background: linear-gradient(180deg, #ffd773 0%, #e29a1e 100%);
+}
+
+.kb-ripple {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, 0) scale(0.3);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 230, 160, 0.55), transparent 70%);
+  animation: kbRipple 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 4;
+}
+
+@keyframes kbRipple {
+  from { opacity: 0.8; transform: translate(-50%, 0) scale(0.3); }
+  to { opacity: 0; transform: translate(-50%, -30%) scale(1.4); }
+}

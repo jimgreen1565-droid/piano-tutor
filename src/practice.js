@@ -7,6 +7,7 @@ import { icons } from './icons.js';
 import { transposeMusicXml, transposeScore } from './transpose.js';
 import { coachScript } from './coach.js';
 import { ClipVoice, prepareClips } from './voice-clips.js';
+import { PracticeVisual } from './visual.js';
 import {
   ttsSupported,
   speakLines,
@@ -27,6 +28,13 @@ async function loadOSMD() {
 }
 
 const BASE = import.meta.env.BASE_URL;
+
+// 沉浸演奏视觉（实时逐音反应）：模块级单例，进入演奏时启用
+let visual = null;
+function getVisual() {
+  if (!visual) visual = new PracticeVisual();
+  return visual;
+}
 
 // 预备拍：两小节，给足时间把手放好
 const COUNT_IN = 8;
@@ -601,6 +609,12 @@ async function startPractice() {
     showCue('开始！', true);
     setTimeout(() => hideCueIfRunning(), 900);
     startFollow();
+    // 进入沉浸演奏视觉：实时分析麦克风，逐音点亮琴键
+    try {
+      getVisual().start(state.mic.stream);
+    } catch (e) {
+      console.error('visual start failed', e);
+    }
 
     // 关键：记录"正式第 0 拍"到"录音真正开始"之间的延迟，
     // 之后把所有识别到的音符时间整体补偿回去，否则会表现为系统性"抢拍"。
@@ -869,6 +883,9 @@ async function stopPractice(silent = false) {
   stopFollow();
   clearHighlight();
   hideCue();
+
+  // 收起沉浸演奏视觉
+  if (visual) visual.stop();
 
   if (state.metronome) {
     state.metronome.stop();
