@@ -135,7 +135,7 @@ export class Metronome {
     osc.stop(time + 0.07);
   }
 
-  /** 木鱼式「嗒」声：白噪声 burst 过带通滤波（中心~2000Hz），无固定音高 */
+  /** 木鱼式「嗒」声：白噪声 burst 过低通滤波（保留低频），无固定音高，声音模糊不尖锐 */
   _tick2(time, { strong }) {
     // 增大音量：更长的 burst + 更强峰值 + 慢衰
     const dur = 0.08;              // 从 0.03 → 0.08s（更易被听见）
@@ -149,13 +149,13 @@ export class Metronome {
     src.buffer = buf;
 
     const filter = this.ctx.createBiquadFilter();
-    filter.type = 'bandpass';
-    // 稍微降低中心频率、稍宽Q，让更多能量通过
-    filter.frequency.value = 1800;
-    filter.Q.value = 1.2;
+    filter.type = 'lowpass';       // 从 bandpass → lowpass，高频被滤掉，声音更模糊
+    // 降低截止频率，让更多低频通过，声音更暗、更模糊
+    filter.frequency.value = 800; // 从 1800 → 800Hz
+    filter.Q.value = 1.5;         // Q 稍大，让过渡更平滑
 
     const gain = this.ctx.createGain();
-    const peak = strong ? 0.8 : 0.5;      // 增大峰值：强拍 0.5→0.8，弱拍 0.3→0.5
+    const peak = strong ? 0.5 : 0.3;      // 略微降低峰值，让声音不那么尖锐
     gain.gain.setValueAtTime(peak, time);
     gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.08); // 增大尾部衰减时长
 
