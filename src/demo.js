@@ -79,7 +79,7 @@ function pianoNote(ctx, midi, t0, dur) {
  * @returns {{stop: Function}} stop 可在加载完成前调用，会取消本次播放
  */
 export function playDemo(scoreJson, bpm, opts = {}) {
-  const { onMeasure, onEnd, onStatus, fromMeasure, toMeasure } = opts;
+  const { onMeasure, onEnd, onStatus, onNote, fromMeasure, toMeasure } = opts;
   const Ctx = window.AudioContext || window.webkitAudioContext;
   const ctx = new Ctx();
   const spb = 60 / bpm;
@@ -97,6 +97,7 @@ export function playDemo(scoreJson, bpm, opts = {}) {
   let stopped = false;
   let raf = null;
   let startAt = 0;
+  let curNote = null;
 
   const master = ctx.createGain();
   master.gain.value = 0.55;
@@ -119,6 +120,16 @@ export function playDemo(scoreJson, bpm, opts = {}) {
       if (m !== last) {
         last = m;
         onMeasure?.(m);
+      }
+      // 当前正在弹的音（示范阶段在舞台高亮「应弹」键）
+      const lp = notes.find(
+        (n) => beat >= n.beat - baseBeat - 0.05 && beat < n.beat - baseBeat + (n.durationBeats || 1)
+      );
+      if (lp && lp !== curNote) {
+        curNote = lp;
+        onNote?.(lp.pitchMidi);
+      } else if (!lp) {
+        curNote = null;
       }
     }
     if (beat >= (ranged ? spanBeats : scoreJson.totalBeats) + 0.3) {

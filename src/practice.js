@@ -535,6 +535,23 @@ function clearScope() {
   setScope(null);
 }
 
+// 演奏时把实时检测到的音与「当前应弹音」比对，返回 'right' / 'wrong' / null
+// 用于沉浸舞台的琴键颜色区分（弹对=绿，弹错=红）。
+function judgePlayedMidi(midi) {
+  if (state.phase !== 'recording' || !state.metronome) return null;
+  const b = state.metronome.elapsedBeats();
+  if (b < 0) return null;
+  const notes = activeScore()?.notes || [];
+  const EPS = 0.6; // 与评分容差一致，给一点节奏余量
+  for (const n of notes) {
+    const dur = n.durationBeats || 1;
+    if (b >= n.beat - EPS && b <= n.beat + dur + EPS) {
+      if (n.pitchMidi === midi) return 'right';
+    }
+  }
+  return 'wrong';
+}
+
 function renderScopeBar() {
   const bar = state.ui.scopeBar;
   if (!bar) return;
@@ -614,7 +631,10 @@ async function startPractice() {
     startFollow();
     // 进入沉浸演奏视觉：实时分析麦克风，逐音点亮琴键
     try {
-      getVisual().start(state.mic.stream);
+      const v = getVisual();
+      v.start(state.mic.stream);
+      // 注入「对/错」判定：把实时检测到的音和当前应弹音比对
+      v.setJudge((midi) => judgePlayedMidi(midi));
     } catch (e) {
       console.error('visual start failed', e);
     }
@@ -766,6 +786,11 @@ function toggleDemo() {
     setBtn(state.ui.btnDemo, icons.headphones(), '先听一遍示范');
     state.phase = 'idle';
     clearHighlight();
+    try {
+      getVisual().stopDemo();
+    } catch (e) {
+      console.error('visual stopDemo failed', e);
+    }
     status('示范已停止。');
     return;
   }
@@ -781,6 +806,11 @@ function toggleDemo() {
   state.phase = 'demo';
   setBtn(state.ui.btnDemo, icons.stop(), '停止示范');
   status(`示范播放中（${state.bpm} BPM）…`);
+  try {
+    getVisual().startDemo();
+  } catch (e) {
+    console.error('visual startDemo failed', e);
+  }
 
   state.demo = playDemo(state.scoreJson, state.bpm, {
     onStatus: (msg) => status(msg),
@@ -788,11 +818,23 @@ function toggleDemo() {
       state.currentMeasure = m;
       highlightMeasure(m);
     },
+    onNote: (midi) => {
+      try {
+        getVisual().showExpected(midi);
+      } catch (e) {
+        console.error('visual showExpected failed', e);
+      }
+    },
     onEnd: () => {
       state.demo = null;
       setBtn(state.ui.btnDemo, icons.headphones(), '先听一遍示范');
       state.phase = 'idle';
       clearHighlight();
+      try {
+        getVisual().stopDemo();
+      } catch (e) {
+        console.error('visual stopDemo failed', e);
+      }
       status('<span class="ok">示范结束，可以开始练了。</span>');
     },
   });

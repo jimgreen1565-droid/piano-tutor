@@ -5,14 +5,14 @@
 //   同时保留「转录完成后整体点亮」(applyNotes)，用于收尾闪示。
 //   演奏时进入全屏沉浸式 stage，营造"新开一个页面"的炫酷感。
 
-const KB_LOW = 48; // C3
-const KB_HIGH = 85; // C6
+const KB_LOW = 36; // C2（键盘向下延伸到 C2）
+const KB_HIGH = 96; // C7（键盘向上延伸到 C7）
 const WHITE_PC = new Set([0, 2, 4, 5, 7, 9, 11]);
 const BLACK_PC = new Set([1, 3, 6, 8, 10]);
 
-// 自相关检测频率范围（覆盖 C3..C6）
-const MIN_FREQ = 120;
-const MAX_FREQ = 1100;
+// 自相关检测频率范围（覆盖 C2..C7，与键盘范围一致）
+const MIN_FREQ = 60;
+const MAX_FREQ = 2100;
 const SILENCE_RMS = 0.008;
 const CORR_RATIO = 0.45; // 自相关峰值需高于噪声基准的比例
 const HOLD_MS = 170; // 琴键点亮保持时长（让延音也持续发光）
@@ -41,7 +41,10 @@ export class PracticeVisual {
     this.timeData = null;
     this.keys = new Map(); // midi -> element
     this.currentMidi = -1;
+    this.currentKind = 'play';
     this.holdTimer = 0;
+    this.judge = null; // 演奏时由 practice.js 注入：midi => 'right' | 'wrong' | null
+    this.demoTimer = 0;
     this.loopBound = this.loop.bind(this);
 
     this.buildStage();
@@ -156,6 +159,7 @@ export class PracticeVisual {
   stop() {
     this.enabled = false;
     this.phase = 'idle';
+    this.judge = null;
     if (this.rafId) {
       cancelAnimationFrame(this.rafId);
       this.rafId = 0;
@@ -165,9 +169,53 @@ export class PracticeVisual {
       this.holdTimer = 0;
     }
     this.clearKeys();
+    this.clearExpected();
     this.currentMidi = -1;
+    this.currentKind = 'play';
+    this.noteNameEl.style.color = '';
     this.stage.style.display = 'none';
     document.body.classList.remove('stage-open');
+  }
+
+  // ---------- 示范阶段：显示「应弹」的正确按键 ----------
+  // 仅展示，不参与麦克风分析；键盘以蓝色高亮当前应弹音
+  startDemo() {
+    if (this.stage.style.display !== 'block') {
+      this.stage.style.display = 'block';
+      document.body.classList.add('stage-open');
+    }
+    this.phase = 'demo';
+  }
+
+  stopDemo() {
+    this.clearExpected();
+    this.clearKeys();
+    this.noteNameEl.textContent = '—';
+    this.noteLabelEl.textContent = '等待你的第一个音';
+    this.noteNameEl.style.color = '';
+    this.stage.style.display = 'none';
+    document.body.classList.remove('stage-open');
+    this.phase = 'idle';
+  }
+
+  clearExpected() {
+    for (const el of this.keys.values()) el.classList.remove('show');
+    if (this.demoTimer) {
+      clearTimeout(this.demoTimer);
+      this.demoTimer = 0;
+    }
+  }
+
+  // 示范时高亮某个「应弹」音（蓝色），短暂保持后自动熄灭
+  showExpected(midi) {
+    this.clearExpected();
+    const el = this.keys.get(midi);
+    if (!el) return;
+    el.classList.add('show');
+    this.noteNameEl.textContent = midiToName(Math.round(midi));
+    this.noteLabelEl.textContent = '应弹';
+    this.noteNameEl.style.color = '#9fd0ff';
+    this.demoTimer = setTimeout(() => this.clearExpected(), 450);
   }
 
   // 用自相关法从时域波形里检测基频
@@ -235,19 +283,31 @@ export class PracticeVisual {
     return corr / (SIZE - lag);
   }
 
-  // 点亮某个音对应的琴键（就近匹配键盘范围内最近的键）
-  lightKey(midi) {
-    if (this.currentMidi === midi) return;
+  // 点亮某个音对应的琴键
+  // kind: 'play' 金色(默认) | 'right' 绿色(弹对) | 'wrong' 红色(弹错)
+  lightKey(midi, kind = 'play') {
+    if (this.currentMidi === midi && this.currentKind === kind) return;
     this.clearKeys();
     this.currentMidi = midi;
+    this.currentKind = kind;
     const el = this.keys.get(midi);
     if (!el) {
       this.noteNameEl.textContent = midiToName(Math.round(midi));
       return;
     }
-    el.classList.add('on');
+    const cls = kind === 'right' ? 'right' : kind === 'wrong' ? 'wrong' : 'on';
+    el.classList.add(cls);
     this.noteNameEl.textContent = midiToName(Math.round(midi));
-    this.noteLabelEl.textContent = '♪';
+    if (kind === 'right') {
+      this.noteLabelEl.textContent = '✓ 弹对了';
+      this.noteNameEl.style.color = '#7ef0a0';
+    } else if (kind === 'wrong') {
+      this.noteLabelEl.textContent = '✗ 音不对';
+      this.noteNameEl.style.color = '#ff9a9a';
+    } else {
+      this.noteLabelEl.textContent = '♪';
+      this.noteNameEl.style.color = '';
+    }
     // 涟漪
     const ripple = document.createElement('div');
     ripple.className = 'kb-ripple';
@@ -258,11 +318,14 @@ export class PracticeVisual {
       this.holdTimer = 0;
       this.clearKeys();
       this.currentMidi = -1;
+      this.currentKind = 'play';
     }, HOLD_MS);
   }
 
   clearKeys() {
-    for (const el of this.keys.values()) el.classList.remove('on');
+    for (const el of this.keys.values()) {
+      el.classList.remove('on', 'right', 'wrong', 'show');
+    }
   }
 
   loop() {
@@ -275,7 +338,15 @@ export class PracticeVisual {
     if (midi <= 0) midi = this.fftPeakMidi(); // 自相关失败时用频谱主峰兜底
     if (midi > 0) {
       const rounded = Math.round(midi);
-      if (this.keys.has(rounded)) this.lightKey(rounded);
+      if (this.keys.has(rounded)) {
+        let kind = 'play';
+        if (this.judge) {
+          const j = this.judge(rounded);
+          if (j === 'right') kind = 'right';
+          else if (j === 'wrong') kind = 'wrong';
+        }
+        this.lightKey(rounded, kind);
+      }
     }
     this.rafId = requestAnimationFrame(this.loopBound);
   }
