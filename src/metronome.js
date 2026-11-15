@@ -137,25 +137,27 @@ export class Metronome {
 
   /** 木鱼式「嗒」声：白噪声 burst 过带通滤波（中心~2000Hz），无固定音高 */
   _tick2(time, { strong }) {
-    const dur = 0.03;
+    // 增大音量：更长的 burst + 更强峰值 + 慢衰
+    const dur = 0.08;              // 从 0.03 → 0.08s（更易被听见）
     const buf = this.ctx.createBuffer(1, Math.ceil(dur * this.ctx.sampleRate), this.ctx.sampleRate);
     const data = buf.getChannelData(0);
     for (let i = 0; i < data.length; i++) {
-      // 指数衰减的白噪声
-      data[i] = (Math.random() * 2 - 1) * Math.exp(-30 * (i / data.length));
+      // 指数衰减的白噪声，衰减系数改为 -20 让尾巴更长
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-20 * (i / data.length));
     }
     const src = this.ctx.createBufferSource();
     src.buffer = buf;
 
     const filter = this.ctx.createBiquadFilter();
     filter.type = 'bandpass';
-    filter.frequency.value = 2000;
-    filter.Q.value = 1.5;
+    // 稍微降低中心频率、稍宽Q，让更多能量通过
+    filter.frequency.value = 1800;
+    filter.Q.value = 1.2;
 
     const gain = this.ctx.createGain();
-    const peak = strong ? 0.5 : 0.3;
+    const peak = strong ? 0.8 : 0.5;      // 增大峰值：强拍 0.5→0.8，弱拍 0.3→0.5
     gain.gain.setValueAtTime(peak, time);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.08); // 增大尾部衰减时长
 
     src.connect(filter);
     filter.connect(gain);
