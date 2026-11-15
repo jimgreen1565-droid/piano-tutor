@@ -2,10 +2,13 @@
 // 因为 JS 定时器有抖动，60BPM 下抖动几十毫秒就会让"节奏准不准"的评分失真。
 
 export class Metronome {
-  constructor({ bpm = 60, beatsPerBar = 4, countInBeats = 8 } = {}) {
+  constructor({ bpm = 60, beatsPerBar = 4, countInBeats = 8, muteAfterCountIn = false } = {}) {
     this.bpm = bpm;
     this.beatsPerBar = beatsPerBar;
     this.countInBeats = countInBeats;
+    // 正式演奏段是否静音节拍器：预备拍照常响，进入演奏后不再从扬声器出声。
+    // 原因：iPad 没有耳机时，扬声器节拍声会被麦克风录进去混进转录 → 假音符/错评分。
+    this.muteAfterCountIn = muteAfterCountIn;
 
     this.ctx = null;
     this.timer = null;
@@ -98,6 +101,10 @@ export class Metronome {
       this.beatsPerBar;
     const isLastCountIn = isCountIn && beatIndex === this.countInBeats - 1;
     const strong = !isCountIn && beatInBar === 0;
+
+    // 演奏段静音：预备拍照常响（给节奏），正式演奏不再从扬声器出声，
+    // 避免被麦克风录进去污染转录。onBeat/onStart 仍照常触发，节奏与录音不受影响。
+    if (this.muteAfterCountIn && !isCountIn) return;
 
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();

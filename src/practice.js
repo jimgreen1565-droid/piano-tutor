@@ -119,6 +119,16 @@ export function mountPractice(root) {
         </label>
       </div>
 
+      <div class="prow" style="margin-top:8px">
+        <div class="plabel">节拍器</div>
+        <label class="switch-row">
+          <input type="checkbox" id="beatMute" checked />
+          <span class="switch-ui"></span>
+          <span class="switch-label">演奏时静音（推荐）</span>
+        </label>
+      </div>
+      <div class="hint">默认静音：跟谱靠上方蓝色高亮的小节，弹琴声不会被节拍声干扰。要保留节拍声就关掉这个开关。</div>
+
       <button class="btn btn-ghost" id="btnDemo" style="margin-top:14px">
         <span class="ic">${icons.headphones()}</span>先听一遍示范
       </button>
@@ -151,6 +161,7 @@ export function mountPractice(root) {
     'transUp',
     'transposeLabel',
     'autoScroll',
+    'beatMute',
     'btnDemo',
     'btnPractice',
     'btnSwitch',
@@ -176,6 +187,12 @@ export function mountPractice(root) {
     state.autoScroll = ui.autoScroll.checked;
   });
   state.autoScroll = ui.autoScroll.checked;
+
+  // 节拍器静音开关：默认演奏段静音，避免节拍声被麦克风录进转录
+  ui.beatMute.addEventListener('change', () => {
+    state.beatMute = ui.beatMute.checked;
+  });
+  state.beatMute = ui.beatMute.checked;
 
   // 用户手动滚动谱面时，临时暂停自动滚动（避免和手指抢），松手后恢复
   let scrollTimer = null;
@@ -614,6 +631,7 @@ async function startPractice() {
     bpm: state.bpm,
     beatsPerBar,
     countInBeats: countIn,
+    muteAfterCountIn: state.beatMute !== false, // 默认演奏段静音，防节拍声进麦克风
   });
   state.metronome.onBeat = ({ countIn: isCountIn, countdown, beatInBar }) => {
     if (isCountIn) {
