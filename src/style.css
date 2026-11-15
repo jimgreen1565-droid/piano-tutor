@@ -1152,19 +1152,32 @@ details[open] > .level-head .level-chevron {
    全屏 stage，金色系，弹每个音对应琴键立刻发光 + 涟漪
    ============================================================ */
 
+/* 演奏舞台改为底部 dock：只占屏幕下方约一半，谱面仍在上方可见 */
 .stage {
   position: fixed;
-  inset: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  height: 46vh;
+  max-height: 380px;
   z-index: 50;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   background:
-    radial-gradient(120% 80% at 50% 0%, #1c2233 0%, #0c0e16 55%, #05060a 100%);
+    radial-gradient(120% 120% at 50% 100%, #1c2233 0%, #0c0e16 55%, #05060a 100%);
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
+  border-top: 1px solid rgba(245, 196, 92, 0.25);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.5);
   animation: stageIn 0.45s ease;
+}
+
+/* 舞台展开时，把主区域底部留出舞台高度，谱面不会被遮住 */
+body.stage-open #app {
+  padding-bottom: 48vh;
 }
 
 @keyframes stageIn {

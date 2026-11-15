@@ -204,6 +204,9 @@ export function mountPractice(root) {
 
   ui.btnPractice.addEventListener('click', () => {
     unlock(); // 同上：iOS 只认手势，这里是最常被点的按钮
+    // 关键：在用户手势调用栈内创建并恢复 AudioContext，
+    // 否则 iOS 会把它置为 suspended，导致麦克风分析静音、琴键不亮。
+    try { getVisual().ensureAudio(); } catch (e) { console.error('ensureAudio failed', e); }
     if (state.phase === 'idle' || state.phase === 'report') startPractice();
     else if (state.phase === 'counting' || state.phase === 'recording') stopPractice();
   });

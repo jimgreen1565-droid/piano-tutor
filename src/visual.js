@@ -107,14 +107,24 @@ export class PracticeVisual {
     }
   }
 
-  // 进入演奏：stream 为麦克风 MediaStream
-  start(stream) {
-    if (this.enabled) return;
+  // 必须在「用户手势」里调用：创建并恢复 AudioContext。
+  // iOS 规定 AudioContext 只能在用户手势调用栈内创建/恢复，
+  // 否则会被置为 suspended，analyser 读到的全是静音 → 琴键永远不亮。
+  ensureAudio() {
     const AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return;
+    if (!AC) return false;
     if (!this.audioCtx) this.audioCtx = new AC();
     const ctx = this.audioCtx;
     if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+    return true;
+  }
+
+  // 进入演奏：stream 为麦克风 MediaStream
+  start(stream) {
+    if (this.enabled) return;
+    // 复用 ensureAudio（已在 btnPractice 手势里创建并恢复），确保 ctx 是 running 状态
+    if (!this.ensureAudio()) return;
+    const ctx = this.audioCtx;
 
     if (!this.analyser) {
       this.source = ctx.createMediaStreamSource(stream);
@@ -130,6 +140,7 @@ export class PracticeVisual {
     this.enabled = true;
     this.phase = 'recording';
     this.stage.style.display = 'block';
+    document.body.classList.add('stage-open');
     requestAnimationFrame(() => this.resize());
     this.resize();
     this.loopBound();
@@ -156,6 +167,7 @@ export class PracticeVisual {
     this.clearKeys();
     this.currentMidi = -1;
     this.stage.style.display = 'none';
+    document.body.classList.remove('stage-open');
   }
 
   // 用自相关法从时域波形里检测基频
@@ -194,6 +206,25 @@ export class PracticeVisual {
     if (denom !== 0) lagF = bestLag + ((y1 - y2) / (2 * denom));
 
     const freq = sr / lagF;
+    if (freq < MIN_FREQ || freq > MAX_FREQ) return -1;
+    return midiFromFreq(freq);
+  }
+
+  // 自相关失败时，用频域主峰兜底：钢琴谐波丰富，频谱里仍有清晰的主峰，
+  // 足以判断正在弹哪个音（精度略低但能点亮琴键，保证"弹了就有反应"）。
+  fftPeakMidi() {
+    const data = this.freqData;
+    if (!data) return -1;
+    let maxV = 0;
+    let maxI = -1;
+    for (let i = 1; i < data.length; i++) {
+      if (data[i] > maxV) {
+        maxV = data[i];
+        maxI = i;
+      }
+    }
+    if (maxV < 30 || maxI <= 0) return -1;
+    const freq = (maxI * this.sampleRate) / this.analyser.fftSize;
     if (freq < MIN_FREQ || freq > MAX_FREQ) return -1;
     return midiFromFreq(freq);
   }
@@ -240,7 +271,8 @@ export class PracticeVisual {
     this.analyser.getFloatTimeDomainData(this.timeData);
     this.drawSpectrum();
 
-    const midi = this.detectPitch();
+    let midi = this.detectPitch();
+    if (midi <= 0) midi = this.fftPeakMidi(); // 自相关失败时用频谱主峰兜底
     if (midi > 0) {
       const rounded = Math.round(midi);
       if (this.keys.has(rounded)) this.lightKey(rounded);
